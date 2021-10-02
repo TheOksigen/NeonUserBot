@@ -102,3 +102,7 @@
 >Buna görə N Σ O N Userbot adminləri məsuliyyət daşımır
 >N Σ O N quraraq bunları qəbul etdiyiniz hesab olunur.**
 
+## *Credits;*
+**To [Yusuf Usta](github.com/yusufusta) for [AsenaUserBot](https://yusufusta/asenauserbot)
+To [NaytSeyd](https://github.com/NaytSeyd) for [SedenUserBot](https://github.com/TeamDerUntergang/Telegram-SedenUserBot)
+And thanks to [LunamiWeb](https://github.com/Lonami) for the [Telethon library](https://github.com/LonamiWebs/Telethon).**
