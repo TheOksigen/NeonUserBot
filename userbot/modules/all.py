@@ -4,47 +4,52 @@ from telethon.tl.types import ChannelParticipantsAdmins as cp
 from userbot import CMD_HELP, bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
-from asyncio import sleep
-
+import asyncio
 @register(outgoing=True, pattern="^.tag(?: |$)(.*)",groups_only=True)
-async def _(q):
+async def tagger(q):
 	if q.fwd_from:
 		return
 
 	if q.pattern_match.group(1):
-		seasons = q.pattern_match.group(1)
+		s = q.pattern_match.group(1)
 	else:
-		await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.tag Aktiv olaq millət 😃🗡️`")
-
-	chat = await q.get_input_chat()
+		s=""
+		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.tag Aktiv olaq millət 😃🗡️`")
+		return
+	
+	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
-	async for i in bot.iter_participants(chat):
+	async for i in bot.iter_participants(c):
 		if a_ == 5000:
 			break
 		a_+=1
-		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(seasons, i.first_name, i.id))
-		await sleep(2.5)
+		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s, i.first_name, i.id))
+		await asyncio.sleep(1.5)
 
 @register(outgoing=True, pattern="^.all(?: |$)(.*)",groups_only=True)
-async def _(q):
+async def all_tagger(q):
 	if q.fwd_from:
 		return
 
 	if q.pattern_match.group(1):
-		seasons = q.pattern_match.group(1)
+		s = q.pattern_match.group(1)
 	else:
-		  await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.all Salam, Necəsiz?`")
-
-	chat = await q.get_input_chat()
+		s = ""
+		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.all Salam, Necəsiz?`")
+		return
+	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
-	async for i in bot.iter_participants(chat):
+	async for i in bot.iter_participants(c):
 		if a_ == 5000:
 			break
 		a_+=1
-		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(seasons, i.first_name, i.id))
-		await sleep(0.5)
+		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s, 
+											      i.first_name, 
+											      i.id)
+					   						)
+		await asyncio.sleep(0.5)
 
 @register(outgoing=True, pattern="^.alladmin(?: |$)(.*)", groups_only=True)
 async def _(q):
@@ -53,10 +58,12 @@ async def _(q):
 	
 
 	if q.pattern_match.group(1):
-		seasons = q.pattern_match.group(1)
+		s = q.pattern_match.group(1)
 	else:
-		await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.alladmin Salam, Necəsiz?`")
-
+		s = ""
+		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.alladmin Salam, Necəsiz?`")
+		return
+	
 	chat = await q.get_input_chat()
 	a_=0
 	await q.delete()
@@ -64,7 +71,11 @@ async def _(q):
 		if a_ == 50:
 			break
 		a_+=1
-		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(seasons, i.first_name, i.id))
+		await q.client.send_message(q.chat_id, 
+					    "**{}**\n[{}](tg://user?id={})".format(s, 
+											      i.first_name, 
+											      i.id)
+					   						)
 		await sleep(1.74)
 import re
 from telethon.tl import types
