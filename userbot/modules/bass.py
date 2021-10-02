@@ -9,9 +9,10 @@ from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 from time import sleep as t
 from asyncio import sleep
-from userbot import bot, BOTSAHIBI, SUDO_ID
+from userbot import bot, SUDO_ID
 import os 
-@register(incoming=True, from_users=SUDO_ID, pattern="^.bassbost(?: |$)(.*)")
+
+#@register(incoming=True, from_users=SUDO_ID, pattern="^.bassbost(?: |$)(.*)")
 @register(outgoing=True, pattern="^.bass(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
