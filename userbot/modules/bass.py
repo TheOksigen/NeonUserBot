@@ -31,7 +31,7 @@ async def _(event):
         await event.edit("ℹ️ __Hansı musiqiyə bass vermək lazımdırsa, cavab ver ona.__")
         return
     me = await event.client.get_me()
-    username = f"@{me.username}" if not username else my_mention
+    username = f"@{me.username}" if me.username else my_mention
     chat = "@Baasss_bot"
     await event.edit("__Bass effekti gücləndirilir.__ 🔊")
     async with event.client.conversation(chat) as conv:
