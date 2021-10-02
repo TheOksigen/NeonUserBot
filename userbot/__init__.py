@@ -58,9 +58,6 @@ if CONFIG_CHECK:
 NEON_STIK = os.environ.get(
     "NEON_STIK") or "🈴 "
 
-# Bot Sahibi
-BOTSAHIBI = os.environ.get("BOTSAHIBI",".set var BOTSAHIBI <Istədiyiniz ad> yaza bilərsiniz.")
-
 # Səsli üçün
 #async def get_call(event):
  #   mm = await event.client(getchat(event.chat_id))
@@ -114,7 +111,7 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 
 
 # Yenileme üçün repo linki
-UPSTREAM_REPO_URL = "https://github.com/TheOksigen/neon_userbot.git"
+UPSTREAM_REPO_URL = "https://github.com/nusrte/NeonUserBot.git"
 
 
 # Konsol gündeliy
@@ -219,7 +216,7 @@ AVTO_QATILMA = sb(os.environ.get("AVTO_QATILMA", "True"))
 
 # Patternler
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
-WHITELIST = get('https://raw.githubusercontent.com/TheOksigen/neon_userbot/main/whitelist.json').json()
+WHITELIST = get('https://raw.githubusercontent.com/nusrte/NeonUserBot/main/whitelist.json').json()
 
 # CloudMail.ru ve MEGA.nz 
 if not os.path.exists('bin'):
@@ -312,7 +309,7 @@ def butonlastir(sayfa, moduller):
 with bot:
     if AVTO_QATILMA:
         try:
-            bot(JoinChannelRequest("@Neonsup"))
+            bot(JoinChannelRequest("@NeonSUP"))
             bot(JoinChannelRequest("@NeonUserBot"))
             bot(JoinChannelRequest("@NeonPlugin"))
         except:
@@ -364,7 +361,7 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                         [custom.Button.url("Kanal", "https://t.me/neonuserbot"), custom.Button.url(
                             "Qrup", "https://t.me/neonsup")],
                         [custom.Button.url(
-                            "GitHub", "https://github.com/TheOksigen/neon_userbot")]
+                            "GitHub", "https://github.com/nusrte/NeonUserBot")]
                     ],
                     link_preview=False
                 )
