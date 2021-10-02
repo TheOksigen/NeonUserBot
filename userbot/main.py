@@ -145,7 +145,7 @@ def extractCommands(file):
 try:
     bot.start()
     idim = bot.get_me().id
-    neonbl = requests.get('https://raw.githubusercontent.com/TheOksigen/neon_userbot/main/neonblacklist.json').json()
+    neonbl = requests.get('https://raw.githubusercontent.com/nusrte/NeonUserBot/main/neonblacklist.json').json()
     if idim in neonbl:
         bot.disconnect()
 
@@ -236,7 +236,7 @@ async def FotoDegistir (foto):
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
-LOGS.info("Botunuz işleyir! Hansısa söhbete  .alive yazaraq Test ede bilersiz!."
+LOGS.info("Botunuz işleyir! Hansısa söhbete .alive yazaraq Test ede bilersiz!."
           " Kömeye ehtiyacınız varsa, destek qrupuna gelin: t.me/NeonSup")
 LOGS.info(f"Bot versiyası: N Σ O N {NEON_VERSION}")
 
