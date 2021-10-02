@@ -52,6 +52,6 @@ async def telegraphs(grop):
 
 Komek = CmdHelp("yarat")
 Komek.add_info("**@Nusrets**")
-Komek.add_command("yarat qrup ","<qrup üçün ad>","Qeyd etdiyiniz ad ilə qrup yaradar və linkini qeyd edər. (Gizli qrup.)","yarat qrup Mənim qrupum.")
-Komek.add_commad("yarat kanal","<kanal üçün ad>","Qeyd etdiyiniz ad ilə kanal yaradar və linkini qeyd edər. (Gizli kanal.)","yarat kanal Mənim kanalım.")
+Komek.add_command(LANG['C1'], LANG['C2'], LANG['C3'], LANG['C4'])
+Komek.add_commad(LANG['C5'], LANG['C6'], LANG['C7'], LANG['C8'])
 Komek.add()
