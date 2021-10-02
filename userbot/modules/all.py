@@ -1,11 +1,20 @@
 #Neon UserBot
+# CREDİT - EPİCUSERBOT
+## 
 
 from telethon.tl.types import ChannelParticipantsAdmins as cp
 from userbot import CMD_HELP, bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 import asyncio
-@register(outgoing=True, pattern="^.tag(?: |$)(.*)",groups_only=True)
+
+# ================================================================
+
+@register(
+	pattern="^.tag(?: |$)(.*)",
+	outgoing=True, 
+	groups_only=True,
+)
 async def tagger(q):
 	if q.fwd_from:
 		return
@@ -27,7 +36,13 @@ async def tagger(q):
 		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s, i.first_name, i.id))
 		await asyncio.sleep(1.5)
 
-@register(outgoing=True, pattern="^.all(?: |$)(.*)",groups_only=True)
+# ======================================================================
+		
+@register(
+	pattern="^.all(?: |$)(.*)",
+	outgoing=True,
+	groups_only=True,
+)
 async def all_tagger(q):
 	if q.fwd_from:
 		return
@@ -51,7 +66,13 @@ async def all_tagger(q):
 					   						)
 		await asyncio.sleep(0.5)
 
-@register(outgoing=True, pattern="^.alladmin(?: |$)(.*)", groups_only=True)
+# -----------------------------------------------------------------
+
+@register(
+	pattern="^.alladmin(?: |$)(.*)", 
+	outgoing=True,
+	groups_only=True,
+)
 async def _(q):
 	if q.fwd_from:
 		return
@@ -77,6 +98,9 @@ async def _(q):
 											      i.id)
 					   						)
 		await sleep(1.74)
+		
+# ---------------------------------------------------------------------------------------------------------------
+		
 import re
 from telethon.tl import types
 from userbot import  bot
@@ -85,7 +109,11 @@ usernexp = re.compile(r"@(\w{3,32})\[(.+?)\]")
 nameexp = re.compile(r"\[([\w\S]+)\]\(tg://user\?id=(\d+)\)\[(.+?)\]")
 
 
-@register(outgoing=True, ignore_unsafe=True, disable_errors=True)
+@register(
+	outgoing=True, 
+	ignore_unsafe=True, 
+	disable_errors=True
+)
 async def mention(event):
     newstr = event.text
     if event.entities:
@@ -112,10 +140,16 @@ async def mention(event):
                         tag = "<u>{}</u>"
                     if tag:
                         rep = tag.format(rep)
-            newstr = re.sub(re.escape(match.group(0)), rep, newstr)
+            newstr = re.sub(re.escape(match.group(0)), 
+			    rep, 
+			    newstr
+			   )
     if newstr != event.text:
-        await event.edit(newstr, parse_mode="html")
+        await event.edit(newstr, 
+			 parse_mode="html"
+		)
 
+# ------------------------------ CMDHELP --------------------------------------
 
 Help = CmdHelp("tag")
 Help.add_command(
