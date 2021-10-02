@@ -54,7 +54,7 @@
     },
     "UPSTREAM_REPO_URL": {
       "description": "Toxunmayın!.",
-      "value": "https://github.com/TheOksigen/neon_userbot",
+      "value": "https://github.com/nusrte/NeonUserBot",
       "required": true
     },
     "COUNTRY": {
