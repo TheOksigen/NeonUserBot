@@ -1,7 +1,8 @@
-# N Σ O N / esebj / Ｗ ｈｉｓｐｅｒ𐂡
+# N Σ O N / nusrte / nusr҂e
 # Oğurlayanın anasın sikim
 # Əkmə peysər 
-
+# Var yoxunda olan bütün lifcik taxanları sikim ay peysər
+# ƏKMƏ QƏHBƏ BALASI. 
 
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
@@ -20,7 +21,7 @@ async def _(event):
     if event.pattern_match.group(1):
         input = event.pattern_match.group(1)
     else:
-        await event.client.send_message(event.chat_id, "🔸 __Bass effekti üçün bass səviyyəsi təyin et!__")
+        await event.edit("🔸 __Bass effekti üçün bass səviyyəsi təyin et!__")
         return
     if not event.reply_to_msg_id:
         await event.edit("ℹ️ __Hansı musiqiyə bass vermək lazımdırsa, cavab ver ona.__")
@@ -32,8 +33,7 @@ async def _(event):
     me = await event.client.get_me()
     username = f"@{me.username}" if not username else my_mention
     chat = "@Baasss_bot"
-    await event.delete()
-    a = await event.client.send_message(event.chat_id, "__Bass effekti gücləndirilir.__ 🔊")
+    await event.edit("__Bass effekti gücləndirilir.__ 🔊")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -47,14 +47,12 @@ async def _(event):
             await event.edit("**@Baasss_bot'u blokdan çıxart. Yenidən yoxla.**")
             return
         if response.text.startswith("Forward"):
-            await event.edit(
-                "Gizlilik ayarlarınızdakı ileti qismini düzəldin."
-            )
+            await event.edit("Gizlilik ayarlarınızdakı ileti qismini düzəldin.")
         else:
             await event.client.delete_messages(event.chat_id, [a.id])
             await event.client.send_file(
                 event.chat_id,
-                response.message.media, caption=f"🔸 **Bass səviyyəsi** [N Σ O N](t.me/neonsup) **ilə gücləndirildi.**\n🔊 **Bass səviyyəsi -** `{input}`\n🀄️ **Mənim Sahibim -** {username}")             
+                response.message.media, caption=f"<b>🔸 Bass səviyyəsi <a href=\"https://t.me/Neonsup\">N Σ O N</a> ilə gücləndirildi.\n🔊 Bass səviyyəsi -</b> <code>{input}</code>\n🀄️ <b>Mənim Sahibim - {username}</b>")             
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.delete_messages(conv.chat_id,
                                              [reply.id, strr.id, response.id])
@@ -63,5 +61,5 @@ async def _(event):
 Help = CmdHelp('bass').add_command(
     "bass <Audio faylına cavab> <Bass səviyyəsi>", None,
     "Musiqinin bass səviyyəsini çoxaldar."
-    ).add_info("**@Esebj Tərəfindən Yaradılıb.**"
+    ).add_info("**@Nusrets Tərəfindən Yaradılıb.**"
     ).add()
