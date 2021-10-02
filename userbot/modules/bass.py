@@ -28,6 +28,8 @@ async def _(event):
     if not reply_message.media:
         await event.edit("ℹ️ __Hansı musiqiyə bass vermək lazımdırsa, cavab ver ona.__")
         return
+    me = await event.client.get_me()
+    username = f"@{me.username}" if not username else my_mention
     chat = "@Baasss_bot"
     await event.delete()
     a = await event.client.send_message(event.chat_id, "__Bass effekti gücləndirilir.__ 🔊")
@@ -51,7 +53,7 @@ async def _(event):
             await event.client.delete_messages(event.chat_id, [a.id])
             await event.client.send_file(
                 event.chat_id,
-                response.message.media, caption=f"🔸 **Bass səviyyəsi** [N Σ O N](t.me/neonsup) **ilə gücləndirildi.**\n🔊 **Bass səviyyəsi -** `{input}`\n🀄️ **Mənim Sahibim -** {BOTSAHIBI}")             
+                response.message.media, caption=f"🔸 **Bass səviyyəsi** [N Σ O N](t.me/neonsup) **ilə gücləndirildi.**\n🔊 **Bass səviyyəsi -** `{input}`\n🀄️ **Mənim Sahibim -** {username}")             
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.delete_messages(conv.chat_id,
                                              [reply.id, strr.id, response.id])
