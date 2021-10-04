@@ -266,7 +266,7 @@ async def delete_accounts_cleaner(e):
             say += 1
 
     if say > 0:
-        silinmə = f"**{say}** ```ədəd silinmiş hesab çıxarıldı.```
+        silinmə = f"**{say}** ```ədəd silinmiş hesab çıxarıldı.```"
 
     if del_a > 0:
         silinmə = f"""**{say}** ```ədəd silinmiş hesab çıxarıldı.```
