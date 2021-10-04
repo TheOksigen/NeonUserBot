@@ -4,6 +4,7 @@
 # Var yoxunda olan bütün lifcik taxanları sikim ay peysər
 # ƏKMƏ QƏHBƏ BALASI. 
 
+# ============================== IMPORTS =======================================
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.events import register
@@ -12,6 +13,8 @@ from time import sleep as t
 from asyncio import sleep
 from userbot import bot, SUDO_ID
 import os 
+
+# ===============================================================================
 
 #@register(incoming=True, from_users=SUDO_ID, pattern="^.bassbost(?: |$)(.*)")
 @register(outgoing=True, pattern="^.bass(?: |$)(.*)")
@@ -33,7 +36,7 @@ async def _(event):
     me = await event.client.get_me()
     username = f"@{me.username}" if me.username else my_mention
     chat = "@Baasss_bot"
-    await event.edit("__Bass effekti gücləndirilir.__ 🔊")
+    await event.edit("__Bass effekti gücləndirilir...__ 🔊")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -49,17 +52,22 @@ async def _(event):
         if response.text.startswith("Forward"):
             await event.edit("Gizlilik ayarlarınızdakı ileti qismini düzəldin.")
         else:
-            await event.client.delete_messages(event.chat_id, [a.id])
             await event.client.send_file(
                 event.chat_id,
                 response.message.media, caption=f"<b>🔸 Bass səviyyəsi <a href=\"https://t.me/Neonsup\">N Σ O N</a> ilə gücləndirildi.\n🔊 Bass səviyyəsi -</b> <code>{input}</code>\n🀄️ <b>Mənim Sahibim - {username}</b>")             
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.delete_messages(conv.chat_id,
-                                             [reply.id, strr.id, response.id])
+                                             [reply.id, 
+                                                strr.id, 
+                                                  response.id]
+                                                )
         
             
-Help = CmdHelp('bass').add_command(
-    "bass <Audio faylına cavab> <Bass səviyyəsi>", None,
-    "Musiqinin bass səviyyəsini çoxaldar."
-    ).add_info("**@Nusrets Tərəfindən Yaradılıb.**"
-    ).add()
+Kömək = CmdHelp('bass')
+Kömək.add_command(
+                  "bass <Audio faylına cavab>",
+                  "<Bass səviyyəsi>",
+                  "Musiqinin bass səviyyəsini çoxaldar."
+                  )
+Kömək.add_info("**@Nusrets Tərəfindən Yaradılıb.**")
+Kömək.add()
