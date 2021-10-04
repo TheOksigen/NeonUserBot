@@ -668,18 +668,18 @@
             "ISP": "İnternet xidməti təminatçısı: "
         },
 	"yaratpy": {
-	"CREATED": "__İstədiyiniz qrup/kanal uğurla yaradıldı.__ 🔖\n**Qrup adı:** `{}`\n**Qatılmaq üçün link:** [{}]({})",
-	"WITH": "@NeonUserBot ilə yaradılmışdır. 🌟"
-	"GROUP": "qrup",
-	"CHANNEL": "kanal",
-	"C1": "yarat qrup",
-	"C2": "<qrup üçün ad>",
-	"C3": "Qeyd etdiyiniz ad ilə qrup yaradar və linkini qeyd edər. (Gizli qrup.)",
-	"C4": "yarat qrup Mənim qrupum.",
-	"C5": "yarat kanal"
-	"C6": "<kanal üçün ad>"
-	"C7": "Qeyd etdiyiniz ad ilə kanal yaradar və linkini qeyd edər. (Gizli kanal.)"
-	"C8": "yarat kanal Mənim kanalım."
+		"CREATED": "__İstədiyiniz qrup/kanal uğurla yaradıldı.__ 🔖\n**Qrup adı:** `{}`\n**Qatılmaq üçün link:** [{}]({})",
+		"WITH": "@NeonUserBot ilə yaradılmışdır. 🌟"
+		"GROUP": "qrup",
+		"CHANNEL": "kanal",
+		"C1": "yarat qrup",
+		"C2": "<qrup üçün ad>",
+		"C3": "Qeyd etdiyiniz ad ilə qrup yaradar və linkini qeyd edər. (Gizli qrup.)",
+		"C4": "yarat qrup Mənim qrupum.",
+		"C5": "yarat kanal",
+		"C6": "<kanal üçün ad>",
+		"C7": "Qeyd etdiyiniz ad ilə kanal yaradar və linkini qeyd edər. (Gizli kanal.)",
+		"C8": "yarat kanal Mənim kanalım."
 	}
     }
 }
