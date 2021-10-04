@@ -661,12 +661,13 @@
             "LINK": "Profil üçün daimi əlaqə"
         },
         "www": {
-            "SPEED": "`Sürət testi hesablanır...`",
-            "STARTED_TIME": "Başlama Tarixi: ",
-            "DOWNLOAD_SPEED": "Yükləmə Sürrəti: ",
-            "UPLOAD_SPEED": "Upload Sürrəti: ",
-            "ISP": "İnternet xidməti təminatçısı: "
+        	"SPEED": "`Sürət testi hesablanır...`",
+		"STARTED_TIME": "Başlama Tarixi: ",
+		"DOWNLOAD_SPEED": "Yükləmə Sürrəti: ",
+		"UPLOAD_SPEED": "Upload Sürrəti: ",
+		"ISP": "İnternet xidməti təminatçısı: "
         },
+	
 	"yaratpy": {
 		"CREATED": "__İstədiyiniz qrup/kanal uğurla yaradıldı.__ 🔖\n**Qrup adı:** `{}`\n**Qatılmaq üçün link:** [{}]({})",
 		"WITH": "@NeonUserBot ilə yaradılmışdır. 🌟"
