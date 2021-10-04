@@ -2,14 +2,33 @@ from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPu
 from emoji import emojize
 from telethon.tl.types import MessageActionChannelMigrateFrom, ChannelParticipantsAdmins
 from telethon.tl.functions.messages import GetHistoryRequest, GetFullChatRequest
-from userbot.events import register
+from userbot.events import register as neon
 from datetime import datetime
 from math import sqrt
 from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest
 from telethon.utils import get_input_location
 from userbot.cmdhelp import CmdHelp
+from os import remove
+from telethon.errors import (BadRequestError, ChatAdminRequiredError,
+                             ImageProcessFailedError, PhotoCropSizeSmallError,
+                             UserAdminInvalidError)
+from telethon.errors.rpcerrorlist import (UserIdInvalidError,
+                                          MessageTooLongError)
+from telethon.tl.functions.channels import (EditAdminRequest,
+                                            EditBannedRequest,
+                                            EditPhotoRequest)
+from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+from telethon.tl.types import (PeerChat, PeerChannel,
+                               ChannelParticipantsAdmins, ChatAdminRights,
+                               ChatBannedRights, MessageEntityMentionName,
+                               MessageMediaPhoto, ChannelParticipantsBots)
+import asyncio
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 
-@register(outgoing=True, pattern="^.qrupinfo(?: |$)(.*)")
+@neon(
+    outgoing=True, 
+    pattern="^.qrupinfo(?: |$)(.*)"
+)
 async def info(event):
     await event.edit("`Qrup analiz edilir...`")
     chat = await get_chatinfo(event)
@@ -189,4 +208,92 @@ async def fetch_info(chat, event):
         caption += f"Açıqlama: \n<code>{description}</code>\n"
     return caption    
 
-CmdHelp('qrup').add_command('qrupinfo', None, 'Qrup haqqında məlumat verər.').add()
+
+@neon(    
+    pattern="^\.zombies(?: |$)(.*)", 
+    outgoing=True   
+)
+async def delete_accounts_cleaner(e):
+    # eger qrupda yazmazsa.
+    if not e.is_group:
+        await e.edit(       
+            "Mənim fikrimcə bura qrup deyil."
+        )
+        return
+    command_input = e.pattern_match.group(1).lower()
+    say = 0
+    silinmə = "**Qrupda silinmiş hesab tapmadım. Bu qrup təmizdir.**"
+
+    
+    # ikinci emr. tapilan silinmis hesablari siler.
+    if command_input != "clean":
+        await e.edit(f"<b>{e.chat.title} qrupunda silinmiş hesabları axtarıram...</b>", 
+                                    parse_mode="HTML")
+        async for user in e.client.iter_participants(e.chat_id):
+            if user.deleted:
+                say += 1
+                await asyncio.sleep(1)
+        if say > 0:
+            silinmə = f"**{say}** nəfər silinmiş hesab tapdım."
+        await e.edit(silinmə)
+        return
+
+    chat = await e.get_chat()
+    admin = chat.admin_rights
+    creator = chat.creator
+
+    # Əgər admin və ya qurucu deyilsə nə etsin
+    if not admin and not creator:
+        await e.edit(f"**Sənin {e.chat.title} qrupunda adminliyin yoxdur.**")
+        return
+    await e.edit("**Silinmiş hesablar çıxarılır...**")
+    say = 0
+    del_a = 0
+
+    async for user in e.client.iter_participants(e.chat_id):
+        if user.deleted:
+            try:
+                await e.client(
+                    EditBannedRequest(e.chat_id, user.id, BANNED_RIGHTS))
+            except ChatAdminRequiredError:
+                await e.edit("Sənin istifadəçiləri qadağan etmək üçün yetkin yoxdur.")
+                return
+            except UserAdminInvalidError:
+                say -= 1
+                del_a += 1
+            await e.client(
+                EditBannedRequest(e.chat_id, user.id, UNBAN_RIGHTS))
+            say += 1
+
+    if say > 0:
+        silinmə = f"**{say}** ```ədəd silinmiş hesab çıxarıldı.```
+
+    if del_a > 0:
+        silinmə = f"""**{say}** ```ədəd silinmiş hesab çıxarıldı.```
+**{del_a}** ```admin hesabı olduğu üçün çıxara bilmədim. (Ancaq qrupun sahibi çıxara bilər).```"""
+
+    await e.edit(silinmə)
+    await asyncio.sleep(2)
+    await e.delete()
+
+    if BOTLOG:
+        await bot.send_message(
+            BOTLOG_CHATID, 
+f"""
+**#TƏMİZLİK**
+<code>Təmizlik zamanı</code> <b>{say}</b> <code>silinmiş hesab qrupdan çıxarıldı.</code>
+<b>QRUPUN ADI:</b> <code>{e.chat.title}</code>
+<b>QRUP İD'İ:</b> <code>{e.chat_id}</code>
+
+<b>@NeonUserBot 🎴</b>
+""",
+        parse_mode="HTML"
+        )
+
+
+
+Kömək = CmdHelp('qrup')
+Kömək.add_command('qrupinfo',None, 'Qrup haqqında məlumat verər.')
+Kömək.add_command("zombies",None,"Qrupda olan silinmiş hesabları müəyyən etmək üçün əmr.")
+Kömək.add_command("zombies clean",None,"Qrupda olan silinmiş hesabları tapıb silər.")
+Kömək.add()
