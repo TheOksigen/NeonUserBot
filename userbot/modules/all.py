@@ -1,14 +1,16 @@
 #Neon UserBot
 # CREDİT - EPİCUSERBOT
 ## 
-
+# ---------------------------------------------------------------------------
 from telethon.tl.types import ChannelParticipantsAdmins as cp
-from userbot import CMD_HELP, bot
-from userbot.events import register
 from userbot.cmdhelp import CmdHelp
+from userbot.events import register
+from userbot import bot
+from time import sleep
 import asyncio
+import random
 
-# ================================================================
+# ---------------------------------------------------------------------------
 
 @register(
 	pattern="^.tag(?: |$)(.*)",
@@ -36,7 +38,7 @@ async def tagger(q):
 		await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s, i.first_name, i.id))
 		await asyncio.sleep(1.5)
 
-# ======================================================================
+#--------------------------------------------------------------------------------------------------------------------------------
 		
 @register(
 	pattern="^.all(?: |$)(.*)",
@@ -66,7 +68,7 @@ async def all_tagger(q):
 					   						)
 		await asyncio.sleep(0.5)
 
-# -----------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
 
 @register(
 	pattern="^.alladmin(?: |$)(.*)", 
@@ -85,19 +87,15 @@ async def _(q):
 		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.alladmin Salam, Necəsiz?`")
 		return
 	
-	chat = await q.get_input_chat()
+	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
-	async for i in bot.iter_participants(chat, filter=cp):
+	async for i in bot.iter_participants(c, filter=cp):
 		if a_ == 50:
 			break
 		a_+=1
-		await q.client.send_message(q.chat_id, 
-					    "**{}**\n[{}](tg://user?id={})".format(s, 
-											      i.first_name, 
-											      i.id)
-					   						)
-		await sleep(1.74)
+		await bot.send_message(q.chat_id,"[{}](tg://user?id={}) **{}**".format(i.first_name, i.id ,s))
+		await asyncio.sleep(1.5)
 		
 # ---------------------------------------------------------------------------------------------------------------
 		
@@ -149,6 +147,81 @@ async def mention(event):
 			 parse_mode="html"
 		)
 
+# ------------------------------------------------------------------------------------------
+
+emoji = "🐵 🦁 🐯 🐱 🐶 🐺 🐻 🐨 🐼 🐹 🐭 🐰 🦊 🦝 🐮 🐷 🐽 🐗 🦓 🦄 🐴 🐸 🐲 🦎 🐉 🦖 🦕 🐢 🐊 🐍 🐁 🐀 🐇 🐈 🐩 🐕 🦮 🐕‍🦺 🐅 🐆 🐎 🐖 🐄 🐂 🐃 🐏 🐑 🐐 🦌 🦙 🦥 🦘 🐘 🦏 🦛 🦒 🐒 🦍 🦧 🐪 🐫 🐿️ 🦨 🦡 🦔 🦦 🦇 🐓 🐔 🐣 🐤 🐥 🐦 🦉 🦅 🦜 🕊️ 🦢 🦩 🦚 🦃 🦆 🐧🦈 🐬 🐋 🐳 🐟 🐠 🐡 🦐 🦞 🦀 🦑 🐙 🦪 🦂 🕷️ 🦋 🐞 🐝 🦟 🦗 🐜 🐌 🐚 🕸️ 🐛 🐾 😀 😃 😄 😁 😆 😅 😂 🤣 😭 😗 😙 😚 😘 🥰 😍 🤩 🥳 🤗 🙃 🙂 ☺️ 😊 😏 😌 😉 🤭 😶 😐 😑 😔 😋 😛 😝 😜 🤪 🤔 🤨 🧐 🙄 😒 😤 😠 🤬 ☹️ 🙁 😕 😟 🥺 😳 😬 🤐 🤫 😰 😨 😧 😦 😮 😯 😲 😱 🤯 😢 😥 😓 😞 😖 😣 😩 😫 🤤 🥱 😴 😪 🌛 🌜 🌚 🌝 🌞 🤢 🤮 🤧 🤒 🍓 🍒 🍎 🍉 🍑 🍊 🥭 🍍 🍌 🌶 🍇 🥝 🍐 🍏 🍈 🍋 🍄 🥕 🍠 🧅 🌽 🥦 🥒 🥬 🥑 🥯 🥖 🥐 🍞 🥜 🌰 🥔 🧄 🍆 🧇 🥞 🥚 🧀 🥓 🥩 🍗 🍖 🥙 🌯 🌮 🍕 🍟 🥨 🥪 🌭 🍔 🧆 🥘 🍝 🥫 🥣 🥗 🍲 🍛 🍜 🍢 🥟 🍱 🍚 🥡 🍤 🍣 🦞 🦪 🍘 🍡 🥠 🥮 🍧 🍧 🍨".split(" ")
+
+
+class FlagContainer:
+    is_active = False
+
+@register(
+	pattern=r"^\.stag(?: |$)(.*)",
+	outgoing=True
+)
+async def b(event):
+    if event.fwd_from or FlagContainer.is_active:
+        return
+
+    if not event.is_group:
+        await event.edit(
+"""
+**Mənim fikrimcə bura qrup deyil.** ❌
+""")
+        return
+
+    try:
+        FlagContainer.is_active = True
+
+        text = None
+        args = event.message.text.split(" ", 1)
+        if len(args) > 1:
+            text = args[1]
+
+        chat = await event.get_input_chat()
+        await event.delete()
+
+        tags = list(map(lambda m: f"[{random.choice(emoji)}](tg://user?id={m.id})", await event.client.get_participants(chat),
+		),
+		   )
+        current_pack = []
+        async for participant in event.client.iter_participants(chat):
+            if not FlagContainer.is_active:
+                break
+
+            current_pack.append(participant)
+
+            if len(current_pack) == 5: 
+                tags = list(map(lambda m: f"[{random.choice(emoji)}](tg://user?id={m.id})", current_pack
+			      ),
+			   )
+                current_pack = []
+
+                if text:
+                    tags.append(text)
+
+                await event.client.send_message(event.chat_id, " ".join(tags))
+                await asyncio.sleep(1.3) 
+    finally:
+        FlagContainer.is_active = False
+
+# -----------------------------------------------------------------------------
+
+@register(
+	pattern=r'^\.tagstop(?: |$)(.*)'
+	outgoing=True
+)
+	if event.is_group:
+		await event.edit(
+			"**Bura qrup deyil. Bu modul qrupda olan tag prosesləri üçün nəzərdə tutulmuşdur.**")
+		return
+	
+	if BOTLOG:
+                await event.client.send_message(
+			BOTLOG_CHATID, 
+			"""**Tag prosesi dayandırıldı.**"""
+		)
+            	await bot.disconnect()
 # ------------------------------ CMDHELP --------------------------------------
 
 Help = CmdHelp("tag")
@@ -164,9 +237,13 @@ Help.add_command(
         "<səbəb>", 
         "Qrupdakı adminləri tag edər")
 Help.add_command(
+	'stag',
+	'<səbəb>',
+	'Qrupdakı şəxsləri fərqli emojilər ilə tag edər.')
+Help.add_command(
         '@tag[istədiyiniz ad/söz]',
         'İnsanlanları istədiyiniz kimi tag edin',
-        'Əvvəlində nöqtə qoymadan işlədin. Nümunə: @esebj[Qağaşşş]')  
+        'Əvvəlində nöqtə qoymadan işlədin. Nümunə: @nusrets[Qağaşşş]')  
 Help.add_command(
-        "restart", None, "Tag prosesini dayandırar.")
+        "tagstop", None, "Tag prosesini dayandırar.")
 Help.add()
