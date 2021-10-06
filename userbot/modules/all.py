@@ -221,7 +221,7 @@ async def tagstop(event):
                 await event.client.send_message(
 			BOTLOG_CHATID, 
 			"""#**Tag prosesi dayandırıldı.**"""
-		)
+		#)
             	#await bot.disconnect()
 # ------------------------------ CMDHELP --------------------------------------
 
