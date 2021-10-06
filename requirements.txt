@@ -29,7 +29,7 @@ pySmartDL
 python-barcode
 python-dotenv
 youtube-dl
-moviepy
+moviepy>=1.0.3
 pytz
 qrcode
 requests>=2.18.4
