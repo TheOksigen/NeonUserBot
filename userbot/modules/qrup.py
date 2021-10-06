@@ -207,7 +207,36 @@ async def fetch_info(chat, event):
     if description:
         caption += f"Açıqlama: \n<code>{description}</code>\n"
     return caption    
+# ---------------------------------------------------------------------------------------------------
 
+BANNED_RIGHTS = ChatBannedRights(
+    until_date=None,
+    view_messages=True,
+    send_messages=True,
+    send_media=True,
+    send_stickers=True,
+    send_gifs=True,
+    send_games=True,
+    send_inline=True,
+    embed_links=True,
+)
+
+UNBAN_RIGHTS = ChatBannedRights(
+    until_date=None,
+    send_messages=None,
+    send_media=None,
+    send_stickers=None,
+    send_gifs=None,
+    send_games=None,
+    send_inline=None,
+    embed_links=None,
+)
+
+MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
+
+UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
+
+# ------------------------------------------------------------------------------------------------------
 
 @neon(    
     pattern="^\.zombies(?: |$)(.*)", 
