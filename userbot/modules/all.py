@@ -211,6 +211,7 @@ async def b(event):
 	pattern=r'^\.tagstop(?: |$)(.*)',
 	outgoing=True,
 )
+async def tagstop(event):
 	if event.is_group:
 		await event.edit(
 			"**Bura qrup deyil. Bu modul qrupda olan tag prosesləri üçün nəzərdə tutulmuşdur.**")
