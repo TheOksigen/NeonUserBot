@@ -208,8 +208,8 @@ async def b(event):
 # -----------------------------------------------------------------------------
 
 @register(
-	pattern=r'^\.tagstop(?: |$)(.*)'
-	outgoing=True
+	pattern=r'^\.tagstop(?: |$)(.*)',
+	outgoing=True,
 )
 	if event.is_group:
 		await event.edit(
