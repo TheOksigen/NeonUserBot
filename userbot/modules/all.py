@@ -206,7 +206,7 @@ async def b(event):
         FlagContainer.is_active = False
 
 # -----------------------------------------------------------------------------
-
+"""
 @register(
 	pattern=r'^\.tagstop(?: |$)(.*)',
 	outgoing=True,
@@ -220,9 +220,9 @@ async def tagstop(event):
 	if BOTLOG:
                 await event.client.send_message(
 			BOTLOG_CHATID, 
-			"""**Tag prosesi dayandırıldı.**"""
+			"""#**Tag prosesi dayandırıldı.**"""
 		)
-            	await bot.disconnect()
+            	#await bot.disconnect()
 # ------------------------------ CMDHELP --------------------------------------
 
 Help = CmdHelp("tag")
@@ -245,6 +245,5 @@ Help.add_command(
         '@tag[istədiyiniz ad/söz]',
         'İnsanlanları istədiyiniz kimi tag edin',
         'Əvvəlində nöqtə qoymadan işlədin. Nümunə: @nusrets[Qağaşşş]')  
-Help.add_command(
-        "tagstop", None, "Tag prosesini dayandırar.")
+#Help.add_command("tagstop", None, "Tag prosesini dayandırar.")
 Help.add()
