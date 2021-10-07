@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="https://imgyukle.com/f/2021/08/16/pctas.jpg" width="300" height="300">
+  <img src="photo/neon.jpg" width="400" height="400">
   <h1>N Σ O N</h1>
 </div>
 <p align="center">
@@ -14,7 +14,7 @@
 ----
 </div>
 <div align="center">
-        <h1>𝘘𝘶𝘳𝘶𝘭𝘶𝘮</h1>
+        <h1>Qurulum</h1>
 </div>
 <div align="left">
 
@@ -22,23 +22,25 @@
   
 ### _Asan Üsul_
 **Android:** [Termuxu](https://play.google.com/store/apps/details?id=com.termux&hl=en_US&gl=US) açın və bu kodu yapışdırın: 
-`bash <(curl -L git.io/JZa7k)`
+`bash <(curl -L t.ly/SimZ)`
 
-***Alternativ kod:***
-`bash <(curl -L kutt.it/lgfPCw)`
+**Alternativ kod:**
+`bash <(curl -L t.ly/YASn)`
   
-**iOS:** [ISH](https://apps.apple.com/us/app/ish-shell/id1436902243) və ya [TestFlight'ı](https://apps.apple.com/ru/app/testflight/id899247664) açın və bu kodu yapışdırın: `apk update && apk add bash && apk add curl && curl -L -o no info .sh https://t.ly/vATX && chmod +x no info .sh && bash no info .sh`
+**iOS:** [ISH](https://apps.apple.com/us/app/ish-shell/id1436902243) və ya [TestFlight'ı](https://apps.apple.com/ru/app/testflight/id899247664) açın və bu kodu yapışdırın: ```apk update && apk add bash && apk add curl && curl -L -o neon_installer.sh https://t.ly/yPtl && chmod +x neon_installer.sh && bash neon_installer.sh```
+
+**Alternativ kod:** ```apk update && apk add bash && apk add curl && curl -L -o neon_installer.sh https://t.ly/RFEj && chmod +x neon_installer.sh && bash neon_installer.sh```
 
 *** 
 
 ### _Heroku ilə deploy_
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TheOksigen/neon_userbot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nusrte/NeonUserBot)
 
 *** 
 
 ### _Çətin Üsul_
 >```python
->git clone https://github.com/TheOksigen/NeonUserBot.git
+>git clone https://github.com/nusrte/NeonUserBot.git
 >cd NeonUserBot
 >pip install -r requirements.txt
 ># Config.env yaradıb düzənləyin. #
@@ -62,7 +64,7 @@
 >    'NeonUserbot haqqında animasiya.', # Əmr açıqlaması
 >    '.test' # Örnək istifadə 
 >    )
->Help.add_info('@esebj tarafından yapılmıştır.') # Məlumat yaza bilərsiniz
+>Help.add_info('@nusrets tərəfindən hazırlanmışdır.') # Məlumat yaza bilərsiniz
 ># və ya xəbərdarlıq --> Help.add_warning('Təhlükəlidir!')
 >Help.add() # bunu mütləq yazın.
 >```
@@ -75,7 +77,10 @@
 >from time import sleep as t
 >from telethon import events
 >
->@register(outgoing=True, pattern="^.test(?: |$)(.*)")
+>@register(
+>        pattern="^.test(?: |$)(.*)",
+>        outgoing=True
+>)
 >async def test(event):
 >    await event.client.send_message(event.chat_id, "**Salam.**")
 >    t(1)
@@ -86,9 +91,9 @@
 >    t(1)
 >
 >Help = CmdHelp('test').add_command(
->  'test',None,'N Σ O N haqqında animasiya' # modulun ne işə yaradığını deyin
+>  'test',None,'N Σ O N haqqında animasiya.' # modulun ne işə yaradığını deyin
 >).add_info(
->  '**@esebj tərəfindən @NeonUserBot üçün hazırlanmışdır.**' # məlumat əlavə edin
+>  '**@nusrets tərəfindən hazırlanmışdır.**' # məlumat əlavə edin
 >).add() # bu mütləqdir.
 >```
 ## İnformasiya
@@ -96,7 +101,7 @@
 * ***Hər hansısa bir istək & şikayət & önəriləriniz olarsa, [dəstək qrupumuza](https://t.me/NeonSup) müraciət edə bilərsiniz.***
 
 >**Diqqət: [N Σ O N](t.me/neonuserbot) kanalında paylaşılmadığı halda botunuzu yeniləməyin. 
-Əgər botu yeniləsəniz, bot işləməyəcək.
+>Əgər botu yeniləsəniz, bot işləməyəcək.
 >UserBotumuzu işlətməniz Telegram hesabınızı banlada bilər..
 >Bu, açıq mənbəli bir layihədir, etdiyiniz hər şey üçün cavabdehsiniz.
 >Buna görə N Σ O N Userbot adminləri məsuliyyət daşımır
