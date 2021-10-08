@@ -1,7 +1,7 @@
 {
   "name": "N Σ O N User Bot",
   "description": "Telegramdan əyləncəli və rahat işlətmək üçün telegram user bot’u",
-  "logo": "https://telegra.ph/file/03f2d6c172853232a0d67.jpg",
+  "logo": "https://telegra.ph/file/065f9a857b26bccd49499.jpg",
   "keywords": [
     "telegram",
     "userbot",
@@ -10,9 +10,9 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/TheOksigen/neon_userbot",
+  "repository": "https://github.com/nusrte/NeonUserBot",
   "website":   "",
-  "success_url": "https://t.me/neonuserbot",
+  "success_url": "https://t.me/NeonUserBot",
   "stack": "container",
   "env": {
     "API_KEY": {
@@ -87,7 +87,7 @@
       "required": false
     },
     "BOTLOG": {
-      "description": "# TOXUNMA #",
+      "description": "ZƏHMƏT OLMASA, TOXUNMAYIN. AFK OLDUĞUNUZ ZAMAN SİZƏ KİMLƏRİN YAZDIĞINI BİLMƏK VƏ SNİPLƏRİ YADDA SAXLAYA BİLMƏK ÜÇÜNDÜR.",
       "value": "False"
     },
     "BOT_USERNAME": {
