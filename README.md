@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="photo/neon.jpg" width="400" height="400">
+  <img src="photo/neonub.jpg" width="400" height="400">
   <h1>N Σ O N</h1>
 </div>
 <p align="center">
