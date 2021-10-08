@@ -16,7 +16,7 @@ import os
 # ===============================================================================
 
 @register(outgoing=True, pattern="^.bass(?: |$)(.*)")
-async def _(event):
+async def BassBooster(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
@@ -27,8 +27,8 @@ async def _(event):
     if not event.reply_to_msg_id:
         await event.edit("ℹ️ __Hansı musiqiyə bass vermək lazımdırsa, cavab ver ona.__")
         return
-    reply_message = await event.get_reply_message()
-    if not reply_message.media:
+    cavab = await event.get_reply_message()
+    if not cavab.media:
         await event.edit("ℹ️ __Hansı musiqiyə bass vermək lazımdırsa, cavab ver ona.__")
         return
     me = await event.client.get_me()
@@ -42,16 +42,14 @@ async def _(event):
                                   from_users=488701812
                           )
             )
-            reply = await event.client.send_message(chat, 
-                                                    reply_message
-                                               )
+            reply = await event.client.send_message(chat, cavab)
             t(3)
             strr = await event.client.send_message(chat, 
                                                    input
                                              )
             response = await response
         except YouBlockedUserError:
-            await event.edit("**@Baasss_bot'u blokdan çıxart. Yenidən yoxla.**")
+            await event.edit(f"**{chat}'u blokdan çıxart və yenidən yoxla.**")
             return
         if response.text.startswith("Forward"):
             await event.edit("Gizlilik ayarlarınızdakı ileti qismini düzəldin.")
@@ -64,20 +62,20 @@ async def _(event):
 🔊 Bass səviyyəsi -</b> <code>{}</code>
 🀄️ <b>Mənim Sahibim - {}</b>
 """.format(input,username),
-                parse_mode="HTML")             
+                parse_mode="HTML",
+                reply_to=cavab)             
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.delete_messages(conv.chat_id,
                                              [reply.id, 
                                                 strr.id, 
-                                                  response.id]
-                                                )
+                                                  response.id])
         
-            
+# ------------------------------ CMDHELP ------------------------------------
+
 Kömək = CmdHelp('bass')
 Kömək.add_command(
                   "bass <Audio faylına cavab>",
                   "<Bass səviyyəsi>",
-                  "Musiqinin bass səviyyəsini çoxaldar."
-                  )
+                  "Musiqinin bass səviyyəsini çoxaldar.")
 Kömək.add_info("**@Nusrets Tərəfindən Yaradılıb.**")
 Kömək.add()
