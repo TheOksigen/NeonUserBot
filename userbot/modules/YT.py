@@ -1,4 +1,4 @@
-# N Σ O N / Ｗ ｈｉｓｐｅｒ𐂡 / esebj
+# N Σ O N // Nusrets
 # ƏKMƏ BLƏT
 
 import asyncio
@@ -21,12 +21,22 @@ async def inf(event):
   await event.edit(f"🔸 __{ad}'ı video kimi yükləyirəm...__")
   video = YouTube(f"{url}").streams.get_highest_resolution().download()
   await event.edit(f"🔸 __{ad} video kimi göndərirəm..__")
-  await event.client.send_file(event.chat_id, video)
+  await event.client.send_file(
+      event.chat_id, 
+        video,
+          caption=f"""
+<b>Ad 🔖</b> ➠ <code>{ad}</code>
+""",
+                parse_mode="html")
   await event.delete()
   os.remove(video)
-  
+
+
+
 @neon(outgoing=True, pattern="^.yta (.*)")
 async def audio(e):
+  me=await e.client.get_me()
+  u=f"{me.username}" if username else my_mention
   try:
     await e.edit("🔸 __Musiqi hazırlanır. Gözləyin..__")
   except:
@@ -37,57 +47,69 @@ async def audio(e):
   import moviepy.editor as mp
   inputstr = e.pattern_match.group(1)
   axtar = YouTube(f"{inputstr}")
-  videoad = axtar.title
-  await e.edit(f"🔸 __{videoad}__ __yüklənir...__")
+  mp3 = axtar.title
+  await e.edit(f"🔸 __{mp3}__ __yüklənir...__")
   hmm = YouTube(f"{inputstr}").streams.filter(file_extension='mp4').first().download()
-  await e.edit(f"🔸 __{videoad} musiqi olaraq hazırlanır...__")
-  name = axtar.title + ".mp3"
+  await e.edit(f"🔸 __{mp3} musiqi olaraq hazırlanır...__")
+  mahni = axtar.title + ".mp3"
   my_clip = mp.VideoFileClip(hmm)
-  my_clip.audio.write_audiofile(name)
-  await e.edit(f"🔸 __{videoad}__ __mp3 olaraq göndərilir...__")
-  await e.client.send_file(e.chat_id, name)
+  my_clip.audio.write_audiofile(mahni)
+  await e.edit(f"🔸 __{mp3}__ __mp3 olaraq göndərilir...__")
+  await e.client.send_file(
+      e.chat_id, 
+        mahni,
+          caption=f"""
+<b>Ad 🔖</b> ➠ <code>{mp3}</code>
+<b>Sahibim 💟</b> ➠ <b>{username}</b>
+""",
+  parse_mode="html")
   os.remove(hmm)
-  os.remove(name)
+  os.remove(mahni)
   my_clip.close()
   await e.delete()
 
 
 
-@neon(outgoing=True, pattern="^.yt(?: |$)(.*)")
-async def _(event):
+@neon(
+    pattern="^.yt(?: |$)(.*)",
+    outgoing=True
+)
+async def YouTube_Search(e):
     try:
       from youtube_search import YoutubeSearch
     except:
       os.system("pip install youtube_search")
     from youtube_search import YoutubeSearch
-    if event.fwd_from:
+    if e.fwd_from:
         return
-    fin = event.pattern_match.group(1)
-    stark_result = await event.edit("`Axtarılır...`")
-    results = YoutubeSearch(f"{fin}", max_results=5).to_dict()
-    noob = "<b>N Σ O N YOUTUBE AXTARIŞI</b> \n\n"
-    for moon in results:
-      ytsorgusu = moon["id"]
-      kek = f"https://www.youtube.com/watch?v={ytsorgusu}"
-      stark_name = moon["title"]
-      stark_chnnl = moon["channel"]
-      total_stark = moon["duration"]
-      stark_views = moon["views"]
-      noob += (
-        f"<b><u>Ad</u></b> ➠ <code>{stark_name}</code> \n"
-        f"<b><u>Link</u></b> ➠  {kek} \n"
-        f"<b><u>Kanal</u></b> ➠ <code>{stark_chnnl}</code> \n"
-        f"<b><u>Video Uzunluğu</u></b> ➠ <code>{total_stark}</code> \n"
-        f"<b><u>Görüntülənmə</u></b> ➠ <code>{stark_views}</code> \n\n"
+    yt = e.pattern_match.group(1)
+    axtar = await e.edit("`Axtarılır...`")
+    nəticə = YoutubeSearch(f"{yt}", 
+                            max_results=5).to_dict()
+    başlıq = "<b>N Σ O N YOUTUBE AXTARIŞI</b> \n\n"
+    for n in nəticə:
+      sorğu = n["id"]
+      url = f"https://www.youtube.com/watch?v={sorğu}"
+      ad = n["title"]
+      kanal = n["channel"]
+      uzunluğu = n["duration"]
+      görüntüləmə = n["views"]
+      başlıq += (
+        f"<b>Ad</b> ➠ <code>{ad}</code> \n"
+        f"<b>Link</b> ➠  {url} \n"
+        f"<b>Kanal</b> ➠ <code>{kanal}</code> \n"
+        f"<b>Video Uzunluğu</b> ➠ <code>{uzunluğu}</code> \n"
+        f"<b>Görüntülənmə</b> ➠ <code>{görüntüləmə}</code> \n\n"
         )
-      await stark_result.edit(noob, parse_mode="HTML")
+      await axtar.edit(başlıq, 
+                       parse_mode="html")
 
 from userbot.cmdhelp import CmdHelp
 Help = CmdHelp('yt').add_command(
-    'yt <Musiqi Adı>',None,'YouTube üzərindən verdiyiniz mətn üzrə axtarış edər.'
+    'yt <musiqi Adı>',None,'YouTube üzərindən verdiyiniz mətn üzrə axtarış edər.'
     ).add_command(
-    'yta <Link 🔗>',None,'Yazdığınız linki YouTube üzərindən musiqi olaraq yükləyər.'
-    ).add_command('ytv <Link 🔗>',None," Yazdığınız linki YouTube üzərindən video kimi endirər."
+    'yta <link 🔗>',None,'Yazdığınız linki YouTube üzərindən musiqi olaraq yükləyər.'
+    ).add_command('ytv <link 🔗>',None,"Yazdığınız linki YouTube üzərindən video kimi endirər."
     ).add_info(
-      '**@Esebj / @NeonUserBot**'
+      '**@Nusrets / @NeonUserBot**'
     ).add()
