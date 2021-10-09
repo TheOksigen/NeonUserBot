@@ -39,7 +39,6 @@ async def on_new_message(event):
                     break
                 pass
             continue
-        else:
             pattern = r"( |^|[^\w])" + re.escape(snip) + r"( |$|[^\w])"
             if re.search(pattern, name, flags=re.IGNORECASE):
                 try:
