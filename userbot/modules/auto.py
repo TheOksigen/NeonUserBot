@@ -27,7 +27,7 @@ LANG = get_value("auto")
 async def auto(event):
     metod = event.pattern_match.group(1).lower()
     
-    if str(metod) != "ad" and str(metod) != "bio":
+    if str(metod) not in ("ad", "bio"):
         await event.edit(LANG['INVALID_TYPE'])
         return
 
