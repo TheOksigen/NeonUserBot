@@ -5,7 +5,6 @@ git+https://github.com/Boudewijn26/gTTS-token.git
 git+https://github.com/johnwmillr/LyricsGenius.git
 git+https://github.com/ytdl-org/youtube-dl.git
 git+https://github.com/Zulko/moviepy.git
-git+https://github.com/stub42/pytz.git
 aiohttp
 aria2p
 async_generator
@@ -27,6 +26,7 @@ heroku3
 lxml==4.5.2
 lyricsgenius
 oauth2client
+pytz
 psycopg2
 pybase64>=0.4.0
 pylast==3.0.0
