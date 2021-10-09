@@ -109,7 +109,7 @@ async def creator(e):
 @register(outgoing=True, pattern="^.readme$")
 async def reedme(e):
     await e.edit("https://github.com/nusrte/NeonUserBot#readme",
-                    parse_mode='html'
+                    parse_mode='html',
                     link_preview=True)
 
 
