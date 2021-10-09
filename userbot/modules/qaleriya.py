@@ -59,7 +59,7 @@ async def qaleriya(event):
     elif secen[0] == "sil":
         if secen[1].isdigit():
             silme = sql.sil_foto(secen[1])
-            if silme == True:
+            if silme is True:
                 await event.edit(LANG['REMOVED'])
             else:
                 await event.edit(f"{LANG['REMOVED_ERROR']}: {silme}")
