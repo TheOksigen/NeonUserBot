@@ -176,7 +176,7 @@ def generatePlayerStr(now, time):
     if index >= len(arr):
         index = len(arr)-1
     arr[index] = '⚪'
-    return ("".join(arr))
+    return "".join(arr)
 
 def get_spotify_info(TIME=5):
     try:
