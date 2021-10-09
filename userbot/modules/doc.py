@@ -26,22 +26,22 @@ async def TextToFile(e):
 
 
 @register(
-    pattern=r".ftt (.*)",
+    pattern=r".ftt",
     outgoing=True,
 )
 @register(
-    pattern=r".oxu (.*)",
+    pattern=r".oxu",
     outgoing=True,
 )
 @register(
-    pattern=r".open (.*)",
+    pattern=r".open",
     outgoing=True,
 )
 async def FileToText(e):
     await e.delete()
     cavab=e.get_reply_message()
     download=await e.client.download_media(cavab)
-    o=open(b, "r")
+    o=open(download, "r")
     r=o.read()
     o.close()
     if len(r) > 4095:
