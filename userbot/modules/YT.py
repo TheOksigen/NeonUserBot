@@ -36,7 +36,7 @@ async def inf(event):
 @neon(outgoing=True, pattern="^.yta (.*)")
 async def audio(e):
   me=await e.client.get_me()
-  u=f"{me.username}" if username else my_mention
+  u=f"{me.username}" if me.username else my_mention
   try:
     await e.edit("🔸 __Musiqi hazırlanır. Gözləyin..__")
   except:
