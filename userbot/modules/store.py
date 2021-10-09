@@ -29,7 +29,7 @@ async def magaza(event):
     if plugin == '':
         plugin = 'Son Yüklənən'
         plugins = await event.client.get_messages('@neonplugin', limit=15, filter=InputMessagesFilterDocument)
-    elif len(split) >= 1 and (split[0] == 'random' or split[0] == 'rastgele'):
+    elif len(split) >= 1 and split[0] in ('random', 'rastgele'):
         plugin = 'Random'
         plugins = await event.client.get_messages('@neonplugin', limit=None, filter=InputMessagesFilterDocument)
         plugins = sample(plugins, int(split[1]) if len(split) == 2 else 5)
