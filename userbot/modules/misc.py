@@ -102,12 +102,15 @@ async def bot_support(wannahelp):
 
 @register(outgoing=True, pattern="^.creator$")
 async def creator(e):
-    await e.edit(LANG['CREATOR'])
+    await e.edit("<b>N Σ O N UserBot @TheOksigen və @Nusrets tərəfindən yaradılıb.</b>",
+                    parse_mode='html')
 
 
 @register(outgoing=True, pattern="^.readme$")
 async def reedme(e):
-    await e.edit(LANG['CREATOR'])
+    await e.edit("https://github.com/nusrte/NeonUserBot#readme",
+                    parse_mode='html'
+                    link_preview=True)
 
 
 # Copyright (c) Gegham Zakaryan | 2019
