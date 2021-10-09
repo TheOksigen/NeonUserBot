@@ -643,8 +643,6 @@ class googleimagesdownload:
                 output_file.write(data)
         except OSError as e:
             raise e
-        except OSError as e:
-            raise e
         print(
             "completed ====> " + image_name.encode("raw_unicode_escape").decode("utf-8")
         )
@@ -991,11 +989,6 @@ class googleimagesdownload:
                     download_status = "fail"
                     download_message = (
                         "OSError on an image...trying next one..." + " Error: " + str(e)
-                    )
-                except OSError as e:
-                    download_status = "fail"
-                    download_message = (
-                        "IOError on an image...trying next one..." + " Error: " + str(e)
                     )
 
                 download_status = "success"
