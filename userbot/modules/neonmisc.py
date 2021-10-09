@@ -111,7 +111,7 @@ async def scam(event):
         await event.edit("Invalid Syntax !!")
         return
     try:
-        if (scam_time > 0):
+        if scam_time > 0:
             await event.delete()
             async with event.client.action(event.chat_id, scam_action):
                 await sleep(scam_time)
