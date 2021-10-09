@@ -7,6 +7,7 @@ from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 from time import sleep as t
 from asyncio import sleep
+from random import choice
 
 @register(outgoing=True, pattern="^.ttsk")
 async def neon(event):
