@@ -1,4 +1,4 @@
-# Ｗ ｈｉｓｐｅｒ𐂡 / t.me/esebj
+# nusrets // nusrte
 # N Σ O N / ekme peyserrrrrrrrrr
 
 import os
@@ -14,7 +14,7 @@ async def _(event):
     ureply = await event.get_reply_message()
     if not (ureply and ("audio" in ureply.document.mime_type)):
         await event.edit("**Səs'ə** `cavab verməlisən.`")
-    if ("audio" in ureply.document.mime_type):
+    if "audio" in ureply.document.mime_type:
         await event.edit("`Proses Hazırlanır...`")
         d = os.path.join("resources/extras", "ul.mp3")
         await event.edit("`Yüklənir, Zəhmət Olmasa Gözləyin!`")
