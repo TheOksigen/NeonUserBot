@@ -28,7 +28,7 @@ async def cevir(event):
         await event.edit(LANG['INVALID_COMMAND'])
         return
 
-    if islem == "foto" or islem == "photo":
+    if islem in ("foto", "photo"):
         rep_msg = await event.get_reply_message()
 
         if not event.is_reply or not rep_msg.sticker:
