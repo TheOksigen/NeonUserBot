@@ -241,10 +241,10 @@ class SignatureGenerator:
                         assert peak_variation_1 > 0
                         
                         frequency_hz = corrected_peak_frequency_bin * (16000 / 2 / 1024 / 64)
-                        
+
                         if frequency_hz < 250:
                             continue
-                        elif frequency_hz < 520:
+                        if frequency_hz < 520:
                             band = FrequencyBand._250_520
                         elif frequency_hz < 1450:
                             band = FrequencyBand._520_1450
