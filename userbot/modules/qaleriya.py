@@ -41,7 +41,7 @@ async def qaleriya(event):
     if secen[0] == "elaveet":
         if len(secen) > 1:
             URL = re.search(URL_REGEX, secen[1])
-            if URL != None:
+            if URL is None:
                 sql.ekle_foto(secen[1])
                 sql.getir_foto()
                 await event.edit(LANG['ADDED_LIST'])
