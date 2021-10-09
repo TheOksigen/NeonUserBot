@@ -411,7 +411,7 @@ async def wupload(event):
             urll = t_response
             await event.edit(urll)
             return
-        if BOT_USERNAME != None:
+        if BOT_USERNAME is None:
             results = await event.client.inline_query(
                 BOT_USERNAME,
                 f"{urll} {zaman} {selected_transfer}"
