@@ -1,3 +1,11 @@
+git+https://github.com/Joeclinton1/google-images-download.git
+git+https://github.com/bisoncorps/search-engine-parser
+git+https://github.com/pndurette/gTTS.git
+git+https://github.com/Boudewijn26/gTTS-token.git
+git+https://github.com/johnwmillr/LyricsGenius.git
+git+https://github.com/ytdl-org/youtube-dl.git
+git+https://github.com/Zulko/moviepy.git
+git+https://github.com/stub42/pytz.git
 aiohttp
 aria2p
 async_generator
@@ -12,14 +20,11 @@ google-api-python-client
 google-auth-oauthlib
 googletrans>=2.4.0
 google_images_download>=2.7.1
-gTTS>=2.1.1
-gTTS-token>=1.1.3
 hachoir
 httplib2
 humanize
 heroku3
 lxml==4.5.2
-git+https://github.com/johnwmillr/LyricsGenius.git
 lyricsgenius
 oauth2client
 psycopg2
@@ -28,12 +33,8 @@ pylast==3.0.0
 pySmartDL
 python-barcode
 python-dotenv
-youtube-dl
-git+https://github.com/Zulko/moviepy.git
-pytz
 qrcode
 requests>=2.18.4
-git+https://github.com/bisoncorps/search-engine-parser
 speedtest-cli>=2.0.2
 sqlalchemy>=1.2
 spotdl
@@ -50,7 +51,6 @@ numpy
 Pillow
 telegraph
 lottie
-git+https://github.com/Joeclinton1/google-images-download.git
 eksipy
 pydub
 emoji-country-flag
