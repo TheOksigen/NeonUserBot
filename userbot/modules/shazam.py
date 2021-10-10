@@ -44,8 +44,9 @@ async def shazam(event):
                 break
             else:
                 await event.edit(f'`İlk {(signature_generator.samples_processed / 16000)} saniyədə heçnə tapılmadı... Birazda yoxlayıram...`')
-        
-        if not 'track' in sarki:
+                return
+            
+        if 'track' not in sarki:
             return await event.edit('`Təsüfki Shazam verdiyiniz səsi tapa bilmədi 😕.`\n`Daha aydın səs ata bilərsiz?`')
         await event.edit('**Urrraa!** 🥳 **Mən bu musiqini tapdım.**\n**Məlumatları gətirirəm...** 🔎')
         Caption = f'**Mahnı:** [{sarki["track"]["title"]}]({sarki["track"]["url"]})\n'
