@@ -195,7 +195,7 @@ async def check_progress_for_dl(gid, event, previous):
                 await sleep(2.5)
                 await event.delete()
                 return
-            elif " depth exceeded" in str(e):
+            if " depth exceeded" in str(e):
                 file.remove(force=True)
                 await event.edit(
                     "Yükləmə avtomatik olaraq ləğv edildi:\n`{}`\nTorrent vəya link ölü."
