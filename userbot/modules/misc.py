@@ -128,9 +128,9 @@ async def repeat(rep):
 
 
 @register(outgoing=True, pattern="^.repo$")
-async def repo_is_here(wannasee):
+async def repo(repo):
     """ .repo komandası Repomuzun linkini verər. """
-    await wannasee.edit(LANG['REPO'])
+    await repo.edit('[N Σ O N\'s repository](https://github.com/nusrte/NeonUserBot)')
 
 @register(outgoing=True, pattern="^.raw$")
 async def raw(event):
