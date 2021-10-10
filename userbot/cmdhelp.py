@@ -66,10 +66,10 @@ class CmdHelp:
             result += f"📥 **Official:** {'✅' if self.IS_OFFICIAL else '❌'}\n"
             
             if self.INFO == '':
-                if not self.WARNING == '':
+                if self.WARNING != '':
                     result += f"**⚠️ Xəbərdarlıq:** {self.WARNING}\n\n"
             else:
-                if not self.WARNING == '':
+                if self.WARNING != '':
                     result += f"**⚠️ Xəbərdarlıq:** {self.WARNING}\n"
                 result += f"**ℹ️ Məlumat:** {self.INFO}\n\n"
                      
