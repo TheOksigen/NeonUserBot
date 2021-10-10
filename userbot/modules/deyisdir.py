@@ -20,8 +20,8 @@ LANG = get_value("degistir")
 
 # ████████████████████████████████ #
 
-@register(outgoing=True, pattern="^.change ?(.*)")
-@register(outgoing=True, pattern="^.deyisdir ?(.*)")
+@register(outgoing=True, pattern="^.change$")
+@register(outgoing=True, pattern="^.d[eə]yi[sş]dir$")
 async def degistir(event):
     plugin = event.pattern_match.group(1)
     mesaj = re.search(r"\"(.*)\"", plugin)
