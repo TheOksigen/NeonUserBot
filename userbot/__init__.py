@@ -76,7 +76,7 @@ SUDO_VERSION = "v0.5"
 # Bot'un dili
 LANGUAGE = os.environ.get("LANGUAGE", "AZ").upper()
 
-if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
+if LANGUAGE not in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     LOGS.info("Namelum dil yazıdnız buna göre AZ dil işledilir.")
     LANGUAGE = "AZ"
     
@@ -133,7 +133,7 @@ AVTO_PP = os.environ.get("AVTO_PP", None)
 WARN_LIMIT = int(os.environ.get("WARN_LIMIT", 3))
 WARN_MODE = os.environ.get("WARN_MODE", "gmute")
 
-if not WARN_MODE in ["gmute", "gban"]:
+if WARN_MODE not in ["gmute", "gban"]:
     WARN_MODE = "gmute"
 
 # Qaleriya
