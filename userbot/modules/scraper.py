@@ -54,7 +54,7 @@ def MemeYap (Resim, Text, FontS = 40, Bottom = False, BottomText = None):
         Yazi.text((x+2, y+2), text,(0,0,0),font=Font)
         Yazi.text((x-2, y+2), text,(0,0,0),font=Font)
         Yazi.text((x, y), text, (255,255,255), font=Font)
-        return
+
 
     w, h = Yazi.textsize(Text, Font)
     Satirlar = textwrap.wrap(Text, width=22)
