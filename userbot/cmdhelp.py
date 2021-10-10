@@ -98,8 +98,8 @@ class CmdHelp:
     def getText(self, text : str):
         if text == 'REPLY_OR_USERNAME':
             return '<isdifadeçi adı> <isdifadeçi adı/cavab>'
-        elif text == 'OR':
+        if text == 'OR':
             return 'veya'
-        elif text == 'USERNAMES':
+        if text == 'USERNAMES':
             return '<isdifadeçi ad(lar)ı>'
         
