@@ -64,9 +64,9 @@ from telethon.tl.types import MessageEntityMentionName
 import asyncio
 
 
-    if 1 == 1:
-        name = "Profil Fotoğrafları"
-        client = "userbot"
+if 1 == 1:
+    name = "Profil Fotoğrafları"
+    client = "userbot"
 
 @register(outgoing=True, pattern="^.pp(?: |$)(.*)", disable_errors=True)
 async def potocmd(event):
