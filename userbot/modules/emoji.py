@@ -1,6 +1,6 @@
 # NeonUserBot / əkmə lülüş baş
 # petito bled
-# ⌭ R ⲉ ⳑ ⲁ ⲏ x🇺🇸ཊཏ̶ ꪀꫀꪮꪀ ོ✞
+# ⌭ R ⲉ ⳑ ⲁ ⲏ // @relahx
 
 from userbot.events import register as relahx
 from userbot.cmdhelp import CmdHelp
@@ -1102,11 +1102,11 @@ async def cmoji(c):
         await c.edit(final)
     
     except:
-        await c.edit(f"**❎ Bu həddindən artıq çox böyük mətndir.**")
+        await c.edit("**❎ Bu həddindən artıq çox böyük mətndir.**")
 
 
 CmdHelp('emojiyazi').add_command(
     'emoji', '<söz/mətn>', 'Emojilər ilə bir şey yazın!', 'emoji <istədiyiniz söz/mətn>'
 ).add_command(
     'cmoji <smaylik>', '<söz/mətn>', 'İstədiyiniz hər hansı bir smaylik və ya xarakter ilə bir şey yazın!', 'cmoji 👋 salam'
-).add_info('**@NeonUserbot İşlədin ag sdhfssdf**').add()
+).add_info('**@NeonUserbot İşlədin ag / @relahx**').add()
