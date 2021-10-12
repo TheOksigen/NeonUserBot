@@ -45,7 +45,7 @@ async def degistir(event):
         "approve",
         "disapprove",
         "block"]
-    if if type(mesaj) == list:
+    if type(mesaj) == list:
         if plugin in NOVLER:
             if event.is_reply:
                 reply = await event.get_reply_message()
