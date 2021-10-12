@@ -4,7 +4,7 @@
   <h1>N Σ O N</h1>
 </div>
 <p align="center">
-    N Σ O N Userbot'u Telegram'ı daha asan və əyləncəli şəkildə istifadə etmək üçün sizlər üçün hazırlayıb təhvil vermişik. Siz bu botla istədiyiniz bir çox şeyləri daha asan yerinə yetirə biləcəksiniz.
+    <b>N Σ O N Userbot'u Telegram'ı daha asan və əyləncəli şəkildə istifadə etmək üçün sizlər üçün hazırlayıb təhvil vermişik. Siz bu botla istədiyiniz bir çox şeyləri daha asan yerinə yetirə biləcəksiniz.</b>
 </p>
 
 [![Chat on Telegram](https://img.shields.io/badge/Official%20Channel-Telegram-silver.svg?style=flat&logo=Telegram)](http://t.me/neonuserbot) [![Chat on Telegram](https://img.shields.io/badge/Official%20Support-Telegram-red.svg?style=flat&logo=Telegram)](http://t.me/neonsup) [![Chat on Telegram](https://img.shields.io/badge/Plugins-Telegram-gold.svg?style=flat&logo=Telegram)](http://t.me/neonplugin) [![Chat on Telegram](https://img.shields.io/badge/Neon%20Devs-Telegram-succes.svg?style=flat&logo=Telegram)](http://t.me/neondevs) 
