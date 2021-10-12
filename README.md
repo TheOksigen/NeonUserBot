@@ -9,7 +9,7 @@
 
 [![Chat on Telegram](https://img.shields.io/badge/Official%20Channel-Telegram-silver.svg?style=flat&logo=Telegram)](http://t.me/neonuserbot) [![Chat on Telegram](https://img.shields.io/badge/Official%20Support-Telegram-red.svg?style=flat&logo=Telegram)](http://t.me/neonsup) [![Chat on Telegram](https://img.shields.io/badge/Plugins-Telegram-gold.svg?style=flat&logo=Telegram)](http://t.me/neonplugin) [![Chat on Telegram](https://img.shields.io/badge/Neon%20Devs-Telegram-succes.svg?style=flat&logo=Telegram)](http://t.me/neondevs) 
 
-[![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge)
+[![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge) [![CodeFactor](https://www.codefactor.io/repository/github/nusrte/neonuserbot/badge)](https://www.codefactor.io/repository/github/nusrte/neonuserbot)
 
 ----
 </div>
