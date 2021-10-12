@@ -309,7 +309,7 @@ async def delete_accounts_cleaner(e):
         await bot.send_message(
             BOTLOG_CHATID, 
 f"""
-**#TƏMİZLİK**
+<b>#TƏMİZLİK</b>
 <code>Təmizlik zamanı</code> <b>{say}</b> <code>silinmiş hesab qrupdan çıxarıldı.</code>
 <b>QRUPUN ADI:</b> <code>{e.chat.title}</code>
 <b>QRUP İD'İ:</b> <code>{e.chat_id}</code>
