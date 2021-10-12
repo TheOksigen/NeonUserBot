@@ -45,7 +45,7 @@ async def degistir(event):
         "approve",
         "disapprove",
         "block"]
-    if isinstance(mesaj, list):
+    if if type(mesaj) == list:
         if plugin in NOVLER:
             if event.is_reply:
                 reply = await event.get_reply_message()
@@ -59,7 +59,7 @@ async def degistir(event):
                 return await event.edit(f"Plugin(`{plugin}`) {LANG['SETTED_REPLY']}")
 
             silme = sql.sil_mesaj(plugin)
-            if silme:
+            if silme == True:
                 PLUGIN_MESAJLAR[plugin] = ORJ_PLUGIN_MESAJLAR[plugin]
                 await event.edit(LANG['SUCCESS_DELETED'])
             else:
@@ -68,7 +68,7 @@ async def degistir(event):
             await event.edit(LANG['NOT_FOUND'] + ":`afk/alive/pm/kickme/dızcı/ban/mute/approve/disapprove/block`")
     elif len(plugin) < 1:
         await event.edit(LANG['USAGE'])
-    elif isinstance(mesaj, str):
+    elif type(mesaj) == str:
         if plugin in NOVLER:
             if mesaj.isspace():
                 await event.edit(LANG['CANNOT_EMPTY'])
@@ -81,11 +81,11 @@ async def degistir(event):
             await event.edit(LANG['NOT_FOUND'] + ":`afk/alive/pm/kickme/dızcı/ban/mute/approve/disapprove/block`")
 
 CmdHelp('deyisdir').add_command(
-    'değiştir', '<modul> <mesaj/cavab>', 'Deyisdir, botdakı pluginlərin mesajlarını dəyişdirməyə yarar. Əgər mesaj yazmasanız Plugin mesajını orjinal halına salar.', '.deyisdir afk \"İndi burda deyiləm... Belkə heç gəlmərəm\"'
+    'deyisdir | .change', '<modul> <mesaj/cavab>', 'Deyisdir, botdakı pluginlərin mesajlarını dəyişdirməyə yarar. Əgər mesaj yazmasanız Plugin mesajını orjinal halına salar.', '.deyisdir afk \"İndi burda deyiləm... Belkə heç gəlmərəm\"'
 ).add_info(
     '**Dəstəklənən Pluginlər:** `afk/alive/pm/kickme/dızcı/ban/mute/approve/disapprove/block`\n**Alive Dəyişkənləri:** `{plugin}, {telethon}, {python}`\n\
 **Ban/Mute Dəyişkənləri:** `{id}, {username}, {first_name}, {last_name}, {mention}, {date}, {count}`\n\
 **AFK Deyisgenleri:** `{username}, {mention}, {first_name}, {last_name}, {last_seen_seconds}, {last_seen}, {last_seen_long}`\n\
-**PMpermit Dəyişkənləri(pm, block, approve, disapprove):** `{id}, {username}, {mention}, {first_name}, {last_name}`\
+**PMpermit Dəyişkənləri(pm, block, approve, disapprove):** `{id}, {username}, {mention}, {first_name}, {last_name}`\n\
 **Kickme Dəyişkənləri:** `{title}`'
 ).add()
