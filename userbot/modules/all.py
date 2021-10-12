@@ -26,8 +26,7 @@ async def tagger(q):
 	else:
 		s=""
 		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.tag Aktiv olaq millət 😃🗡️`")
-		return
-	
+		
 	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
@@ -54,7 +53,6 @@ async def all_tagger(q):
 	else:
 		s = ""
 		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.all Salam, Necəsiz?`")
-		return
 	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
@@ -84,9 +82,7 @@ async def _(q):
 		s = q.pattern_match.group(1)
 	else:
 		s = ""
-		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.alladmin Salam, Necəsiz?`")
-		return
-	
+		#await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.alladmin Salam, Necəsiz?`")	
 	c = await q.get_input_chat()
 	a_=0
 	await q.delete()
