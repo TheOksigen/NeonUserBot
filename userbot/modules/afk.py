@@ -18,7 +18,8 @@ from userbot import (
     BOTLOG,
     BOTLOG_CHATID,
     PM_AUTO_BAN,
-    SON_GORULME
+    SON_GORULME,
+    ISAFK
 )
 from userbot.events import register
 from userbot.main import PLUGIN_MESAJLAR
