@@ -60,7 +60,7 @@ async def audio(e):
         mahni,
           caption=f"""
 <b>Ad 🔖</b> ➠ <code>{mp3}</code>
-<b>Sahibim 💟</b> ➠ <b>{username}</b>
+<b>Sahibim 💟</b> ➠ <b>{u}</b>
 """,
   parse_mode="html")
   os.remove(hmm)
