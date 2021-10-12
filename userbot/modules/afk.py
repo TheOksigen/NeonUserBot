@@ -13,7 +13,12 @@ from asyncio import sleep
 
 from telethon.events import StopPropagation
 
-from userbot import (AFKREASON, BOTLOG, BOTLOG_CHATID, PM_AUTO_BAN, SON_GORULME)
+from userbot import (
+    AFKREASON,
+    BOTLOG,
+    BOTLOG_CHATID,
+    PM_AUTO_BAN,
+    SON_GORULME)
 from userbot.events import register
 from userbot.main import PLUGIN_MESAJLAR
 from time import time

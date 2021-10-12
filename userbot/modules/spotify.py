@@ -20,8 +20,14 @@ from telethon.errors import AboutTooLongError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateProfileRequest
 
-from userbot import (BIO_PREFIX, BOTLOG, BOTLOG_CHATID, DEFAULT_BIO, SPOTIFY_DC,
-                     SPOTIFY_KEY, bot)
+from userbot import (
+    BIO_PREFIX,
+    BOTLOG,
+    BOTLOG_CHATID,
+    DEFAULT_BIO,
+    SPOTIFY_DC,
+    SPOTIFY_KEY,
+    bot)
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 from telegraph import Telegraph
