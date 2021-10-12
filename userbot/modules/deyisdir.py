@@ -1,14 +1,13 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the  GPL-3.0 License;
 # you may not use this file except in compliance with the License.
 #
 
-#NEON USER BOT
+# NEON USER BOT
 
 import re
 import userbot.modules.sql_helper.mesaj_sql as sql
-from userbot import CMD_HELP
 from userbot.events import register
 from userbot.main import PLUGIN_MESAJLAR, ORJ_PLUGIN_MESAJLAR, PLUGIN_CHANNEL_ID
 from userbot.cmdhelp import CmdHelp
@@ -19,6 +18,7 @@ from userbot.language import get_value
 LANG = get_value("degistir")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.change$")
 @register(outgoing=True, pattern="^.d[eə]yi[sş]dir$")
@@ -34,8 +34,18 @@ async def degistir(event):
         mesaj = []
 
     plugin = plugin.strip()
-    NOVLER = ["afk", "alive", "pm", "kickme", "dızcı", "ban", "mute", "approve", "disapprove", "block"]
-    if type(mesaj) == list:
+    NOVLER = [
+        "afk",
+        "alive",
+        "pm",
+        "kickme",
+        "dızcı",
+        "ban",
+        "mute",
+        "approve",
+        "disapprove",
+        "block"]
+    if isinstance(mesaj, list):
         if plugin in NOVLER:
             if event.is_reply:
                 reply = await event.get_reply_message()
@@ -46,10 +56,10 @@ async def degistir(event):
                     return await event.edit(f"Plugin(`{plugin}`) {LANG['SETTED_MEDIA']}")
                 PLUGIN_MESAJLAR[plugin] = reply.text
                 sql.ekle_mesaj(plugin, reply.text)
-                return await event.edit(f"Plugin(`{plugin}`) {LANG['SETTED_REPLY']}")   
+                return await event.edit(f"Plugin(`{plugin}`) {LANG['SETTED_REPLY']}")
 
             silme = sql.sil_mesaj(plugin)
-            if silme == True:
+            if silme:
                 PLUGIN_MESAJLAR[plugin] = ORJ_PLUGIN_MESAJLAR[plugin]
                 await event.edit(LANG['SUCCESS_DELETED'])
             else:
@@ -58,7 +68,7 @@ async def degistir(event):
             await event.edit(LANG['NOT_FOUND'] + ":`afk/alive/pm/kickme/dızcı/ban/mute/approve/disapprove/block`")
     elif len(plugin) < 1:
         await event.edit(LANG['USAGE'])
-    elif type(mesaj) == str:
+    elif isinstance(mesaj, str):
         if plugin in NOVLER:
             if mesaj.isspace():
                 await event.edit(LANG['CANNOT_EMPTY'])

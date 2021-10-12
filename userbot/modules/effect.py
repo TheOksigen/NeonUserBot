@@ -1,6 +1,6 @@
-# esebj / @esebj      
-# Ogurlayan mene ata desin.        
-# Ogurlama pesi.                  
+# esebj / @esebj
+# Ogurlayan mene ata desin.
+# Ogurlama pesi.
 
 
 import os
@@ -8,14 +8,13 @@ import asyncio
 import pybase64
 import PIL.ImageOps
 from PIL import Image
-from time import sleep
-from telethon import events
 from os.path import basename
 from typing import Optional, Tuple
 from userbot.cmdhelp import CmdHelp
-from userbot import bot, LOGS, CMD_HELP
+from userbot import LOGS
 from userbot.events import register as esebj
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
 
 async def grayscale(imagefile, endname):
     image = Image.open(imagefile)
@@ -43,7 +42,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
         stderr.decode("utf-8", "replace").strip(),
         process.returncode,
         process.pid
-                    )
+    )
 
 
 async def take_screen_shot(
@@ -72,8 +71,6 @@ def random_color():
     ]
 
 
-        
-
 @esebj(outgoing=True, pattern="^.retro(?: |$)(.*)")
 async def retro(esebj):
     reply = await esebj.get_reply_message()
@@ -84,7 +81,7 @@ async def retro(esebj):
     if not os.path.isdir("./downloads/"):
         os.mkdir("./downloads/")
     await esebj.edit("`Effekt hazırlanır...`")
-    
+
     await asyncio.sleep(2)
     esebjsticker = await reply.download_media(file="./downloads/")
     if not esebjsticker.endswith(
@@ -104,7 +101,7 @@ async def retro(esebj):
         )
         stdout, stderr = (await runcmd(esebjcmd))[:2]
         if not os.path.lexists(esebjfile):
-            await esebj.edit("`Xəta baş verdi...`") 
+            await esebj.edit("`Xəta baş verdi...`")
             LOGS.info(stdout + stderr)
         meme_file = esebjfile
         jisanidea = True
@@ -149,19 +146,18 @@ async def retro(esebj):
         force_document=False,
         reply_to=esebjid,
         caption=f"[N Σ O N](t.me/esebj)"
-        )
+    )
     await esebj.delete()
     os.remove(outputfile)
     for files in (
-        esebjsticker,
-        meme_file):
+            esebjsticker,
+            meme_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
 Help = CmdHelp('effect').add_command(
-    'retro', None,'Şəkili ağ-qara edər.'
+    'retro', None, 'Şəkili ağ-qara edər.'
 ).add_info(
     '**@esebj tərəfindən @NeonUserBot üçün hazırlandı.**'
 ).add()
-

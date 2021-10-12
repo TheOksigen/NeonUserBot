@@ -5,7 +5,7 @@
 
 # NeonUserBot
 # TheOksigen
-# esebj 
+# esebj
 
 
 import importlib
@@ -15,17 +15,14 @@ import os
 import requests
 from telethon.tl.types import InputMessagesFilterDocument
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-from telethon.tl.functions.channels import GetMessagesRequest
-from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, NEON_VERSION, PATTERNS
+from . import BRAIN_CHECKER, LOGS, NEON_VERSION, PLUGIN_CHANNEL_ID, bot
 from .modules import ALL_MODULES
 import userbot.modules.sql_helper.mesaj_sql as MSJ_SQL
 import userbot.modules.sql_helper.qaleriya_sql as QALERIYA_SQL
-from pySmartDL import SmartDL
 from telethon.tl import functions
 
 from random import choice
 import chromedriver_autoinstaller
-from json import loads, JSONDecodeError
 import re
 import userbot.cmdhelp
 
@@ -60,10 +57,10 @@ ALIVE_MESAJLAR = [
     "`Sən bu dəqiqə dunyanın ən panyatkalı UserBotunu işlədirsən.`",
     "`Hay can!` `Məni çağırdın⁉️ Arada imkan ver zoğallı çayımı içim.`",
     "`Hokus Pokus 🔮! Narahat olma buralardayam. Nəsə olsa Fədai gilin PS4 oturmuşam.`",
-    "`Mənə zəng eləmişdin ❓ Çayçıdayam oturmuşam birazdan gələcəm`"
-]
+    "`Mənə zəng eləmişdin ❓ Çayçıdayam oturmuşam birazdan gələcəm`"]
 
-UNAPPROVED_MSG = ("__Salam__ {mention} __, necəsən?__\n"
+UNAPPROVED_MSG = (
+    "__Salam__ {mention} __, necəsən?__\n"
     "__Mən__ [N Σ O N](t.me/NeonUserBot) __UserBotam__ 🙃\n"
     "__Sahibim hal-hazırda burada deyil.__\n"
     "__Mən bildiyim qədəri ilə 🙄 o çox vaxt PM-ləri qəbul edir və mənim sahibim sənə PM atma icazəsi verməyib__ 🤔\n"
@@ -83,9 +80,10 @@ for i in ALL_ROWS:
     BRAIN_CHECKER.append(i[0])
 connect("learning-data-root.check").close()
 
+
 def extractCommands(file):
     FileRead = open(file, 'r').read()
-    
+
     if '/' in file:
         file = file.split('/')[-1]
 
@@ -103,7 +101,7 @@ def extractCommands(file):
             Command = Command[1]
             if Command == '' or len(Command) <= 1:
                 continue
-            Komut = re.findall("(^.*[a-zA-Z0-9şğüöçı]\w)", Command)
+            Komut = re.findall("(^.*[a-zA-Z0-9şğüöçı]\\w)", Command)
             if (len(Komut) >= 1) and (not Komut[0] == ''):
                 Komut = Komut[0]
                 if Komut[0] == '^':
@@ -122,14 +120,14 @@ def extractCommands(file):
 
             # Neon
             Neonpy = re.search('\"\"\"NeonPY(.*)\"\"\"', FileRead, re.DOTALL)
-            if not Neonpy == None:
+            if Neonpy is not None:
                 Neonpy = Neonpy.group(0)
                 for Satir in Neonpy.splitlines():
-                    if (not '"""' in Satir) and (':' in Satir):
+                    if ('"""' not in Satir) and (':' in Satir):
                         Satir = Satir.split(':')
                         Isim = Satir[0]
                         Deger = Satir[1][1:]
-                                
+
                         if Isim == 'INFO':
                             CmdHelp.add_info(Deger)
                         elif Isim == 'WARN':
@@ -138,34 +136,58 @@ def extractCommands(file):
                             CmdHelp.set_file_info(Isim, Deger)
             for Komut in Komutlar:
                 # if re.search('\[(\w*)\]', Komut):
-                    # Komut = re.sub('(?<=\[.)[A-Za-z0-9_]*\]', '', Komut).replace('[', '')
-                CmdHelp.add_command(Komut, None, 'Bu plugin xaricden yüklenmişdir. Her hansı bir açıqlama yoxdur.')
+                # Komut = re.sub('(?<=\[.)[A-Za-z0-9_]*\]', '', Komut).replace('[', '')
+                CmdHelp.add_command(
+                    Komut, None, 'Bu plugin xaricden yüklenmişdir. Her hansı bir açıqlama yoxdur.')
             CmdHelp.add()
+
 
 try:
     bot.start()
     idim = bot.get_me().id
-    neonbl = requests.get('https://raw.githubusercontent.com/nusrte/NeonUserBot/main/neonblacklist.json').json()
+    neonbl = requests.get(
+        'https://raw.githubusercontent.com/nusrte/NeonUserBot/main/neonblacklist.json').json()
     if idim in neonbl:
         bot.disconnect()
 
     # ChromeDriver'ı Ayarlayaq #
     try:
         chromedriver_autoinstaller.install()
-    except:
+    except BaseException:
         pass
-    
+
     # Qaleriya üçün deyerler
     QALERIYA = {}
 
     # PLUGIN MESAJLARINI AYARLAYAQ
     PLUGIN_MESAJLAR = {}
-    ORJ_PLUGIN_MESAJLAR = {"alive": f"{str(choice(ALIVE_MESAJLAR))}", "afk": f"{str(choice(AFKSTR))}", "kickme": "Bura sıxıcı oldu sağolun getdim🌚", "pm": UNAPPROVED_MSG, "dızcı": str(choice(DIZCILIK_STR)), "ban": "{mention}`, banlandı!`", "mute": "{mention}`, səssizləşdirildi!`", "approve": "{mention}`, mənə mesaj yazmağın üçün icazə verildi", "disapprove": "{mention}`, artıq mənə yaza bilməssən!`", "block": "{mention}`Bloklandın!🥰"}
+    ORJ_PLUGIN_MESAJLAR = {
+        "alive": f"{str(choice(ALIVE_MESAJLAR))}",
+        "afk": f"{str(choice(AFKSTR))}",
+        "kickme": "Bura sıxıcı oldu sağolun getdim🌚",
+        "pm": UNAPPROVED_MSG,
+        "dızcı": str(
+            choice(DIZCILIK_STR)),
+        "ban": "{mention}`, banlandı!`",
+        "mute": "{mention}`, səssizləşdirildi!`",
+        "approve": "{mention}`, mənə mesaj yazmağın üçün icazə verildi",
+        "disapprove": "{mention}`, artıq mənə yaza bilməssən!`",
+        "block": "{mention}`Bloklandın!🥰"}
 
-    PLUGIN_MESAJLAR_TURLER = ["alive", "afk", "kickme", "pm", "dızcı", "ban", "mute", "approve", "disapprove", "block"]
+    PLUGIN_MESAJLAR_TURLER = [
+        "alive",
+        "afk",
+        "kickme",
+        "pm",
+        "dızcı",
+        "ban",
+        "mute",
+        "approve",
+        "disapprove",
+        "block"]
     for mesaj in PLUGIN_MESAJLAR_TURLER:
         dmsj = MSJ_SQL.getir_mesaj(mesaj)
-        if dmsj == False:
+        if not dmsj:
             PLUGIN_MESAJLAR[mesaj] = ORJ_PLUGIN_MESAJLAR[mesaj]
         else:
             if dmsj.startswith("MEDYA_"):
@@ -175,16 +197,17 @@ try:
                 PLUGIN_MESAJLAR[mesaj] = medya
             else:
                 PLUGIN_MESAJLAR[mesaj] = dmsj
-    if not PLUGIN_CHANNEL_ID == None:
+    if PLUGIN_CHANNEL_ID is not None:
         LOGS.info("Pluginler Yüklenir...")
         try:
             KanalId = bot.get_entity(PLUGIN_CHANNEL_ID)
-        except:
+        except BaseException:
             KanalId = "me"
 
-        for plugin in bot.iter_messages(KanalId, filter=InputMessagesFilterDocument):
+        for plugin in bot.iter_messages(
+                KanalId, filter=InputMessagesFilterDocument):
             if plugin.file.name and (len(plugin.file.name.split('.')) > 1) \
-                and plugin.file.name.split('.')[-1] == 'py':
+                    and plugin.file.name.split('.')[-1] == 'py':
                 Split = plugin.file.name.split('.')
 
                 if not os.path.exists("./userbot/modules/" + plugin.file.name):
@@ -193,19 +216,21 @@ try:
                     LOGS.info("Bu Plugin Onsuzda Yüklənib " + plugin.file.name)
                     extractCommands('./userbot/modules/' + plugin.file.name)
                     dosya = plugin.file.name
-                    continue 
-                
+                    continue
+
                 try:
-                    spec = importlib.util.spec_from_file_location("userbot.modules." + Split[0], dosya)
+                    spec = importlib.util.spec_from_file_location(
+                        "userbot.modules." + Split[0], dosya)
                     mod = importlib.util.module_from_spec(spec)
 
                     spec.loader.exec_module(mod)
                 except Exception as e:
-                    LOGS.info(f"`Yükləmə Uğursuz! Plugin xətalıdır.\n\nHata: {e}`")
+                    LOGS.info(
+                        f"`Yükləmə Uğursuz! Plugin xətalıdır.\n\nHata: {e}`")
 
                     try:
                         plugin.delete()
-                    except:
+                    except BaseException:
                         pass
 
                     if os.path.exists("./userbot/modules/" + plugin.file.name):
@@ -213,24 +238,27 @@ try:
                     continue
                 extractCommands('./userbot/modules/' + plugin.file.name)
     else:
-        bot.send_message("me", f"`Zehmet olmasa pluginlerin qalıcı olması üçün PLUGIN_CHANNEL_ID'i ayarlayın.`")
+        bot.send_message(
+            "me",
+            f"`Zehmet olmasa pluginlerin qalıcı olması üçün PLUGIN_CHANNEL_ID'i ayarlayın.`")
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     exit(1)
 
-async def FotoDegistir (foto):
+
+async def FotoDegistir(foto):
     FOTOURL = QALERIYA_SQL.TUM_QALERIYA[foto].foto
     r = requests.get(FOTOURL)
 
     with open(str(foto) + ".jpg", 'wb') as f:
-        f.write(r.content)    
+        f.write(r.content)
     file = await bot.upload_file(str(foto) + ".jpg")
     try:
         await bot(functions.photos.UploadProfilePhotoRequest(
             file
         ))
         return True
-    except:
+    except BaseException:
         return False
 
 for module_name in ALL_MODULES:

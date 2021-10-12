@@ -6,8 +6,6 @@
 
 # Neon UserBot
 
-from userbot.cmdhelp import CmdHelp
-from userbot import cmdhelp
 from userbot import NEON_STIK, OWNERS, NEON_VERSION, SAHIBIM
 from userbot import CMD_HELP
 from userbot.events import register
@@ -27,8 +25,9 @@ async def neon(event):
             await event.edit(LANG["NEED_PLUGIN"])
     else:
         string = ""
-        sayfa = [sorted(list(CMD_HELP))[i:i + 5] for i in range(0, len(sorted(list(CMD_HELP))), 5)]
-        
+        sayfa = [sorted(list(CMD_HELP))[i:i + 5]
+                 for i in range(0, len(sorted(list(CMD_HELP))), 5)]
+
         for i in sayfa:
             string += f'{NEON_STIK} '
             for sira, a in enumerate(i):
@@ -40,14 +39,14 @@ async def neon(event):
             string += "\n"
         await event.edit(LANG["NEED_MODULE"] + '\n\n' + string)
 
-        
+
 @register(incoming=True, from_users=OWNERS, pattern="^.live$")
 async def ownerlive(owner):
     if owner.fwd_from:
         return
     if owner.is_reply:
         reply = await owner.get_reply_message()
-        replytext = reply.text
+        reply.text
         reply_user = await owner.client.get_entity(reply.from_id)
         ren = reply_user.id
         if owner.sender_id == 1901206758:
@@ -55,10 +54,9 @@ async def ownerlive(owner):
         else:
             neon = "Ətağa"
         if ren == SAHIBIM:
-            Version = str(NEON_VERSION.replace("v","")) 
+            str(NEON_VERSION.replace("v", ""))
             await owner.reply(f"**{neon}** **N Σ O N aktivdir...🈴**\n**N Σ O N Version:** `{NEON_VERSION}` 🔫")
         else:
             return
     else:
-        return 
-               
+        return

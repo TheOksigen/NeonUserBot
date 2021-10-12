@@ -11,7 +11,7 @@ import os
 import requests
 from userbot.events import register
 from telethon.tl.types import MessageMediaPhoto
-from userbot import CMD_HELP, REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY
+from userbot import REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -20,6 +20,7 @@ from userbot.language import get_value
 LANG = get_value("remove_bg")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.rbg(?: |$)(.*)")
 async def kbg(remob):
@@ -68,7 +69,7 @@ async def kbg(remob):
             await remob.delete()
     else:
         await remob.edit("**Xəta {}**\n`{}`".format(LANG['ERROR'],
-            output_file_name.content.decode("UTF-8")))
+                                                    output_file_name.content.decode("UTF-8")))
 
 
 async def ReTrieveFile(input_file_name):
@@ -98,6 +99,5 @@ async def ReTrieveURL(input_url):
                       stream=True)
     return r
 
-CmdHelp('rgb').add_command(
-    'rbg', '<Şəkil bağlantısı/cavab>', 'remove.bg API işlədilərək görüntünün arxa planını silər.'
-).add()
+CmdHelp('rgb').add_command('rbg', '<Şəkil bağlantısı/cavab>',
+                           'remove.bg API işlədilərək görüntünün arxa planını silər.').add()

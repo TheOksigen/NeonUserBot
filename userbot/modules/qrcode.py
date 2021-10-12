@@ -12,7 +12,6 @@ import barcode
 from barcode.writer import ImageWriter
 from urllib3 import PoolManager
 from bs4 import BeautifulSoup
-from userbot import CMD_HELP
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -22,6 +21,7 @@ from userbot.language import get_value
 LANG = get_value("qrcode")
 
 # ████████████████████████████████ #
+
 
 @register(pattern=r"^.decode$", outgoing=True)
 async def parseqr(qr_e):
@@ -37,7 +37,7 @@ async def parseqr(qr_e):
             'POST', "https://zxing.org/w/decode", fields=files)
         t_response = t_response.data
         http.clear()
-    except:
+    except BaseException:
         pass
 
     os.remove(downloaded_file_name)
@@ -132,9 +132,14 @@ async def make_qr(makeqr):
     await makeqr.delete()
 
 CmdHelp('qrcode').add_command(
-    'barcode', '<mətn>', 'Verilən mətndən bir barkod edin.', 'barcode www.google.com'
-).add_command(
-    'decode', '<cavab>', 'Barkod vəya QRCode həll etmək üçün.'
-).add_command(
-    'makeqr', '<cavab>', 'Verilən məzmundan bir QR kodu edin.', 'makeqr www.google.com'
-).add()
+    'barcode',
+    '<mətn>',
+    'Verilən mətndən bir barkod edin.',
+    'barcode www.google.com').add_command(
+        'decode',
+        '<cavab>',
+        'Barkod vəya QRCode həll etmək üçün.').add_command(
+            'makeqr',
+            '<cavab>',
+            'Verilən məzmundan bir QR kodu edin.',
+    'makeqr www.google.com').add()

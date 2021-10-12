@@ -19,7 +19,7 @@ from telethon.tl.functions.account import UpdateProfileRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.errors.rpcerrorlist import FloodWaitError
 
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, DEFAULT_BIO, BIO_PREFIX, lastfm, LASTFM_USERNAME, bot
+from userbot import BIO_PREFIX, BOTLOG, BOTLOG_CHATID, DEFAULT_BIO, LASTFM_USERNAME, bot, lastfm
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -68,7 +68,6 @@ async def last_fm(lastFM):
                          lastfm).get_now_playing().get_cover_image()
         except IndexError:
             image = None
-            pass
         tags = await gettags(isNowPlaying=True, playing=playing)
         rectrack = parse.quote_plus(f"{playing}")
         rectrack = sub("^", "https://www.youtube.com/results?search_query=",

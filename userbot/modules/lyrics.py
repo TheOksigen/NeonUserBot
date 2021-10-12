@@ -12,7 +12,7 @@ import lyricsgenius
 import asyncio
 
 from userbot.events import register
-from userbot import CMD_HELP, GENIUS
+from userbot import GENIUS
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -21,6 +21,7 @@ from userbot.language import get_value
 LANG = get_value("lyrics")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.lyrics(?: |$)(.*)")
 async def lyrics(lyric):
@@ -40,7 +41,7 @@ async def lyrics(lyric):
             args = lyric.text.split('.lyrics')[1].split('-')
             artist = args[0].strip(' ')
             song = args[1].strip(' ')
-        except:
+        except BaseException:
             await lyric.edit(LANG['GIVE_INFO'])
             return
 
@@ -72,6 +73,7 @@ async def lyrics(lyric):
         await lyric.edit(f"{LANG['LYRICS']} \n`{artist} - {song}`\n\n```{songs.lyrics}```")
     return
 
+
 @register(outgoing=True, pattern="^.singer(?: |$)(.*)")
 async def singer(lyric):
     if r"-" in lyric.text:
@@ -90,7 +92,7 @@ async def singer(lyric):
             args = lyric.text.split('.singer')[1].split('-')
             artist = args[0].strip(' ')
             song = args[1].strip(' ')
-        except:
+        except BaseException:
             await lyric.edit(LANG['GIVE_INFO'])
             return
 
@@ -119,16 +121,17 @@ async def singer(lyric):
                 await lyric.edit(split[i])
                 await asyncio.sleep(2)
             i += 1
-        except:
+        except BaseException:
             i += 1
     await lyric.edit(LANG['SINGER_ENDED'])
 
     return
 
-            
 
-CmdHelp('lyrics').add_command(
-    'lyrics', ' <sənətçi adı> - <musiqi adı>', 'Musiqinin Sözlərini Gətirər', 'lyrics System Of a Down - Scince'
-).add_command(
-    'singer', ' <sənətçi adı> - <musiqi adı>', 'Musiqi Oxuyar.', 'singer System Of a Down - Scince'
-).add()
+CmdHelp('lyrics').add_command('lyrics',
+                              ' <sənətçi adı> - <musiqi adı>',
+                              'Musiqinin Sözlərini Gətirər',
+                              'lyrics System Of a Down - Scince').add_command('singer',
+                                                                              ' <sənətçi adı> - <musiqi adı>',
+                                                                              'Musiqi Oxuyar.',
+                                                                              'singer System Of a Down - Scince').add()

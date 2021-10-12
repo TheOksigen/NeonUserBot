@@ -13,8 +13,7 @@ import textwrap
 
 from PIL import Image, ImageChops, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
-from userbot.events import register 
-from userbot import CMD_HELP, bot
+from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -24,11 +23,12 @@ LANG = get_value("rgb")
 
 # ████████████████████████████████
 
+
 @register(outgoing=True, pattern="^.rgb(?: |$)(.*)")
 async def sticklet(event):
-    R = random.randint(0,256)
-    G = random.randint(0,256)
-    B = random.randint(0,256)
+    R = random.randint(0, 256)
+    G = random.randint(0, 256)
+    B = random.randint(0, 256)
 
     # Giriş metnini al
     sticktext = event.pattern_match.group(1).strip()
@@ -58,13 +58,21 @@ async def sticklet(event):
         font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
     width, height = draw.multiline_textsize(sticktext, font=font)
-    draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
+    draw.multiline_text(
+        ((512 - width) / 2,
+         (512 - height) / 2),
+        sticktext,
+        font=font,
+        fill=(
+            R,
+            G,
+            B))
 
     image_stream = io.BytesIO()
     image_stream.name = "@resim.webp"
 
     def trim(im):
-        bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
+        bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
         diff = ImageChops.difference(im, bg)
         diff = ImageChops.add(diff, diff, 2.0, -100)
         bbox = diff.getbbox()
@@ -81,7 +89,7 @@ async def sticklet(event):
     # Temizlik
     try:
         os.remove(FONT_FILE)
-    except:
+    except BaseException:
         pass
 
 

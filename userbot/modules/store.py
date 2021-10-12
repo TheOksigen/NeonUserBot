@@ -1,11 +1,10 @@
-#Neon User Bot
-
+# Neon User Bot
 
 
 import os
 from telethon.tl.types import InputMessagesFilterDocument
 from userbot.events import register
-from userbot import BOT_USERNAME, PATTERNS, CMD_HELP, PLUGIN_CHANNEL_ID
+from userbot import CMD_HELP, PATTERNS, PLUGIN_CHANNEL_ID
 import userbot.cmdhelp
 from random import choice, sample
 import importlib
@@ -20,6 +19,8 @@ LANG = get_value("__plugin")
 # ████████████████████████████████ #
 
 # Plugin Mağazası
+
+
 @register(outgoing=True, pattern="^.store ?(.*)")
 @register(outgoing=True, pattern="^.ma[gğ]aza ?(.*)")
 async def magaza(event):
@@ -40,7 +41,7 @@ async def magaza(event):
         random_file = random.file.name
 
     result = f'**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n**🔎 Axtarış:** `{plugin}`\n**🔢 Nəticələr: __({len(plugins)})__**\n➖➖➖➖➖\n\n'
-    
+
     if len(plugins) == 0:
         result += f'**Heçnə tapa bilmədim...**\n`{random_file}` __plugini necədi? 🤔__'
     else:
@@ -55,21 +56,23 @@ async def magaza(event):
     return await event.edit(result)
 
 # Plugin Mağazası
+
+
 @register(outgoing=True, pattern="^.sy[üu]kle ?(.*)")
 @register(outgoing=True, pattern="^.sinstall ?(.*)")
 async def sinstall(event):
     plugin = event.pattern_match.group(1)
     try:
         plugin = int(plugin)
-    except:
+    except BaseException:
         return await event.edit('**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n**⚠️ Xəta:** `Zəhmət olmasa sadəcə rəqəm yazın. Əgər plugin axtarmaq istəyirsinizsə .store komandasını işlədin.`')
-    
+
     await event.edit('**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n`🔎 Plugin\'i gətirirəm... Biraz gözlə.`')
     plugin = await event.client.get_messages('@neonplugin', ids=plugin)
     await event.edit(f'**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n`✅ {plugin.file.name} plugini gətirildi!`\n`⬇️ Plugini yükləyirəm... Biraz gözləyin.`')
     dosya = await plugin.download_media('./userbot/modules/')
     await event.edit(f'**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n`✅ {plugin.file.name} yükləmə uğurludur!`\n`⬇️ Plugini yükləyirəm... Biraz gözləyin.`')
-    
+
     try:
         spec = importlib.util.spec_from_file_location(dosya, dosya)
         mod = importlib.util.module_from_spec(spec)
@@ -92,14 +95,16 @@ async def sinstall(event):
     else:
         Pattern = re.findall(r"@register\(.*pattern=(r|)\"(.*)\".*\)", dosy)
 
-        if (not type(Pattern) == list) or (len(Pattern) < 1 or len(Pattern[0]) < 1):
+        if (not isinstance(Pattern, list)) or (
+                len(Pattern) < 1 or len(Pattern[0]) < 1):
             if re.search(r'CmdHelp\(.*\)', dosy):
                 cmdhelp = re.findall(r"CmdHelp\([\"'](.*)[\"']\)", dosy)[0]
                 await plugin.forward_to(PLUGIN_CHANNEL_ID)
                 return await event.edit(f'**Modul uğurla yükləndi!**\n__Modul haqqında məlumat üçün__ `.neon {cmdhelp}` __yazın.__')
             else:
                 await plugin.forward_to(PLUGIN_CHANNEL_ID)
-                userbot.cmdhelp.CmdHelp(dosya).add_warning('Komanda tapıla bilmədi!').add()
+                userbot.cmdhelp.CmdHelp(dosya).add_warning(
+                    'Komanda tapıla bilmədi!').add()
                 return await event.edit(LANG['PLUGIN_DESCLESS'])
         else:
             if re.search(r'CmdHelp\(.*\)', dosy):
@@ -113,9 +118,13 @@ async def sinstall(event):
                 return await event.edit(f'**[N Σ O N Plugin Mağazası](https://t.me/neonplugin)**\n__Versiyon 1.0__\n\n**✅ Modul uğurla yükləndi!**\n__ℹ️ Modul haqqında məlumat üçün__ `.neon {dosyaAdi}` __yazın.__')
 
 userbot.cmdhelp.CmdHelp('store').add_command(
-    'store', '<söz>', 'Plugin kanalına atılan son pluginləri gətirər. Əgər söz yazsanız plugin kanalında axtarış edər.'
-).add_command(
-    'store random', '<rəqəm>', 'Pluginden kanalından random plugin gətirər.', 'store random 10'
-).add_command(
-    'sinstall', '<rəqəm>', 'Plugin kanalından plugin yükləyər.'
-).add()
+    'store',
+    '<söz>',
+    'Plugin kanalına atılan son pluginləri gətirər. Əgər söz yazsanız plugin kanalında axtarış edər.').add_command(
+        'store random',
+        '<rəqəm>',
+        'Pluginden kanalından random plugin gətirər.',
+        'store random 10').add_command(
+            'sinstall',
+            '<rəqəm>',
+    'Plugin kanalından plugin yükləyər.').add()

@@ -17,7 +17,7 @@ from telethon.tl.functions.photos import (DeletePhotosRequest,
                                           GetUserPhotosRequest,
                                           UploadProfilePhotoRequest)
 from telethon.tl.types import InputPhoto, MessageMediaPhoto, User, Chat, Channel
-from userbot import bot, CMD_HELP
+from userbot import bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -173,17 +173,24 @@ async def remove_profilepic(delpfp):
         LANG['DELPFP'] % len(input_photos))
 
 CmdHelp('profile').add_command(
-    'username', '<yeni istifadəçi adı>', 'Telegram\'dakı istifadəçi adınızı dəyişdirir.'
-).add_command(
-    'name', '<ad> or .name <ad> <soyad>', 'Telegram\'dakı adınızı dəyişdirir. (Ad və soyad ilk boşluğa dayanaraq birləşdirilir.)'
-).add_command(
-    'setpfp', None, 'Bir fotonu Telegram\'da profil foto etmək üçün .setpfp əmriylə cavab verin.'
-).add_command(
-    'setbio', '<yeni biyoqrafi>', 'Telegram\'dakı biyoqrafinizi bu əmri işlədərək dəyişdirin.'
-).add_command(
-    'delpfp', '<rəqəm/all>', 'Telegram profil fotosunu silər.'
-).add_command(
-    'reserved', None, 'Rezerve etdiyiniz istifadəçi adlarını göstərər.'
-).add_command(
-    'count', None, 'Qruplarınızı, söhbətlərinizi, aktiv botları vs. sayar.'
-).add()
+    'username',
+    '<yeni istifadəçi adı>',
+    'Telegram\'dakı istifadəçi adınızı dəyişdirir.').add_command(
+        'name',
+        '<ad> or .name <ad> <soyad>',
+        'Telegram\'dakı adınızı dəyişdirir. (Ad və soyad ilk boşluğa dayanaraq birləşdirilir.)').add_command(
+            'setpfp',
+            None,
+            'Bir fotonu Telegram\'da profil foto etmək üçün .setpfp əmriylə cavab verin.').add_command(
+                'setbio',
+                '<yeni biyoqrafi>',
+                'Telegram\'dakı biyoqrafinizi bu əmri işlədərək dəyişdirin.').add_command(
+                    'delpfp',
+                    '<rəqəm/all>',
+                    'Telegram profil fotosunu silər.').add_command(
+                        'reserved',
+                        None,
+                        'Rezerve etdiyiniz istifadəçi adlarını göstərər.').add_command(
+                            'count',
+                            None,
+    'Qruplarınızı, söhbətlərinizi, aktiv botları vs. sayar.').add()

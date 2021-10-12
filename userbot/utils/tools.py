@@ -8,7 +8,8 @@ from typing import Optional, Tuple
 from userbot import bot, LOGS
 
 from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, DocumentAttributeFilename
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
+
 
 async def md5(fname: str) -> str:
     hash_md5 = hashlib.md5()
@@ -119,5 +120,3 @@ async def edit_delete(event, text, time=None, parse_mode=None, link_preview=None
         )
     await asyncio.sleep(time)
     return await newevent.delete()
-
-

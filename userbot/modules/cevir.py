@@ -1,6 +1,5 @@
-#Neon UserBot
+# Neon UserBot
 
-from userbot import CMD_HELP
 from userbot.events import register
 from PIL import Image
 import io
@@ -15,6 +14,7 @@ LANG = get_value("cevir")
 
 # ████████████████████████████████ #
 
+
 @register(outgoing=True, pattern="^.çevir ?(foto|ses|gif|ses)? ?(.*)")
 @register(outgoing=True, pattern="^.cevir ?(foto|ses|gif|ses)? ?(.*)")
 @register(outgoing=True, pattern="^.convt ?(gif|voice|photo|sound)? ?(.*)")
@@ -24,7 +24,7 @@ async def cevir(event):
         if len(islem) < 1:
             await event.edit(LANG['INVALID_COMMAND'])
             return
-    except:
+    except BaseException:
         await event.edit(LANG['INVALID_COMMAND'])
         return
 
@@ -44,10 +44,17 @@ async def cevir(event):
 
         await event.delete()
         os.remove("sticker.png")
-    elif islem in ("ses", "voice"): # -filter_complex "areverse" #
+    elif islem in ("ses", "voice"):  # -filter_complex "areverse" #
         EFEKTLER = ["ters", "donma", "robot", "earrape", "parazit"]
         # https://www.vacing.com/ffmpeg_audio_filters/index.html #
-        KOMUT = {"ters": ' -filter_complex "areverse"', "donma": ' -filter_complex "deesser=i=1:s=e[a];[a]aeval=val(ch)*10:c=same"', "robot": '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"', "earrape": '-filter_complex "acrusher=level_in=8:level_out=18:bits=8:mode=log:aa=1"', "suretli": "-filter_complex \"rubberband=tempo=1.5\"", "parazit": '-filter_complex "afftfilt=real=\'hypot(re,im)*cos((random(0)*2-1)*2*3.14)\':imag=\'hypot(re,im)*sin((random(1)*2-1)*2*3.14)\':win_size=128:overlap=0.8"', "yangi": "-filter_complex \"aecho=0.8:0.9:500|1000:0.2|0.1\""}
+        KOMUT = {
+            "ters": ' -filter_complex "areverse"',
+            "donma": ' -filter_complex "deesser=i=1:s=e[a];[a]aeval=val(ch)*10:c=same"',
+            "robot": '-filter_complex "afftfilt=real=\'hypot(re,im)*sin(0)\':imag=\'hypot(re,im)*cos(0)\':win_size=512:overlap=0.75"',
+            "earrape": '-filter_complex "acrusher=level_in=8:level_out=18:bits=8:mode=log:aa=1"',
+            "suretli": "-filter_complex \"rubberband=tempo=1.5\"",
+            "parazit": '-filter_complex "afftfilt=real=\'hypot(re,im)*cos((random(0)*2-1)*2*3.14)\':imag=\'hypot(re,im)*sin((random(1)*2-1)*2*3.14)\':win_size=128:overlap=0.8"',
+            "yangi": "-filter_complex \"aecho=0.8:0.9:500|1000:0.2|0.1\""}
         efekt = event.pattern_match.group(2)
 
         if len(efekt) < 1:
@@ -66,7 +73,7 @@ async def cevir(event):
             ses = await asyncio.create_subprocess_shell(f"ffmpeg -i '{indir}' {KOMUT[efekt]} output.mp3")
             await ses.communicate()
             await event.client.send_file(event.chat_id, "output.mp3", reply_to=rep_msg, caption="@NeonUserBot `ilə effekt tətbiq edildi.`")
-            
+
             await event.delete()
             os.remove(indir)
             os.remove("output.mp3")
@@ -75,7 +82,8 @@ async def cevir(event):
     elif islem == "gif":
         rep_msg = await event.get_reply_message()
 
-        if not event.is_reply or (not rep_msg.video) and (not rep_msg.document.mime_type == 'application/x-tgsticker'):
+        if not event.is_reply or (not rep_msg.video) and (
+                not rep_msg.document.mime_type == 'application/x-tgsticker'):
             await event.edit(LANG['NEED_VIDEO'])
             return
 
@@ -91,8 +99,8 @@ async def cevir(event):
         await event.edit(f"`{LANG['UPLOADING_GIF']}`")
 
         try:
-            await event.client.send_file(event.chat_id, "out.gif",reply_to=rep_msg, caption=LANG['WITH_NEON_GIF'])
-        except:
+            await event.client.send_file(event.chat_id, "out.gif", reply_to=rep_msg, caption=LANG['WITH_NEON_GIF'])
+        except BaseException:
             await event.edit(LANG['ERROR'])
             await event.delete()
             os.remove("out.gif")
@@ -113,8 +121,8 @@ async def cevir(event):
         await gif.communicate()
         await event.edit(LANG['UPLOADING_SOUND'])
         try:
-            await event.client.send_file(event.chat_id, "out.mp3",reply_to=rep_msg, caption=LANG['WITH_NEON_SOUND'])
-        except:
+            await event.client.send_file(event.chat_id, "out.mp3", reply_to=rep_msg, caption=LANG['WITH_NEON_SOUND'])
+        except BaseException:
             await event.edit(LANG['ERROR'])
             await event.delete()
             os.remove("out.mp3")

@@ -7,29 +7,28 @@
 # Neon User Bot
 
 
+from userbot.language import get_value
 from userbot.events import register
-from userbot import CMD_HELP
 from userbot import LYDIA_API_KEY
-import coffeehouse as cf
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 import asyncio
 import logging
 from userbot.cmdhelp import CmdHelp
 
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
+logging.basicConfig(
+    format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+    level=logging.WARNING)
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
-from userbot.language import get_value
 LANG = get_value("lydia")
 
 # ████████████████████████████████ #
 
 try:
-    from userbot.modules.sql_helper.lydia_sql import get_s, get_all_s, add_s, remove_s
-except:
+    pass
+except BaseException:
     logging.log(level=logging.WARNING,
                 msg="Lydia verilənlər bazası bağlantısı uğursuz oldu")
 
@@ -56,6 +55,7 @@ async def repcf(event):
     except Exception as e:
         await event.edit(str(e))
 
+
 @register(outgoing=True, pattern="^.addcf$")
 async def addcf(event):
     if event.fwd_from:
@@ -66,13 +66,14 @@ async def addcf(event):
     reply_msg = await event.get_reply_message()
     if reply_msg:
         session = lydia.create_session()
-        session_id = session.id
+        session.id
         if reply_msg.from_id is None:
             return await event.edit(LANG['REPLY_USER_ERR'])
         ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
         await event.edit(LANG['LYDIA_ACTIVATED'].format(str(reply_msg.from_id), str(event.chat_id)))
     else:
         await event.edit(LANG['REPLY_FOR_ACTIVATE'])
+
 
 @register(outgoing=True, pattern="^.remcf$")
 async def remcf(event):
@@ -91,7 +92,7 @@ async def remcf(event):
 
 @register(incoming=True, disable_edited=True)
 async def user(event):
-    user_text = event.text
+    event.text
     try:
         session = ACC_LYDIA[event.chat_id & event.from_id]
         msg = event.text
@@ -106,9 +107,12 @@ async def user(event):
         return
 
 CmdHelp('lydia').add_command(
-    'addcf', '<isdifadəçi adı/cavablayaraq>', 'Lydia\'nın avtomatik söhbətini aktivləşdirər.'
-).add_command(
-    'remcf', '<isdifadəçi adı/cavablayaraq>', 'Lydia\'nın avtomatik söhbətini deaktivləşdirər.'
-).add_command(
-    'repcf', '<isdifadəçi adı/cavablayaraq>', 'Lydia\'nın avtomatik söhbətini müəyyən bir isdifadəçi üçün aktivləşdirər.'
-).add()
+    'addcf',
+    '<isdifadəçi adı/cavablayaraq>',
+    'Lydia\'nın avtomatik söhbətini aktivləşdirər.').add_command(
+        'remcf',
+        '<isdifadəçi adı/cavablayaraq>',
+        'Lydia\'nın avtomatik söhbətini deaktivləşdirər.').add_command(
+            'repcf',
+            '<isdifadəçi adı/cavablayaraq>',
+    'Lydia\'nın avtomatik söhbətini müəyyən bir isdifadəçi üçün aktivləşdirər.').add()

@@ -1,4 +1,4 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the GPL-3.0 License;
 # you may not use this file except in compliance with the License.
@@ -6,7 +6,8 @@
 
 # Neon UserBot
 
-from userbot import CMD_HELP, ASYNC_POOL, tgbot, SPOTIFY_DC, G_DRIVE_CLIENT_ID, lastfm, LYDIA_API_KEY, YOUTUBE_API_KEY, OPEN_WEATHER_MAP_APPID, AVTO_PP, REM_BG_API_KEY, OCR_SPACE_API_KEY, PM_AUTO_BAN, BOTLOG_CHATID, NEON_VERSION
+import asyncio
+from userbot import AVTO_PP, BOTLOG_CHATID, CMD_HELP, G_DRIVE_CLIENT_ID, LYDIA_API_KEY, NEON_VERSION, OCR_SPACE_API_KEY, OPEN_WEATHER_MAP_APPID, PM_AUTO_BAN, REM_BG_API_KEY, SPOTIFY_DC, YOUTUBE_API_KEY, lastfm, tgbot
 from userbot.events import register
 from telethon import version
 from platform import python_version
@@ -19,21 +20,23 @@ LANG = get_value("durum")
 
 # ████████████████████████████████ #
 
+
 def durum(s):
-    if s == None:
+    if s is None:
         return "❌"
     else:
-        if s == False:
+        if not s:
             return "❌"
         else:
             return "✅"
+
 
 @register(outgoing=True, pattern="^.durum|^.status")
 async def durums(event):
 
     await event.edit(f"""
 **Python {LANG['VERSION']}:** `{python_version()}`
-**TeleThon {LANG['VERSION']}:** `{version.__version__}` 
+**TeleThon {LANG['VERSION']}:** `{version.__version__}`
 **NEON {LANG['VERSION']}:** `{NEON_VERSION}`
 
 **{LANG['PLUGIN_COUNT']}:** `{len(CMD_HELP)}`
@@ -54,19 +57,14 @@ async def durums(event):
 
 **{LANG['OK']} ✅**
     """)
-# Esebj / credit : Asena 
+# Esebj / credit : Asena
 # NEON USERBOT
-
-
-from telethon.tl.functions.photos import GetUserPhotosRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-import asyncio
 
 
 if 1 == 1:
     name = "Profil Fotoğrafları"
     client = "userbot"
+
 
 @register(outgoing=True, pattern="^.pp(?: |$)(.*)", disable_errors=True)
 async def potocmd(event):
@@ -101,7 +99,7 @@ async def potocmd(event):
             if id <= 0:
                 await event.edit("**Zəhmət olmasa, birinə cavab verib işlədin modulu.**")
                 return
-        except:
+        except BaseException:
             await event.edit(f"**Zəhmət olmasa, birinə cavab verib işlədin modulu.**")
             return
         if int(id) <= (len(photos)):
@@ -114,7 +112,13 @@ async def potocmd(event):
 
 
 Help = CmdHelp('info')
-Help.add_command('durum və ya .status', None, 'Əlavə edilən Apiler və versiyaları göstərər.')
-Help.add_command('pp / .pp «rəqəm»','birinə yanıt verərək işlədin.','.pp yanıt - yanıt verdiyiniz insanın bütün profil şekillerini gətirər.\n.pp «hər hansı istifadəçiyə yanıt» «rəqəm» - yazdığınız rəqəm qədər profil şəkilləri gətirər.')
+Help.add_command(
+    'durum və ya .status',
+    None,
+    'Əlavə edilən Apiler və versiyaları göstərər.')
+Help.add_command(
+    'pp / .pp «rəqəm»',
+    'birinə yanıt verərək işlədin.',
+    '.pp yanıt - yanıt verdiyiniz insanın bütün profil şekillerini gətirər.\n.pp «hər hansı istifadəçiyə yanıt» «rəqəm» - yazdığınız rəqəm qədər profil şəkilləri gətirər.')
 Help.add_info('[N Σ O N](t.me/Neonuserbot) 🇦🇿')
 Help.add()

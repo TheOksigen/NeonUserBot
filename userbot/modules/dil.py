@@ -1,4 +1,4 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the  GPL-3.0 License;
 # you may not use this file except in compliance with the License.
@@ -7,12 +7,11 @@
 # NEON USER BOT #
 
 from userbot.cmdhelp import CmdHelp
-from userbot import PLUGIN_CHANNEL_ID, CMD_HELP
+from userbot import PLUGIN_CHANNEL_ID
 from userbot.events import register
 from re import search
 from json import loads, JSONDecodeError
-from userbot.language import LANGUAGE_JSON
-from os import remove
+
 
 @register(outgoing=True, pattern="^.dil ?(.*)")
 @register(outgoing=True, pattern="^.lang ?(.*)")
@@ -26,7 +25,8 @@ async def dil(event):
             reply = await event.get_reply_message()
             dosya = await reply.download_media()
 
-            if ((len(reply.file.name.split(".")) >= 2) and (not reply.file.name.split(".")[1] == "neonjson")):
+            if ((len(reply.file.name.split(".")) >= 2) and (
+                    not reply.file.name.split(".")[1] == "neonjson")):
                 return await event.edit("`Zəhmət olmasa keçərli` **NEONJSON** `faylı verin!`")
 
             try:
@@ -40,7 +40,7 @@ async def dil(event):
             dosya = await reply.download_media(file="./userbot/language/")
             dosya = loads(open(dosya, "r").read())
             await reply.forward_to(pchannel)
-            
+
             LANGUAGE_JSON = dosya
             await event.edit(f"✅ `{dosya['LANGUAGE']}` `dili uğurla yükləndi!`\n\n**Əməliyyatların keçərli olması üçün botu yenidən başladın!**")
         else:
@@ -49,7 +49,8 @@ async def dil(event):
         await event.edit("`Dil faylının məlumatları gətirilir... Zəhmət olmasa gözləyin.`")
         if event.is_reply:
             reply = await event.get_reply_message()
-            if ((len(reply.file.name.split(".")) >= 1) and (not reply.file.name.split(".")[1] == "neonjson")):
+            if ((len(reply.file.name.split(".")) >= 1) and (
+                    not reply.file.name.split(".")[1] == "neonjson")):
                 return await event.edit("`Zəhmət olmasa keçərli` **NEONJSON** `faylı verin!`")
 
             dosya = await reply.download_media()

@@ -1,5 +1,5 @@
 import threading
-from sqlalchemy import func, distinct, Column, String, UnicodeText
+from sqlalchemy import Column, UnicodeText
 try:
     from userbot.modules.sql_helper import SESSION, BASE
 except ImportError:
@@ -28,11 +28,12 @@ Mesajlar.__table__.create(checkfirst=True)
 
 KOMUT_INSERTION_LOCK = threading.RLock()
 
+
 def ekle_mesaj(komut, mesaj):
     with KOMUT_INSERTION_LOCK:
         try:
             SESSION.query(Mesajlar).filter(Mesajlar.komut == komut).delete()
-        except:
+        except BaseException:
             pass
 
         komut = Mesajlar(komut, mesaj)
@@ -44,9 +45,9 @@ def getir_mesaj(komu):
     try:
         MESAJ = SESSION.query(Mesajlar).filter(Mesajlar.komut == komu).first()
         return MESAJ.mesaj
-    except:
+    except BaseException:
         return False
-    
+
 
 def sil_mesaj(komu):
     try:

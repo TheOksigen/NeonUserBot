@@ -6,14 +6,15 @@
 
 # Neon User Bot #
 
-from os import remove, execle, path, environ 
+from userbot.language import get_value
+from os import remove, execle, path, environ
 import asyncio
 import sys
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from userbot import CMD_HELP, HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
+from userbot import HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -22,7 +23,6 @@ requirements_path = path.join(
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
-from userbot.language import get_value
 LANG = get_value("updater")
 
 # ████████████████████████████████ #

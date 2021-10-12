@@ -1,7 +1,7 @@
 # Neon User Bot
 
 import threading
-from sqlalchemy import func, distinct, Column, String, UnicodeText, Integer
+from sqlalchemy import Column, Integer
 try:
     from userbot.modules.sql_helper import SESSION, BASE
 except ImportError:
@@ -30,31 +30,35 @@ Warns.__table__.create(checkfirst=True)
 
 KOMUT_INSERTION_LOCK = threading.RLock()
 
+
 def ekle_warn(userid):
     with KOMUT_INSERTION_LOCK:
         try:
-            UYARI = SESSION.query(Warns).filter(Warns.user_id == userid).first()
+            UYARI = SESSION.query(Warns).filter(
+                Warns.user_id == userid).first()
             wsayi = int(UYARI.num_warn)
             SESSION.query(Warns).filter(Warns.user_id == userid).delete()
-        except:
-            wsayi =  0
+        except BaseException:
+            wsayi = 0
 
         wsayi += 1
         komut = Warns(userid, wsayi)
         SESSION.merge(komut)
         SESSION.commit()
 
+
 def getir_warn(userid):
     try:
         UYARI = SESSION.query(Warns).filter(Warns.user_id == userid).first()
         return UYARI.num_warn
-    except:
+    except BaseException:
         return 0
-    
+
 
 def sil_warn(userid):
     try:
-        wsayi = SESSION.query(Warns).filter(Warns.user_id == userid).first().num_warn
+        wsayi = SESSION.query(Warns).filter(
+            Warns.user_id == userid).first().num_warn
         if wsayi == 0:
             return False
         nsayi = wsayi - 1
@@ -64,15 +68,16 @@ def sil_warn(userid):
         SESSION.merge(uyari)
         SESSION.commit()
         return True
-    except:
+    except BaseException:
         return False
     return True
+
 
 def toplu_sil_warn(userid):
     try:
         uyari = Warns(userid, 0)
         SESSION.merge(uyari)
         SESSION.commit()
-    except:
+    except BaseException:
         return False
     return True

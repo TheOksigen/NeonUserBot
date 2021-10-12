@@ -1,19 +1,13 @@
-#Neon UserBot -- @TheOksigen
+# Neon UserBot -- @TheOksigen
 
-import codecs
 import heroku3
 import asyncio
-import aiohttp
 import math
-import os
-import ssl
 import requests
 
 from userbot import (
     HEROKU_APPNAME,
-    HEROKU_APIKEY,
-    BOTLOG,
-    BOTLOG_CHATID
+    HEROKU_APIKEY
 )
 
 from userbot.events import register
@@ -27,6 +21,7 @@ if HEROKU_APPNAME is not None and HEROKU_APIKEY is not None:
 else:
     app = None
 
+
 @register(outgoing=True, pattern=r"^.dyno(?: |$)")
 async def dyno_usage(dyno):
     await dyno.edit("`Gözləyiniz...`")
@@ -36,9 +31,9 @@ async def dyno_usage(dyno):
                  )
     u_id = Heroku.account().id
     headers = {
-     'User-Agent': useragent,
-     'Authorization': f'Bearer {HEROKU_APIKEY}',
-     'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
+        'User-Agent': useragent,
+        'Authorization': f'Bearer {HEROKU_APIKEY}',
+        'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
     }
     path = "/accounts/" + u_id + "/actions/get-quota"
     r = requests.get(heroku_api + path, headers=headers)
@@ -81,5 +76,8 @@ async def dyno_usage(dyno):
                            f"**|**  [`{percentage}` **%**]"
                            )
 
-c= CmdHelp('dyno')
-c.add_command("dyno",None,"İşlədilən yaxud qalan dyno saatını göstərər").add()
+c = CmdHelp('dyno')
+c.add_command(
+    "dyno",
+    None,
+    "İşlədilən yaxud qalan dyno saatını göstərər").add()

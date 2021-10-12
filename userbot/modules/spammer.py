@@ -10,9 +10,10 @@
 import asyncio
 import threading
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG, BOTLOG_CHATID
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
+
 
 @register(outgoing=True, pattern="^.tspam")
 async def tmeme(e):
@@ -24,11 +25,12 @@ async def tmeme(e):
         await e.respond(letter)
     await e.delete()
     if BOTLOG:
-            await e.client.send_message(
-                BOTLOG_CHATID,
-                "#TSPAM \n\n"
-                "TSpam uğurla gerçəkləşdi."
-                )
+        await e.client.send_message(
+            BOTLOG_CHATID,
+            "#TSPAM \n\n"
+            "TSpam uğurla gerçəkləşdi."
+        )
+
 
 @register(outgoing=True, pattern="^.spam")
 async def spammer(e):
@@ -44,8 +46,9 @@ async def spammer(e):
                 BOTLOG_CHATID,
                 "#SPAM \n\n"
                 "Spam uğurla gerçəkləşdi."
-                )
-                               
+            )
+
+
 @register(outgoing=True, pattern="^.bigspam")
 async def bigspam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -61,9 +64,9 @@ async def bigspam(e):
                 BOTLOG_CHATID,
                 "#BIGSPAM \n\n"
                 "Bigspam uğurl gerçəkləşdi."
-                )
-        
-        
+            )
+
+
 @register(outgoing=True, pattern="^.picspam")
 async def tiny_pic_spam(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -79,14 +82,14 @@ async def tiny_pic_spam(e):
                 BOTLOG_CHATID,
                 "#PICSPAM \n\n"
                 "PicSpam uğurla gerçəkləşdi."
-                )
+            )
 
 
 @register(outgoing=True, pattern="^.delayspam")
 async def delayspammer(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         message = e.text
-        messageSplit= message.split(" ", 3)
+        messageSplit = message.split(" ", 3)
         spam_delay = float(messageSplit[1])
         counter = int(messageSplit[2])
         spam_message = str(messageSplit[3])
@@ -100,7 +103,7 @@ async def delayspammer(e):
                 BOTLOG_CHATID,
                 "#DelaySPAM \n\n"
                 "DelaySpam uğurla gerçəkləşdi."
-                )
+            )
 
 CmdHelp('spammer').add_command(
     'tspam', '<mətn>', 'Verilən mesajı tək tək göndərərək spam edər.'

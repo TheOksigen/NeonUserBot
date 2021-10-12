@@ -1,7 +1,5 @@
-#Neon UserBot - TheOksigen
+# Neon UserBot - TheOksigen
 
-import os
-from telethon.errors import ChatAdminRequiredError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.contacts import UnblockRequest
 from telethon.tl.functions.users import GetFullUserRequest
@@ -9,6 +7,7 @@ from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
 chat = "@MissRose_bot"
+
 
 @register(outgoing=True, pattern="^.fstat ?(.*)")
 async def fstat(event):
@@ -85,7 +84,7 @@ async def info(event):
         return
     if event.pattern_match.group(1):
         text_ = event.pattern_match.group(1)
-        
+
     else:
         text_ = ""
     if event.reply_to_msg_id:
@@ -200,14 +199,15 @@ async def myfeds(event):
             else:
                 await event.client.send_message(event.chat_id, myfed)
                 await event.delete()
-            
+
+
 @register(outgoing=True, pattern="^.fban ?(.*)")
 async def fban(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
         text_ = event.pattern_match.group(1)
-        
+
     else:
         text_ = ""
     if event.reply_to_msg_id:
@@ -249,14 +249,15 @@ async def fban(event):
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
-                
+
+
 @register(outgoing=True, pattern="^.unfban ?(.*)")
 async def unfban(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
         text_ = event.pattern_match.group(1)
-        
+
     else:
         text_ = ""
     if event.reply_to_msg_id:
@@ -298,14 +299,15 @@ async def unfban(event):
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
-                
+
+
 @register(outgoing=True, pattern="^.feddemote ?(.*)")
 async def feddemote(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
         text_ = event.pattern_match.group(1)
-        
+
     else:
         text_ = ""
     if event.reply_to_msg_id:
@@ -347,14 +349,15 @@ async def feddemote(event):
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
-                
+
+
 @register(outgoing=True, pattern="^.fpromote ?(.*)")
 async def fpromode(event):
     if event.fwd_from:
         return
     if event.pattern_match.group(1):
         text_ = event.pattern_match.group(1)
-        
+
     else:
         text_ = ""
     if event.reply_to_msg_id:
@@ -396,7 +399,7 @@ async def fpromode(event):
                 audio = await conv.get_response()
                 await event.client.forward_messages(event.chat_id, audio)
                 await event.delete()
-            
+
 CmdHelp('rose').add_command(
     'fstat', '<tag/id>', 'Sadəcə .rfstat yazsanız sizin fstat siyahınızı yönləndirər. \n ID və ya istifafəçi adı yazsanız o istifadəçinin fban siyahısını göstərər. '
 ).add_command(
@@ -413,5 +416,5 @@ CmdHelp('rose').add_command(
     'fpromote', '<tag/id>', ' Bunu federasiya sahibləri işlədə bilər.\n Qrupdakı birinə öz federasiyanızda icazə verə bilərsiniz. '
 ).add_command(
     'feddemote', '<tag/id>', ' Bunu federasiya sahibləri işlədə bilər.\n Qrupdakı birindən öz federasiyanızda olan yetkisini ala bilərsiniz. '
-    
+
 ).add()

@@ -1057,11 +1057,11 @@ async def emoji(e):
 
     elif textx:
         message = textx.text
-    
+
     else:
         await e.edit(f"ℹ️ __Bir söz və ya mətin ver.__\n🔹 **Nümunə:** `.emoji relahx`")
         return
-    
+
     try:
         final = "  ".join(message).lower()
         for index in final:
@@ -1069,8 +1069,8 @@ async def emoji(e):
                 text = emojis[basemojitext.index(index)]
                 final = final.replace(index, text)
         await e.edit(final)
-    
-    except:
+
+    except BaseException:
         await e.edit(f"**❎ Bu həddindən artıq çox böyük mətndir.**")
 
 
@@ -1082,7 +1082,7 @@ async def cmoji(c):
         try:
             emoji, message = message.split(" ", 1)
 
-        except:
+        except BaseException:
             await c.edit(f"ℹ️ __Bir söz və ya mətin ver.__\n🔹 **Nümunə:** `.cmoji 🔪 relahx`")
             return
 
@@ -1100,13 +1100,15 @@ async def cmoji(c):
                     index, text
                 )
         await c.edit(final)
-    
-    except:
+
+    except BaseException:
         await c.edit("**❎ Bu həddindən artıq çox böyük mətndir.**")
 
 
-CmdHelp('emojiyazi').add_command(
-    'emoji', '<söz/mətn>', 'Emojilər ilə bir şey yazın!', 'emoji <istədiyiniz söz/mətn>'
-).add_command(
-    'cmoji <smaylik>', '<söz/mətn>', 'İstədiyiniz hər hansı bir smaylik və ya xarakter ilə bir şey yazın!', 'cmoji 👋 salam'
-).add_info('**@NeonUserbot İşlədin ag / @relahx**').add()
+CmdHelp('emojiyazi').add_command('emoji',
+                                 '<söz/mətn>',
+                                 'Emojilər ilə bir şey yazın!',
+                                 'emoji <istədiyiniz söz/mətn>').add_command('cmoji <smaylik>',
+                                                                             '<söz/mətn>',
+                                                                             'İstədiyiniz hər hansı bir smaylik və ya xarakter ilə bir şey yazın!',
+                                                                             'cmoji 👋 salam').add_info('**@NeonUserbot İşlədin ag / @relahx**').add()

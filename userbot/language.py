@@ -1,4 +1,4 @@
-#NEON candi gerisi yalandi
+# NEON candi gerisi yalandi
 
 
 from . import LANGUAGE, LOGS, bot, PLUGIN_CHANNEL_ID
@@ -11,17 +11,24 @@ LOGS.info("Dil faylı yüklenir...")
 LANGUAGE_JSON = None
 
 for dil in bot.iter_messages(pchannel, filter=InputMessagesFilterDocument):
-    if ((len(dil.file.name.split(".")) >= 2) and (dil.file.name.split(".")[1] == "neonjson")):
+    if ((len(dil.file.name.split(".")) >= 2) and (
+            dil.file.name.split(".")[1] == "neonjson")):
         if path.isfile(f"./userbot/language/{dil.file.name}"):
             try:
-                LANGUAGE_JSON = loads(open(f"./userbot/language/{dil.file.name}", "r").read())
+                LANGUAGE_JSON = loads(
+                    open(
+                        f"./userbot/language/{dil.file.name}",
+                        "r").read())
             except JSONDecodeError:
                 dil.delete()
                 remove(f"./userbot/language/{dil.file.name}")
 
                 if path.isfile("./userbot/language/DEFAULT.neonjson"):
                     LOGS.warn("Varsayılan dil faylı işledilir...")
-                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.neonjson", "r").read())
+                    LANGUAGE_JSON = loads(
+                        open(
+                            f"./userbot/language/DEFAULT.neonjson",
+                            "r").read())
                 else:
                     raise Exception("Dil faylı sehfdir.")
         else:
@@ -32,39 +39,49 @@ for dil in bot.iter_messages(pchannel, filter=InputMessagesFilterDocument):
                 dil.delete()
                 if path.isfile("./userbot/language/DEFAULT.neonjson"):
                     LOGS.warn("Varsayıl dil faylı işledilir...")
-                    LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.neonjson", "r").read())
+                    LANGUAGE_JSON = loads(
+                        open(
+                            f"./userbot/language/DEFAULT.neonjson",
+                            "r").read())
                 else:
                     raise Exception("Dil faylı sehfdir.")
         break
 
-if LANGUAGE_JSON == None:
+if LANGUAGE_JSON is None:
     if path.isfile(f"./userbot/language/{LANGUAGE}.neonjson"):
         try:
-            LANGUAGE_JSON = loads(open(f"./userbot/language/{LANGUAGE}.neonjson", "r").read())
+            LANGUAGE_JSON = loads(
+                open(
+                    f"./userbot/language/{LANGUAGE}.neonjson",
+                    "r").read())
         except JSONDecodeError:
             raise Exception("Sehf json faylı")
     else:
         if path.isfile("./userbot/language/DEFAULT.neonjson"):
             LOGS.warn("Varsayılan dil faylı işledilir...")
-            LANGUAGE_JSON = loads(open(f"./userbot/language/DEFAULT.neonjson", "r").read())
+            LANGUAGE_JSON = loads(
+                open(
+                    f"./userbot/language/DEFAULT.neonjson",
+                    "r").read())
         else:
             raise Exception(f"{LANGUAGE} faylı tapılmadı")
 
 LOGS.info(f"{LANGUAGE_JSON['LANGUAGE']} dili yüklendi.")
 
-def get_value (plugin = None, value = None):
+
+def get_value(plugin=None, value=None):
     global LANGUAGE_JSON
 
-    if LANGUAGE_JSON == None:
+    if LANGUAGE_JSON is None:
         raise Exception("İlk önce dil faylını yükleyin")
     else:
-        if not plugin == None or value == None:
+        if plugin is not None or value is None:
             Plugin = LANGUAGE_JSON.get("STRINGS").get(plugin)
-            if Plugin == None:
+            if Plugin is None:
                 raise Exception("Sehf plugin")
             else:
                 String = LANGUAGE_JSON.get("STRINGS").get(plugin).get(value)
-                if String == None:
+                if String is None:
                     return Plugin
                 else:
                     return String

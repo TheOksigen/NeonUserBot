@@ -11,8 +11,16 @@ from telethon.tl.functions.messages import ReportSpamRequest
 from telethon.tl.types import User
 from sqlalchemy.exc import IntegrityError
 
-from userbot import (COUNT_PM, CMD_HELP, BOTLOG, BOTLOG_CHATID,
-                     PM_AUTO_BAN, PM_AUTO_BAN_LIMIT, LASTMSG, LOGS, BRAIN_CHECKER, WHITELIST)
+from userbot import (
+    COUNT_PM,
+    BOTLOG,
+    BOTLOG_CHATID,
+    PM_AUTO_BAN,
+    PM_AUTO_BAN_LIMIT,
+    LASTMSG,
+    LOGS,
+    BRAIN_CHECKER,
+    WHITELIST)
 from userbot.events import register
 from userbot.main import PLUGIN_MESAJLAR
 from userbot.cmdhelp import CmdHelp
@@ -23,6 +31,7 @@ from userbot.language import get_value
 LANG = get_value("pmpermit")
 
 # ████████████████████████████████ #
+
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
 async def permitpm(event):
@@ -46,14 +55,15 @@ async def permitpm(event):
             else:
                 last_name = ''
 
-            username = '@' + reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
+            username = '@' + \
+                reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
             mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
             if not apprv and event.text != PLUGIN_MESAJLAR['pm']:
                 if event.chat_id in LASTMSG:
                     prevmsg = LASTMSG[event.chat_id]
                     if event.text != prevmsg:
-                        if type(PLUGIN_MESAJLAR['afk']) is str:
+                        if isinstance(PLUGIN_MESAJLAR['afk'], str):
                             async for message in event.client.iter_messages(
                                 event.chat_id,
                                 from_user='me',
@@ -75,29 +85,24 @@ async def permitpm(event):
                             ))
                         else:
                             async for message in event.client.iter_messages(
-                                event.chat_id,
-                                from_user='me',
-                                limit=PM_AUTO_BAN_LIMIT):
-                                    await message.delete()
+                                    event.chat_id,
+                                    from_user='me',
+                                    limit=PM_AUTO_BAN_LIMIT):
+                                await message.delete()
                             if not PLUGIN_MESAJLAR['pm'].text == '':
                                 PLUGIN_MESAJLAR['pm'].text = PLUGIN_MESAJLAR['pm'].text.format(
-                                    id=id,
-                                    username=username,
-                                    mention=mention,
-                                    first_name=first_name,
-                                    last_name=last_name
-                                )
+                                    id=id, username=username, mention=mention, first_name=first_name, last_name=last_name)
 
                             await event.reply(PLUGIN_MESAJLAR['pm'])
                     LASTMSG.update({event.chat_id: event.text})
                 else:
                     await event.reply(PLUGIN_MESAJLAR['pm'].format(
-                                    id=id,
-                                    username=username,
-                                    mention=mention,
-                                    first_name=first_name,
-                                    last_name=last_name
-                                ))
+                        id=id,
+                        username=username,
+                        mention=mention,
+                        first_name=first_name,
+                        last_name=last_name
+                    ))
                     LASTMSG.update({event.chat_id: event.text})
 
                 if notifsoff:
@@ -138,6 +143,7 @@ async def permitpm(event):
                             LANG['BOTLOG_BLOCKED'],
                         )
 
+
 @register(disable_edited=True, outgoing=True, disable_errors=True)
 async def auto_accept(event):
     if not PM_AUTO_BAN:
@@ -159,7 +165,8 @@ async def auto_accept(event):
         else:
             last_name = ''
 
-        username = '@' + chat.username if chat.username else f'[{first_name} {last_name}](tg://user?id={id})'
+        username = '@' + \
+            chat.username if chat.username else f'[{first_name} {last_name}](tg://user?id={id})'
         mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
         if isinstance(chat, User):
@@ -168,14 +175,14 @@ async def auto_accept(event):
             async for message in event.client.iter_messages(event.chat_id,
                                                             reverse=True,
                                                             limit=1):
-                if type(PLUGIN_MESAJLAR['afk']) is str:
+                if isinstance(PLUGIN_MESAJLAR['afk'], str):
                     if message.message is not PLUGIN_MESAJLAR['pm'].format(
-                                    id=id,
-                                    username=username,
-                                    mention=mention,
-                                    first_name=first_name,
-                                    last_name=last_name
-                                ) and message.from_id == self_user.id:
+                        id=id,
+                        username=username,
+                        mention=mention,
+                        first_name=first_name,
+                        last_name=last_name
+                    ) and message.from_id == self_user.id:
                         try:
                             approve(event.chat_id)
                         except IntegrityError:
@@ -186,7 +193,6 @@ async def auto_accept(event):
                             approve(event.chat_id)
                         except IntegrityError:
                             return
-
 
                 if is_approved(event.chat_id) and BOTLOG:
                     await event.client.send_message(
@@ -211,7 +217,7 @@ async def notifoff(noff_event):
 async def notifon(non_event):
     try:
         from userbot.modules.sql_helper.globals import delgvar
-    except:
+    except BaseException:
         await non_event.edit("`Bot Non-SQL modunda işləyir!`")
         return
     delgvar("NOTIF_OFF")
@@ -222,7 +228,7 @@ async def notifon(non_event):
 async def approvepm(apprvpm):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import approve
-    except:
+    except BaseException:
         await apprvpm.edit("`Bot Non-SQL modunda işləyir!`")
         return
 
@@ -239,7 +245,8 @@ async def approvepm(apprvpm):
     else:
         last_name = ''
 
-    username = '@' + reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
+    username = '@' + \
+        reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
     mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
     try:
@@ -258,12 +265,12 @@ async def approvepm(apprvpm):
     async for message in apprvpm.client.iter_messages(apprvpm.chat_id,
                                                       from_user='me',
                                                       search=PLUGIN_MESAJLAR['pm'].format(
-        id=id,
-        username=username,
-        mention=first_name,
-        first_name=first_name,
-        last_name=last_name
-    )):
+                                                          id=id,
+                                                          username=username,
+                                                          mention=first_name,
+                                                          first_name=first_name,
+                                                          last_name=last_name
+                                                      )):
         await message.delete()
 
     if BOTLOG:
@@ -277,7 +284,7 @@ async def approvepm(apprvpm):
 async def disapprovepm(disapprvpm):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
-    except:
+    except BaseException:
         await disapprvpm.edit("`Bot Non-SQL modunda işləyir!`")
         return
 
@@ -292,7 +299,7 @@ async def disapprovepm(disapprvpm):
         aname = await disapprvpm.client.get_entity(disapprvpm.chat_id)
         name0 = str(aname.first_name)
 
-    await disapprvpm.edit(PLUGIN_MESAJLAR['disapprove'].format(mention = f"[{name0}](tg://user?id={disapprvpm.chat_id})"))
+    await disapprvpm.edit(PLUGIN_MESAJLAR['disapprove'].format(mention=f"[{name0}](tg://user?id={disapprvpm.chat_id})"))
 
     if BOTLOG:
         await disapprvpm.client.send_message(
@@ -320,7 +327,8 @@ async def blockpm(block):
         else:
             last_name = ''
 
-        username = '@' + replied_user.username if replied_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
+        username = '@' + \
+            replied_user.username if replied_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
         mention = f'[{first_name} {last_name}](tg://user?id={id})'
         await block.client(BlockRequest(replied_user.id))
         await block.edit(PLUGIN_MESAJLAR['block'].format(
@@ -346,7 +354,8 @@ async def blockpm(block):
         else:
             last_name = ''
 
-        username = '@' + replied_user.username if replied_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
+        username = '@' + \
+            replied_user.username if replied_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
         mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
         await block.edit(PLUGIN_MESAJLAR['block'].format(
@@ -359,7 +368,7 @@ async def blockpm(block):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
         dissprove(id)
-    except:
+    except BaseException:
         pass
 
     if BOTLOG:
@@ -386,7 +395,7 @@ async def unblockpm(unblock):
         )
 
 CmdHelp('pmpermit').add_command(
-    'approve', None, 'Cavab verilən isdifadəçiyə PM atma icazəsi verər.', 
+    'approve', None, 'Cavab verilən isdifadəçiyə PM atma icazəsi verər.',
 ).add_command(
     'disapprove', None, 'Cavab verilən isdifadəçinin PM atma icazəsini qaldırar.'
 ).add_command(

@@ -1,19 +1,17 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the  GPL-3.0 License;
 # you may not use this file except in compliance with the License.
 #
 
-#Neon UserBot
+# Neon UserBot
 
 import re
 import os
-from telethon.tl.types import DocumentAttributeFilename, InputMessagesFilterDocument
+from telethon.tl.types import InputMessagesFilterDocument
 import importlib
-import time
-import traceback
 
-from userbot import CMD_HELP, bot, tgbot, PLUGIN_CHANNEL_ID, PATTERNS
+from userbot import CMD_HELP, PLUGIN_CHANNEL_ID
 from userbot.events import register
 from userbot.main import extractCommands
 import userbot.cmdhelp
@@ -26,6 +24,8 @@ LANG = get_value("__plugin")
 # ████████████████████████████████ #
 
 # Plugin Porter - UniBorg
+
+
 @register(outgoing=True, pattern="^.pport")
 async def pport(event):
     if event.is_reply:
@@ -50,12 +50,21 @@ async def pport(event):
             await event.edit(LANG["TOO_MANY_PLUGIN"])
 
         komut = komu[0][1]
-        degistir = dosy.replace('@borg.on(admin_cmd(pattern="' + komut + '"))', '@register(outgoing=True, pattern="^.' + komut + '")')
-        degistir = degistir.replace("from userbot.utils import admin_cmd", "from userbot.events import register")
-        degistir = re.sub(r"(from uniborg).*", "from userbot.events import register", degistir)
-        degistir = degistir.replace("def _(event):", "def port_" + komut + "(event):")
+        degistir = dosy.replace(
+            '@borg.on(admin_cmd(pattern="' + komut + '"))',
+            '@register(outgoing=True, pattern="^.' + komut + '")')
+        degistir = degistir.replace(
+            "from userbot.utils import admin_cmd",
+            "from userbot.events import register")
+        degistir = re.sub(
+            r"(from uniborg).*",
+            "from userbot.events import register",
+            degistir)
+        degistir = degistir.replace(
+            "def _(event):",
+            "def port_" + komut + "(event):")
         degistir = degistir.replace("borg.", "event.client.")
-        ported = open(f'port_{dosya}', "w").write(degistir)
+        open(f'port_{dosya}', "w").write(degistir)
 
         await event.edit(LANG["UPLOADING"])
 
@@ -70,14 +79,23 @@ async def pport(event):
             await event.edit(LANG["TOO_MANY_PLUGIN"])
             return
 
-        komut = komu[0][1]    
+        komut = komu[0][1]
 
-        degistir = dosy.replace('@borg.on(admin_cmd(pattern=r"' + komut + '"))', '@register(outgoing=True, pattern="^.' + komut + '")')
-        degistir = degistir.replace("from userbot.utils import admin_cmd", "from userbot.events import register")
-        degistir = re.sub(r"(from uniborg).*", "from userbot.events import register", degistir)
-        degistir = degistir.replace("def _(event):", "def port_" + komut + "(event):")
+        degistir = dosy.replace(
+            '@borg.on(admin_cmd(pattern=r"' + komut + '"))',
+            '@register(outgoing=True, pattern="^.' + komut + '")')
+        degistir = degistir.replace(
+            "from userbot.utils import admin_cmd",
+            "from userbot.events import register")
+        degistir = re.sub(
+            r"(from uniborg).*",
+            "from userbot.events import register",
+            degistir)
+        degistir = degistir.replace(
+            "def _(event):",
+            "def port_" + komut + "(event):")
         degistir = degistir.replace("borg.", "event.client.")
-        ported = open(f'port_{dosya}', "w").write(degistir)
+        open(f'port_{dosya}', "w").write(degistir)
 
         await event.edit(LANG["UPLOADING"])
 
@@ -94,13 +112,26 @@ async def pport(event):
 
         komut = komu[0][1]
 
-        degistir = dosy.replace('@borg.on(admin_cmd("' + komut + '"))', '@register(outgoing=True, pattern="^.' + komut + '")')
-        degistir = degistir.replace("from userbot.utils import admin_cmd", "from userbot.events import register")
-        degistir = re.sub(r"(from uniborg).*", "from userbot.events import register", degistir)
-        degistir = degistir.replace("def _(event):", "def port_" + komut.replace("?(.*)", "") + "(event):")
+        degistir = dosy.replace(
+            '@borg.on(admin_cmd("' + komut + '"))',
+            '@register(outgoing=True, pattern="^.' + komut + '")')
+        degistir = degistir.replace(
+            "from userbot.utils import admin_cmd",
+            "from userbot.events import register")
+        degistir = re.sub(
+            r"(from uniborg).*",
+            "from userbot.events import register",
+            degistir)
+        degistir = degistir.replace(
+            "def _(event):",
+            "def port_" +
+            komut.replace(
+                "?(.*)",
+                "") +
+            "(event):")
         degistir = degistir.replace("borg.", "event.client.")
 
-        ported = open(f'port_{dosya}', "w").write(degistir)
+        open(f'port_{dosya}', "w").write(degistir)
 
         await event.edit(LANG["UPLOADING"])
 
@@ -111,15 +142,16 @@ async def pport(event):
     else:
         await event.edit(LANG["UNIBORG_NOT_FOUND"])
 
+
 @register(outgoing=True, pattern="^.plist")
 async def plist(event):
-    if PLUGIN_CHANNEL_ID != None:
+    if PLUGIN_CHANNEL_ID is not None:
         await event.edit(LANG["PLIST_CHECKING"])
         yuklenen = f"{LANG['PLIST']}\n\n"
         async for plugin in event.client.iter_messages(PLUGIN_CHANNEL_ID, filter=InputMessagesFilterDocument):
             try:
                 dosyaismi = plugin.file.name.split(".")[1]
-            except:
+            except BaseException:
                 continue
 
             if dosyaismi == "py":
@@ -127,6 +159,7 @@ async def plist(event):
         await event.edit(yuklenen)
     else:
         await event.edit(LANG["TEMP_PLUGIN"])
+
 
 @register(outgoing=True, pattern="^.pinstall")
 async def pins(event):
@@ -138,7 +171,7 @@ async def pins(event):
 
     await event.edit(LANG["DOWNLOADING"])
     dosya = await event.client.download_media(reply_message, "./userbot/modules/")
-    
+
     try:
         spec = importlib.util.spec_from_file_location(dosya, dosya)
         mod = importlib.util.module_from_spec(spec)
@@ -162,14 +195,16 @@ async def pins(event):
     else:
         Pattern = re.findall(r"@register\(.*pattern=(r|)\"(.*)\".*\)", dosy)
 
-        if (not type(Pattern) == list) or (len(Pattern) < 1 or len(Pattern[0]) < 1):
+        if (not isinstance(Pattern, list)) or (
+                len(Pattern) < 1 or len(Pattern[0]) < 1):
             if re.search(r'CmdHelp\(.*\)', dosy):
                 cmdhelp = re.findall(r"CmdHelp\([\"'](.*)[\"']\)", dosy)[0]
                 await reply_message.forward_to(PLUGIN_CHANNEL_ID)
                 return await event.edit(f'**Modul uğurla yükləndi!**\n__Modulun komandaları və işlədilişi haqqında məlumat üçün__ `.neon {cmdhelp}` __yazın.__')
             else:
                 await reply_message.forward_to(PLUGIN_CHANNEL_ID)
-                userbot.cmdhelp.CmdHelp(dosya).add_warning('Komutlar tapılmadı!').add()
+                userbot.cmdhelp.CmdHelp(dosya).add_warning(
+                    'Komutlar tapılmadı!').add()
                 return await event.edit(LANG['PLUGIN_DESCLESS'])
         else:
             if re.search(r'CmdHelp\(.*\)', dosy):
@@ -182,6 +217,7 @@ async def pins(event):
                 await reply_message.forward_to(PLUGIN_CHANNEL_ID)
                 return await event.edit(f'**Modul uğurla yükləndi!**\n__Modulun komandaları və işlədilişi haqqında məlumat üçün__ `.neon {dosyaAdi}` __yazın.__')
 
+
 @register(outgoing=True, pattern="^.premove ?(.*)")
 async def premove(event):
     modul = event.pattern_match.group(1).lower()
@@ -191,7 +227,6 @@ async def premove(event):
 
     await event.edit(LANG['PREMOVE_DELETING'])
     i = 0
-    a = 0
     async for message in event.client.iter_messages(PLUGIN_CHANNEL_ID, filter=InputMessagesFilterDocument, search=modul):
         await message.delete()
         try:
@@ -207,6 +242,7 @@ async def premove(event):
         await event.edit(LANG['NOT_FOUND_PLUGIN'])
     else:
         await event.edit(LANG['PLUG_DELETED'])
+
 
 @register(outgoing=True, pattern="^.psend ?(.*)")
 async def psend(event):
@@ -234,7 +270,7 @@ async def ptest(event):
     if not os.path.exists('./userbot/temp_plugins/'):
         os.makedirs('./userbot/temp_plugins')
     dosya = await event.client.download_media(reply_message, "./userbot/temp_plugins/")
-    
+
     try:
         spec = importlib.util.spec_from_file_location(dosya, dosya)
         mod = importlib.util.module_from_spec(spec)
@@ -245,4 +281,4 @@ async def ptest(event):
         return os.remove("./userbot/temp_plugins/" + dosya)
 
     return await event.edit(f'**Modul uğurla yükləndi!**\
-    \n__Modul yoxlamanızı edə bilərsiz. Bota restart atandan sonra modul silinəcəkdir.__')  
+    \n__Modul yoxlamanızı edə bilərsiz. Bota restart atandan sonra modul silinəcəkdir.__')

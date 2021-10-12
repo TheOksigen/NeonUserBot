@@ -1,4 +1,4 @@
-#Neon User Bot 
+# Neon User Bot
 
 import os
 from datetime import datetime
@@ -94,8 +94,9 @@ async def telegraphs(graph):
 def resize_image(image):
     im = Image.open(image)
     im.save(image, "PNG")
-    
+
 
 CmdHelp('telegraph').add_command(
-    'tg', '<m/t>', 'Mesaja yanıt verərək .tg t (yazı) və ya .tg m (mediya) yazaraq Telegrapha yükləyin.'
-).add()
+    'tg',
+    '<m/t>',
+    'Mesaja yanıt verərək .tg t (yazı) və ya .tg m (mediya) yazaraq Telegrapha yükləyin.').add()

@@ -1,6 +1,10 @@
 # Neon User Bot
 # Esebj
 
+from userbot.events import register as asena
+from userbot import BOTLOG, bot, BOTLOG_CHATID
+import asyncio
+import os
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.events import register
@@ -9,67 +13,68 @@ from time import sleep as t
 from asyncio import sleep
 from random import choice
 
+
 @register(outgoing=True, pattern="^.ttsk")
 async def neon(event):
-  reply = await event.get_reply_message()
-  if not reply:
-    await event.edit("Bir mesaja cavab verin.")
-  else:
-    chat = "@TextTSBot"
-    await event.edit("Səsə çevrilir...⚡")
-    async with event.client.conversation(chat) as conv:
-      try:
-        await conv.send_message("/start")
-        await conv.get_response()
-        # bota start veririk
-        
-        await conv.send_message("Turkish")
-        await conv.get_response()
-        # dil seçirik
-        
-        await conv.send_message("Kerem")
-        await conv.get_response()
-        # kişi sesi yoxsa qadın sesi olsun onu seçirik
-        
-        await conv.send_message(reply)
-        x = await conv.get_response()
-        
-        await event.client.send_message(event.chat_id, x)
-        await event.delete()
-      except YouBlockedUserError:
-        await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
-        
-        
-        
+    reply = await event.get_reply_message()
+    if not reply:
+        await event.edit("Bir mesaja cavab verin.")
+    else:
+        chat = "@TextTSBot"
+        await event.edit("Səsə çevrilir...⚡")
+        async with event.client.conversation(chat) as conv:
+            try:
+                await conv.send_message("/start")
+                await conv.get_response()
+                # bota start veririk
+
+                await conv.send_message("Turkish")
+                await conv.get_response()
+                # dil seçirik
+
+                await conv.send_message("Kerem")
+                await conv.get_response()
+                # kişi sesi yoxsa qadın sesi olsun onu seçirik
+
+                await conv.send_message(reply)
+                x = await conv.get_response()
+
+                await event.client.send_message(event.chat_id, x)
+                await event.delete()
+            except YouBlockedUserError:
+                await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
+
+
 @register(outgoing=True, pattern="^..ttsq")
 async def neon(event):
-  reply = await event.get_reply_message()
-  if not reply:
-    await event.edit("Bir mesaja cavab verin.")
-  else:
-    chat = "@TextTSBot"
-    await event.edit("Səsə çevrilir...⚡")
-    async with event.client.conversation(chat) as conv:
-      try:
-        await conv.send_message("/start")
-        await conv.get_response()
-        # bota start veririk
-        
-        await conv.send_message("Turkish")
-        await conv.get_response()
-        # dil seçirik
-        
-        await conv.send_message("Aylin")
-        await conv.get_response()
-        # kişi sesi yoxsa qadın sesi olsun onu seçirik
-        
-        await conv.send_message(reply)
-        x = await conv.get_response()
-        
-        await event.client.send_message(event.chat_id, x)
-        await event.delete()
-      except YouBlockedUserError:
-        await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
+    reply = await event.get_reply_message()
+    if not reply:
+        await event.edit("Bir mesaja cavab verin.")
+    else:
+        chat = "@TextTSBot"
+        await event.edit("Səsə çevrilir...⚡")
+        async with event.client.conversation(chat) as conv:
+            try:
+                await conv.send_message("/start")
+                await conv.get_response()
+                # bota start veririk
+
+                await conv.send_message("Turkish")
+                await conv.get_response()
+                # dil seçirik
+
+                await conv.send_message("Aylin")
+                await conv.get_response()
+                # kişi sesi yoxsa qadın sesi olsun onu seçirik
+
+                await conv.send_message(reply)
+                x = await conv.get_response()
+
+                await event.client.send_message(event.chat_id, x)
+                await event.delete()
+            except YouBlockedUserError:
+                await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
+
 
 @register(outgoing=True, pattern=r"^.bo[sş]luq")
 async def _(e):
@@ -119,6 +124,7 @@ async def scam(event):
     except BaseException:
         return
 
+
 @register(pattern=r".type(?: |$)(.*)", outgoing=True)
 async def typewriter(typew):
     """ . """
@@ -144,12 +150,6 @@ async def typewriter(typew):
         await typew.edit(old_text)
         await sleep(sleep_time)
 
-import os
-import asyncio
-from userbot import BOTLOG, bot, BOTLOG_CHATID
-from userbot.events import register as asena
-from telethon import events
-
 
 @asena(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
 async def text_to_speech(e):
@@ -170,9 +170,9 @@ async def text_to_speech(e):
     await e.edit(f"`Səsə çevrilir...`")
     chat = "@MrTTSbot"
     async with bot.conversation(chat) as conv:
-        try:     
+        try:
             await conv.send_message(f"/tomp3 {ttss}")
-            ses = await conv.wait_event(events.NewMessage(incoming=True,from_users=1678833172), timeout=10)
+            ses = await conv.wait_event(events.NewMessage(incoming=True, from_users=1678833172), timeout=10)
             await e.client.send_read_acknowledge(conv.chat_id)
             indir = await ses.download_media()
             voice = await asyncio.create_subprocess_shell(f"ffmpeg -i '{indir}' -c:a libopus 'MrTTSbot.ogg'")
@@ -184,7 +184,6 @@ async def text_to_speech(e):
             else:
                 await e.edit("`Bir xəta yarandı! ☹️`")
 
-
             if BOTLOG:
                 await e.client.send_message(
                     BOTLOG_CHATID, "**Mətniniz uğurla səsə çevrildi!**")
@@ -195,11 +194,17 @@ async def text_to_speech(e):
             await e.edit("`Botdan cavab ala bilmədim.` 😕")
 
 Help = CmdHelp("neonmisc")
-Help.add_command("tts","«Söz/Mətn»","Yazınızı səsə çevirin.")
-Help.add_command("ttsq", None,"Sözü/Mətni səsə çevirər. (Qadın səsi)")
-Help.add_command("ttsk", None,"Sözü/Mətni səsə çevirər. (Kişi səsi)")
-Help.add_command("type","«Söz/Mətn»","Daktilo kimi yazmaq.")
-Help.add_command("boşluq və ya .bosluq",None,"Boş mesaj")
-Help.add_command(':/',None,'Nüsrətin iki aydır ayaqyoluna getmədiyi yadına düşər.')
-Help.add_command('scam', '<hərəkət> <vaxt>',"Saxta hərəkətlər yaradın.\nHazırda mövcud olan hərəkətlər: (typing, contact, game, location, voice, round, video, photo, document, cancel")      
+Help.add_command("tts", "«Söz/Mətn»", "Yazınızı səsə çevirin.")
+Help.add_command("ttsq", None, "Sözü/Mətni səsə çevirər. (Qadın səsi)")
+Help.add_command("ttsk", None, "Sözü/Mətni səsə çevirər. (Kişi səsi)")
+Help.add_command("type", "«Söz/Mətn»", "Daktilo kimi yazmaq.")
+Help.add_command("boşluq və ya .bosluq", None, "Boş mesaj")
+Help.add_command(
+    ':/',
+    None,
+    'Nüsrətin iki aydır ayaqyoluna getmədiyi yadına düşər.')
+Help.add_command(
+    'scam',
+    '<hərəkət> <vaxt>',
+    "Saxta hərəkətlər yaradın.\nHazırda mövcud olan hərəkətlər: (typing, contact, game, location, voice, round, video, photo, document, cancel")
 Help.add()

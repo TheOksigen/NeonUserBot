@@ -12,7 +12,7 @@ from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
-from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -22,6 +22,7 @@ from userbot.language import get_value
 LANG = get_value("whois")
 
 # ████████████████████████████████ #
+
 
 @register(pattern=".kimbu(?: |$)(.*)", outgoing=True)
 async def who(event):
@@ -37,7 +38,7 @@ async def who(event):
         photo, caption = await fetch_info(replied_user, event)
     except AttributeError:
         return event.edit(LANG['FAILED_GETTING_DATA'])
-        
+
     message_id_to_reply = event.message.reply_to_msg_id
 
     if not message_id_to_reply:
@@ -103,7 +104,7 @@ async def fetch_info(replied_user, event):
     replied_user_profile_photos_count = LANG['NO_PROFILE_PHOTO']
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
-    except AttributeError as e:
+    except AttributeError:
         pass
     user_id = replied_user.user.id
     first_name = replied_user.user.first_name
@@ -112,7 +113,7 @@ async def fetch_info(replied_user, event):
         dc_id, location = get_input_location(replied_user.profile_photo)
     except Exception as e:
         dc_id = LANG['NO_DC_ID']
-        location = str(e)
+        str(e)
     common_chat = replied_user.common_chats_count
     username = replied_user.user.username
     user_bio = replied_user.about

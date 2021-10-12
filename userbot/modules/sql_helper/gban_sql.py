@@ -3,7 +3,7 @@ try:
 except ImportError:
     raise AttributeError
 
-from sqlalchemy import Column, String, UnicodeText
+from sqlalchemy import Column, String
 
 
 class GBan(BASE):
@@ -17,12 +17,13 @@ class GBan(BASE):
 GBan.__table__.create(checkfirst=True)
 
 
-def is_gbanned (sid):
+def is_gbanned(sid):
     try:
         sonuc = SESSION.query(GBan).filter(GBan.sender == sid).first()
         return sonuc.sender
-    except:
+    except BaseException:
         return False
+
 
 def gbanlist():
     try:
@@ -38,7 +39,7 @@ def gban(sender):
         adder = GBan(str(sender))
         SESSION.add(adder)
         SESSION.commit()
-    except:
+    except BaseException:
         return False
 
 

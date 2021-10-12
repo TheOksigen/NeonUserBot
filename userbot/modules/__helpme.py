@@ -1,4 +1,4 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the GPL-3.0 License;
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@ from userbot.language import get_value
 LANG = get_value("__helpme")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.komek|^.help")
 async def yardim(event):

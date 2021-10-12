@@ -9,9 +9,8 @@
 
 """ Filter komandaları daxil olmaqla UserBot modulu """
 
-from asyncio import sleep
 import re
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG_CHATID
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -25,6 +24,7 @@ LANG = get_value("filter")
 SMART_OPEN = '"'
 SMART_CLOSE = '"'
 START_CHAR = ('\'', '"', SMART_OPEN)
+
 
 def remove_escapes(text: str):
     counter = 0
@@ -41,6 +41,7 @@ def remove_escapes(text: str):
         counter += 1
     return res
 
+
 def split_quotes(text: str):
     if any(text.startswith(char) for char in START_CHAR):
         counter = 1  # ignore first char -> is some kind of quote
@@ -55,7 +56,8 @@ def split_quotes(text: str):
 
         # 1 to avoid starting quote, and counter is exclusive so avoids ending
         key = remove_escapes(text[1:counter].strip())
-        # index will be in range, or `else` would have been executed and returned
+        # index will be in range, or `else` would have been executed and
+        # returned
         rest = text[counter + 1:].strip()
         if not key:
             key = text[0] + text[0]
@@ -94,6 +96,7 @@ async def filter_incoming_handler(handler):
                     await handler.reply(trigger.reply)
     except AttributeError:
         pass
+
 
 @register(outgoing=True, pattern="^.ümumifilter (.*)")
 @register(outgoing=True, pattern="^.genelfilter (.*)")
@@ -196,8 +199,9 @@ async def add_new_filter(new_handler):
     else:
         await new_handler.edit(success.format(keyword, LANG['GENEL_FILTER'], LANG['UPDATED']))
 
-@register(outgoing=True, pattern="^.ümumistop (\w*)")
-@register(outgoing=True, pattern="^.genelstop (\w*)")
+
+@register(outgoing=True, pattern="^.ümumistop (\\w*)")
+@register(outgoing=True, pattern="^.genelstop (\\w*)")
 async def remove_a_genel(r_handler):
     """ .stop komutu bir filtreyi durdurmanızı sağlar. """
     try:
@@ -217,7 +221,8 @@ async def remove_a_genel(r_handler):
         await r_handler.edit(
             "`{}` **{}**".format(filt, LANG['DELETED']))
 
-@register(outgoing=True, pattern="^.stop (\w*)")
+
+@register(outgoing=True, pattern="^.stop (\\w*)")
 async def remove_a_filter(r_handler):
     """ .stop komutu bir filtreyi durdurmanızı sağlar. """
     try:
@@ -236,6 +241,7 @@ async def remove_a_filter(r_handler):
     else:
         await r_handler.edit(
             "`{}` **{}**".format(filt, LANG['DELETED']))
+
 
 @register(outgoing=True, pattern="^.ümumifilters$")
 @register(outgoing=True, pattern="^.genelfilters$")
@@ -257,6 +263,7 @@ async def genelfilters_active(event):
 
     await event.edit(transact)
 
+
 @register(outgoing=True, pattern="^.filters$")
 async def filters_active(event):
     """ .filters komutu bir sohbetteki tüm aktif filtreleri gösterir. """
@@ -277,13 +284,19 @@ async def filters_active(event):
     await event.edit(transact)
 
 CmdHelp('filter').add_command(
-    'filters', None, 'Bir söhbətdəki bütün filterləri göstərər.'
-).add_command(
-    'filter', '<filtrelənəcək olunacaq söz> <cavablanacaq mətn> vəya bir mesajı .filter <filtreləcənək söz>', 'Filtre əlavə edər. Nə zaman əlavə etdiyinz söz/cümla yazılarsa bot cavab verər.', '.filter "salam" "aleykum"'
-).add_command(
-    'stop', '<filtre>', 'Seçilen filtreni durdurar.'
-).add_command(
-    'ümumifilter', '<filtrelənəcək söz> <cavablanacaq mətn> vəya bir mesajı .genelfilter <filtrelənəcək söz>', 'Ümumi filtrə əlavə edəd. Bütün qruplarda işləyər.'
-).add_command(
-    '.ümumistop', '<filtre>', 'Seçilən ümumi filtreni durdurar.'
-).add()
+    'filters',
+    None,
+    'Bir söhbətdəki bütün filterləri göstərər.').add_command(
+        'filter',
+        '<filtrelənəcək olunacaq söz> <cavablanacaq mətn> vəya bir mesajı .filter <filtreləcənək söz>',
+        'Filtre əlavə edər. Nə zaman əlavə etdiyinz söz/cümla yazılarsa bot cavab verər.',
+        '.filter "salam" "aleykum"').add_command(
+            'stop',
+            '<filtre>',
+            'Seçilen filtreni durdurar.').add_command(
+                'ümumifilter',
+                '<filtrelənəcək söz> <cavablanacaq mətn> vəya bir mesajı .genelfilter <filtrelənəcək söz>',
+                'Ümumi filtrə əlavə edəd. Bütün qruplarda işləyər.').add_command(
+                    '.ümumistop',
+                    '<filtre>',
+    'Seçilən ümumi filtreni durdurar.').add()

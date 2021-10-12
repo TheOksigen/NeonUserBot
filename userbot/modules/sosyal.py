@@ -1,10 +1,11 @@
-#Neon UserBot
+# Neon UserBot
 
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 from userbot import bot
+
 
 @register(outgoing=True, pattern="^.pint ?(.*)")
 @register(outgoing=True, pattern="^.tik ?(.*)")
@@ -24,7 +25,7 @@ async def neoninsta(event):
     if reply_message.sender.bot:
         await event.edit("Sender istifadəçini tapmadığı üçün script dayandırıldı.")
         return
-    asc = await event.edit("`Yüklənir...`")
+    await event.edit("`Yüklənir...`")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -47,7 +48,8 @@ async def neoninsta(event):
                 caption=f"`@NeonUserBot ilə yükləndi`",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
-            
+
+
 @register(outgoing=True, pattern="^.dzl(?: |$)(.*)")
 async def SpaceDeez(event):
     if event.fwd_from:
@@ -59,23 +61,23 @@ async def SpaceDeez(event):
         await event.edit("**Yükləmə başladııdı** 🎶")
     chat = "@DeezLoadBot"
     async with bot.conversation(chat) as conv:
-          try:
-              msg_start = await conv.send_message("/start")
-              response = await conv.get_response()
-              r = await conv.get_response()
-              msg = await conv.send_message(dlink)
-              details = await conv.get_response()
-              song = await conv.get_response()
+        try:
+            msg_start = await conv.send_message("/start")
+            response = await conv.get_response()
+            r = await conv.get_response()
+            msg = await conv.send_message(dlink)
+            details = await conv.get_response()
+            song = await conv.get_response()
 #                                   #
-              await bot.send_read_acknowledge(conv.chat_id)
-          except YouBlockedUserError:
-              await event.edit("@DeezLoadBot'u blokdan çıxardın və bir daha yenidən yoxlayın.")
-              return
-          await bot.send_file(event.chat_id, song, caption=details.text)
-          await event.client.delete_messages(conv.chat_id,
-                                             [msg_start.id, response.id, r.id, msg.id, details.id, song.id])
-          await event.delete()     
-          
+            await bot.send_read_acknowledge(conv.chat_id)
+        except YouBlockedUserError:
+            await event.edit("@DeezLoadBot'u blokdan çıxardın və bir daha yenidən yoxlayın.")
+            return
+        await bot.send_file(event.chat_id, song, caption=details.text)
+        await event.client.delete_messages(conv.chat_id,
+                                           [msg_start.id, response.id, r.id, msg.id, details.id, song.id])
+        await event.delete()
+
 CmdHelp('sosyal').add_command(
     'inst', '<link>', 'Instagramdan post yükləyər.'
 ).add_command(

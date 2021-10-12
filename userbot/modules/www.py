@@ -10,7 +10,6 @@ from datetime import datetime
 
 from speedtest import Speedtest
 from telethon import functions
-from userbot import CMD_HELP
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -20,6 +19,7 @@ from userbot.language import get_value
 LANG = get_value("www")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.speed$")
 async def speedtst(spd):
@@ -47,7 +47,7 @@ async def speedtst(spd):
 
 def speed_convert(size):
     """
-    Salam 
+    Salam
     """
     power = 2**10
     zero = 0

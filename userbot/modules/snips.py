@@ -4,13 +4,13 @@
 # you may not use this file except in compliance with the License.
 #
 
-#NEON  USER BOT
+# NEON  USER BOT
 
 
 """ Mesajları qeyd etmek üçün UserBot modulu. """
 
 from userbot.events import register
-from userbot import CMD_HELP, BOTLOG_CHATID
+from userbot import BOTLOG_CHATID
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -19,6 +19,7 @@ from userbot.language import get_value
 LANG = get_value("snips")
 
 # ████████████████████████████████
+
 
 @register(outgoing=True,
           pattern=r"\$\w*",
@@ -49,7 +50,7 @@ async def on_snip(event):
                                         reply_to=message_id_to_reply)
 
 
-@register(outgoing=True, pattern="^.snip (\w*)")
+@register(outgoing=True, pattern="^.snip (\\w*)")
 async def on_snip_save(event):
     """ .snip komandası mesajı gelecekde işletmek üçün qeyd eder. """
     try:
@@ -110,7 +111,7 @@ async def on_snip_list(event):
     await event.edit(message)
 
 
-@register(outgoing=True, pattern="^.remsnip (\w*)")
+@register(outgoing=True, pattern="^.remsnip (\\w*)")
 async def on_snip_delete(event):
     """ .remsnip komandası seçdiyiniz Snip'i silər. """
     try:
@@ -125,11 +126,15 @@ async def on_snip_delete(event):
         await event.edit(f"`Snip:` **{name}** `{LANG['NOT_FOUND']}` ")
 
 CmdHelp('snips').add_command(
-    '$<snip_adı>', None, 'Snipi çağırar.'
-).add_command(
-    'snip', '<ad> <söz/cavab>', 'Bir snip olaraq qeyd eder. (Şəkillər, Stickerlər!)'
-).add_command(
-    'snips', None, 'Qeyd edilən Snip\'ləri göstərər.'
-).add_command(
-    'remsnip', '<snip adı>', 'Seçdiyiniz Snip\'i silər.'
-).add()
+    '$<snip_adı>',
+    None,
+    'Snipi çağırar.').add_command(
+        'snip',
+        '<ad> <söz/cavab>',
+        'Bir snip olaraq qeyd eder. (Şəkillər, Stickerlər!)').add_command(
+            'snips',
+            None,
+            'Qeyd edilən Snip\'ləri göstərər.').add_command(
+                'remsnip',
+                '<snip adı>',
+    'Seçdiyiniz Snip\'i silər.').add()

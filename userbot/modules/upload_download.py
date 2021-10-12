@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
-# Neon Userbot 
+# Neon Userbot
 
 import json
 import os
@@ -20,7 +20,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeVideo
 
-from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, BOT_USERNAME
+from userbot import BOT_USERNAME, LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -30,6 +30,7 @@ from userbot.language import get_value
 LANG = get_value("upload_download")
 
 # ████████████████████████████████ #
+
 
 def get_lst_of_files(input_directory, output_lst):
     filesinfolder = os.listdir(input_directory)
@@ -262,7 +263,8 @@ async def upload(u_event):
     else:
         await u_event.edit(f"404: {LANG['NOT_FOUND']}")
 
-@register(pattern=r".unzip", outgoing=True)  
+
+@register(pattern=r".unzip", outgoing=True)
 async def zip(event):
     if event.fwd_from:
         return
@@ -313,7 +315,8 @@ async def zip(event):
                     if metadata.has("duration"):
                         duration = metadata.get('duration').seconds
                     if os.path.exists(thumb_image_path):
-                        metadata = extractMetadata(createParser(thumb_image_path))
+                        metadata = extractMetadata(
+                            createParser(thumb_image_path))
                         if metadata.has("width"):
                             width = metadata.get("width")
                         if metadata.has("height"):
@@ -327,7 +330,7 @@ async def zip(event):
                             supports_streaming=True
                         )
                     ]
-                
+
                 await event.client.send_file(
                     event.chat_id,
                     single_file,
@@ -350,14 +353,22 @@ async def zip(event):
 @register(outgoing=True, pattern="^.wupload ?(.+?|) (.*)")
 async def wupload(event):
     await event.edit(LANG['DOWNLOADING'])
-    PROCESS_RUN_TIME = 100
     input_str = event.pattern_match.group(1)
     selected_transfer = event.pattern_match.group(2)
     bas = time.time()
     if input_str:
         file_name = input_str
     else:
-        HOST = ["anonfiles", "transfer", "filebin", "tmpninja", "anonymousfiles", "megaupload", "bayfiles", "tempsh", "letsupload"]
+        HOST = [
+            "anonfiles",
+            "transfer",
+            "filebin",
+            "tmpninja",
+            "anonymousfiles",
+            "megaupload",
+            "bayfiles",
+            "tempsh",
+            "letsupload"]
         if selected_transfer in HOST:
             reply = await event.get_reply_message()
             file_name = await event.client.download_media(
@@ -378,13 +389,12 @@ async def wupload(event):
         "tempsh": "curl -T \"{full_file_path}\" https://temp.sh",
         "bayfiles": "curl -F \"file=@{full_file_path}\" https://bayfiles.com/api/upload",
         "letsupload": "curl -F \"file=@{full_file_path}\" https://api.letsupload.cc/upload",
-        "vshare": "curl -F \"file=@{full_file_path}\" https://api.vshare.is/upload"
-    }
+        "vshare": "curl -F \"file=@{full_file_path}\" https://api.vshare.is/upload"}
     filename = os.path.basename(file_name)
     try:
         selected_one = CMD_WEB[selected_transfer].format(
             full_file_path=file_name,
-                        bare_local_name=filename
+            bare_local_name=filename
         )
     except KeyError:
         await event.edit(LANG['NOT_FOUND_HOST'])
@@ -394,20 +404,23 @@ async def wupload(event):
         cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
+    stderr.decode().strip()
     t_response = stdout.decode().strip()
 
     zaman = time.time() - bas
     await event.edit(LANG['GETTING_LINK'])
     if t_response:
         try:
-            t_response = json.dumps(json.loads(t_response), sort_keys=True, indent=4)
-        except Exception as e:
+            t_response = json.dumps(
+                json.loads(t_response), sort_keys=True, indent=4)
+        except Exception:
             pass
-        
+
         try:
-            urll = re.findall(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+", t_response)[0]
-        except:
+            urll = re.findall(
+                r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
+                t_response)[0]
+        except BaseException:
             urll = t_response
             await event.edit(urll)
             return
@@ -424,6 +437,7 @@ async def wupload(event):
             await event.delete()
         else:
             await event.edit(urll)
+
 
 def get_video_thumb(file, output=None, width=90):
     metadata = extractMetadata(createParser(file))
@@ -567,13 +581,18 @@ async def uploadas(uas_event):
         await uas_event.edit("404: Qovluq tapılmadı.")
 
 CmdHelp('updown').add_command(
-    'download', '<bağlantı-fayl adı> (cavab)', 'Faylı serverə yükləyər.'
-).add_command(
-    'upload', '<serverdəki qovluq yolu>', 'Serverinizdəki bir faylı söhbətə upload edər.'
-).add_command(
-    'wupload', ' <fayla cavab vedin> anonfiles|transfer|filebin|tmpninja|anonymousfiles|megaupload|bayfiles|letsupload|vshare', 'Seçtiyiniz web saytına yükləyər.'
-).add_command(
-    'unzip', '<cavab>', 'Cavab verdiyiniz Zip qovluğunu çıxarar.'
-).add_command(
-    'uploadir', '<qovluq>', 'Bütün qovluğu yükləyər.'
-).add()
+    'download',
+    '<bağlantı-fayl adı> (cavab)',
+    'Faylı serverə yükləyər.').add_command(
+        'upload',
+        '<serverdəki qovluq yolu>',
+        'Serverinizdəki bir faylı söhbətə upload edər.').add_command(
+            'wupload',
+            ' <fayla cavab vedin> anonfiles|transfer|filebin|tmpninja|anonymousfiles|megaupload|bayfiles|letsupload|vshare',
+            'Seçtiyiniz web saytına yükləyər.').add_command(
+                'unzip',
+                '<cavab>',
+                'Cavab verdiyiniz Zip qovluğunu çıxarar.').add_command(
+                    'uploadir',
+                    '<qovluq>',
+    'Bütün qovluğu yükləyər.').add()

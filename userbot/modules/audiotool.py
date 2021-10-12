@@ -1,13 +1,13 @@
 # nusrets // nusrte
 # N Σ O N / ekme peyserrrrrrrrrr
 
+import moviepy.editor as m
 import os
 
-from userbot import bot, CMD_HELP
 from userbot.events import register as esebj
-from userbot.cmdhelp import CmdHelp 
+from userbot.cmdhelp import CmdHelp
 os.system("pip install moviepy")
-import moviepy.editor as m
+
 
 @esebj(outgoing=True, pattern="^.getaudio(?: |$)(.*)", disable_errors=True)
 async def _(event):
@@ -28,7 +28,7 @@ async def _(event):
     if not (ureply and ("video" in ureply.document.mime_type)):
         await event.edit("**GİF/Video'ya** `cavab verməlisən.`")
         return
-    xx = await event.edit("`Proses Hazırlanır...`")
+    await event.edit("`Proses Hazırlanır...`")
     ultt = await ureply.download_media()
     ls = os.listdir("resources/extras")
     z = "ul.mp3"
@@ -49,7 +49,7 @@ async def _(event):
 Help = CmdHelp('audiotool').add_info(
     '[N Σ O N](t.me/neonuserbot)\n**Öz adınla yayma! - @esebj**'
 ).add_command(
-    'getaudio',None,'UserBot Audio Faylını Daxilinə Yükləyər.'
+    'getaudio', None, 'UserBot Audio Faylını Daxilinə Yükləyər.'
 ).add_command(
-    'addaudio',None,"Hər Hansısa Gif / Video Cavablayın Və UserBot Daxilinə Yüklədiyi Musiqi İlə Cavab Verdiyiniz Videonu Editləyib Hazırlayar."
+    'addaudio', None, "Hər Hansısa Gif / Video Cavablayın Və UserBot Daxilinə Yüklədiyi Musiqi İlə Cavab Verdiyiniz Videonu Editləyib Hazırlayar."
 ).add()

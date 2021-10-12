@@ -13,7 +13,7 @@ import asyncio
 from getpass import getuser
 from os import remove
 from sys import executable
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID
+from userbot import BOTLOG, BOTLOG_CHATID
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -23,6 +23,7 @@ from userbot.language import get_value
 LANG = get_value("evaluators")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.eval(?: |$)(.*)")
 async def evaluate(query):
@@ -37,7 +38,8 @@ async def evaluate(query):
         await query.edit(LANG['NEED_CODE'])
         return
 
-    if (expression in ("userbot.session", "config.env")) or (expression == 'env'):
+    if (expression in ("userbot.session", "config.env")) or (
+            expression == 'env'):
         await query.edit(LANG['WARNING'])
         return
 
@@ -91,7 +93,8 @@ async def run(run_q):
         await run_q.edit(LANG['NEED_CODE'])
         return
 
-    if (expression in ("userbot.session", "config.env")) or (expression == 'env'):
+    if (expression in ("userbot.session", "config.env")) or (
+            expression == 'env'):
         await run_q.edit(LANG['WARNING'])
         return
 
@@ -197,10 +200,13 @@ async def terminal_runner(term):
             "Terminal Komandası " + command + " uğurla yeridildi",
         )
 
-CmdHelp('evaluators').add_command(
-    'eval', '<əməliyyat', 'Kiçik ifadələri dəyərləndirin.', 'eval 2+3'
-).add_command(
-    'exec', '<python kodu>', 'Kiçik Python komanlarını işə salın.', 'exec print(\"[N Σ O N](https://t.me/NeonUserBot)\")'
-).add_command(
-    'term', '<əməliyyat>', 'Serverinizdəki bash komandaları vs komanda fayllarını işə salar.', 'term ls'
-).add()
+CmdHelp('evaluators').add_command('eval',
+                                  '<əməliyyat',
+                                  'Kiçik ifadələri dəyərləndirin.',
+                                  'eval 2+3').add_command('exec',
+                                                          '<python kodu>',
+                                                          'Kiçik Python komanlarını işə salın.',
+                                                          'exec print(\"[N Σ O N](https://t.me/NeonUserBot)\")').add_command('term',
+                                                                                                                             '<əməliyyat>',
+                                                                                                                             'Serverinizdəki bash komandaları vs komanda fayllarını işə salar.',
+                                                                                                                             'term ls').add()

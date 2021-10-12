@@ -8,6 +8,11 @@
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
+from userbot.main import PLUGIN_MESAJLAR
+from userbot.modules.admin import get_user_from_event
+from userbot.events import register
+from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
+from asyncio import sleep
 from userbot.language import get_value
 LANG = get_value("chat")
 
@@ -15,11 +20,6 @@ LANG = get_value("chat")
 
 """ Userid, chatid ve log emrleri olan UserBot modulu """
 
-from asyncio import sleep
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
-from userbot.events import register
-from userbot.modules.admin import get_user_from_event
-from userbot.main import PLUGIN_MESAJLAR
 
 @register(outgoing=True, pattern="^.userid$")
 async def useridgetter(target):
@@ -90,7 +90,7 @@ async def kickme(leave):
     await leave.edit(f"{PLUGIN_MESAJLAR['kickme']}".format(
         id=chat.id,
         title=chat.title,
-        member_count="Bilinmiyor" if chat.participants_count == None else (chat.participants_count - 1)
+        member_count="Bilinmiyor" if chat.participants_count is None else (chat.participants_count - 1)
     ))
     await leave.client.kick_participant(leave.chat_id, 'me')
 
@@ -142,7 +142,7 @@ async def keep_read(message):
                 await message.client.send_read_acknowledge(message.chat_id)
 
 
-#Neon UserBot
+# Neon UserBot
 regexNinja = False
 
 

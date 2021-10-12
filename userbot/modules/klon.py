@@ -1,6 +1,6 @@
 # Neon User Bot
 
-#TheOksigen
+# TheOksigen
 
 import os
 import asyncio
@@ -13,7 +13,8 @@ from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
 PHOTO = TEMP_DOWNLOAD_DIRECTORY + "pp.jpg"
-USERINFO= {}
+USERINFO = {}
+
 
 @register(outgoing=True, pattern="^.clone(?: |$)(.*)")
 @register(outgoing=True, pattern="^.klon(?: |$)(.*)")
@@ -99,7 +100,7 @@ async def revert(event):
 
 
 CmdHelp('klon').add_command(
-    'klon',  None, 'Mesajına yanıt verdiyiniz istifadəçini klonlayar'
+    'klon', None, 'Mesajına yanıt verdiyiniz istifadəçini klonlayar'
 ).add_command(
-    'revert, unklon, deklon',  None, 'Hesabınızı əvvəlki vəziyyətinə qaytarar.🧮'
+    'revert, unklon, deklon', None, 'Hesabınızı əvvəlki vəziyyətinə qaytarar.🧮'
 ).add()

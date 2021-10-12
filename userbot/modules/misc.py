@@ -13,7 +13,7 @@ from os import execl
 import sys
 import io
 import sys
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import BOTLOG, BOTLOG_CHATID, bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -24,6 +24,7 @@ LANG = get_value("misc")
 
 # ████████████████████████████████ #
 
+
 @register(outgoing=True, pattern="^.resend")
 async def resend(event):
     await event.delete()
@@ -32,6 +33,7 @@ async def resend(event):
         event.edit(LANG['REPLY_TO_FILE'])
         return
     await event.respond(m)
+
 
 @register(outgoing=True, pattern="^.random")
 async def randomise(items):
@@ -75,7 +77,7 @@ async def shutdown(event):
                                         "Bot söndürüldü.")
     try:
         await bot.disconnect()
-    except:
+    except BaseException:
         pass
 
 
@@ -88,7 +90,7 @@ async def restart(event):
 
     try:
         await bot.disconnect()
-    except:
+    except BaseException:
         pass
 
     execl(sys.executable, sys.executable, *sys.argv)
@@ -103,13 +105,13 @@ async def bot_support(wannahelp):
 @register(outgoing=True, pattern="^.creator$")
 async def creator(e):
     await e.edit("<b>N Σ O N UserBot @TheOksigen və @Nusrets tərəfindən yaradılıb.</b>",
-                    parse_mode='html')
+                 parse_mode='html')
 
 
 @register(outgoing=True, pattern="^.readme$")
 async def reedme(e):
     await e.edit("https://github.com/nusrte/NeonUserBot#readme",
-                    parse_mode='html')
+                 parse_mode='html')
 
 
 # Copyright (c) Gegham Zakaryan | 2019
@@ -131,6 +133,7 @@ async def repeat(rep):
 async def repo(repo):
     """ .repo komandası Repomuzun linkini verər. """
     await repo.edit('[N Σ O N\'s repository](https://github.com/nusrte/NeonUserBot)')
+
 
 @register(outgoing=True, pattern="^.raw$")
 async def raw(event):

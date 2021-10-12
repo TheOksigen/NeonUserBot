@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
-# N Σ O N 
+# N Σ O N
 
 """ Hadiseleri idare etmek üçün User Bot modulu.
  UserBot'un esas komponentlerinden biri. """
@@ -31,7 +31,7 @@ def register(**args):
     disable_errors = args.get('disable_errors', False)
 
     if pattern:
-        args["pattern"] = pattern.replace("^.", "^["+ PATTERNS + "]")
+        args["pattern"] = pattern.replace("^.", "^[" + PATTERNS + "]")
     if "disable_edited" in args:
         del args['disable_edited']
 
@@ -46,7 +46,7 @@ def register(**args):
 
     if "trigger_on_fwd" in args:
         del args['trigger_on_fwd']
-      
+
     if "trigger_on_inline" in args:
         del args['trigger_on_inline']
 
@@ -62,14 +62,13 @@ def register(**args):
 
             if check.via_bot_id and not trigger_on_inline:
                 return
-             
+
             if groups_only and not check.is_group:
-                await check.respond("**Bu modul qrup üçün nəzərdə tutulub.**\n**Lakin, mən buranın qrup olduğuna inanmıram** 🤔")  
+                await check.respond("**Bu modul qrup üçün nəzərdə tutulub.**\n**Lakin, mən buranın qrup olduğuna inanmıram** 🤔")
                 return
 
             try:
                 await func(check)
-                
 
             except events.StopPropagation:
                 raise events.StopPropagation
@@ -95,7 +94,8 @@ def register(**args):
                     ftext += "--------N Σ O N⚡️𝐔𝐬𝐞𝐫𝐁𝐨𝐭🇦🇿 XETA HESABATI--------\n"
                     ftext += "\nTarix: " + date
                     ftext += "\nQrup ID: " + str(check.chat_id)
-                    ftext += "\nGönderen İsdifadeçinin ID: " + str(check.sender_id)
+                    ftext += "\nGönderen İsdifadeçinin ID: " + \
+                        str(check.sender_id)
                     ftext += "\n\nHadise:\n"
                     ftext += str(check.text)
                     ftext += "\n\nİzleme Melumatı:\n"
@@ -109,7 +109,7 @@ def register(**args):
                     ftext += "\n\n\nSon 10 commit:\n"
 
                     process = await asyncsubshell(command,
-                                                   stdout=asyncsub.PIPE,
+                                                  stdout=asyncsub.PIPE,
                                                   stderr=asyncsub.PIPE)
                     stdout, stderr = await process.communicate()
                     result = str(stdout.decode().strip()) \

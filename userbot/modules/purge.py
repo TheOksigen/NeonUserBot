@@ -10,7 +10,7 @@ from asyncio import sleep
 
 from telethon.errors import rpcbaseerrors
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG, BOTLOG_CHATID
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -20,6 +20,7 @@ from userbot.language import get_value
 LANG = get_value("purge")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.purge$")
 async def fastpurger(purg):
@@ -112,6 +113,7 @@ async def editer(edit):
         await edit.client.send_message(BOTLOG_CHATID,
                                        "Mesaj uğurla düzəldildi.")
 
+
 @register(outgoing=True, pattern="^.sd")
 async def selfdestruct(destroy):
     message = destroy.text
@@ -126,13 +128,18 @@ async def selfdestruct(destroy):
                                           "sd sorğusu uğurla yeridildi.")
 
 CmdHelp('purge').add_command(
-    'purge', None, 'Hədəflənən cavabdan başlayaraq bütün mesajları təmizləyər.'
-).add_command(
-    'purgeme', '<sayı>', 'Hədəflənən cavabdan başlayaraq öz mesajlarınızı təmizləyər.'
-).add_command(
-    'del', '<cavab>', 'Cavab verilən mesajı silər.'
-).add_command(
-    'edit', '<yeni mesaj>', 'Cavab verdiyiniz mesajı yeni mesaj ilə dəyişdirər.'
-).add_command(
-    'sd', '<x> <mesaj>', 'x saniyə içində özünü yox edən bir mesaj yaradar.'
-).add()
+    'purge',
+    None,
+    'Hədəflənən cavabdan başlayaraq bütün mesajları təmizləyər.').add_command(
+        'purgeme',
+        '<sayı>',
+        'Hədəflənən cavabdan başlayaraq öz mesajlarınızı təmizləyər.').add_command(
+            'del',
+            '<cavab>',
+            'Cavab verilən mesajı silər.').add_command(
+                'edit',
+                '<yeni mesaj>',
+                'Cavab verdiyiniz mesajı yeni mesaj ilə dəyişdirər.').add_command(
+                    'sd',
+                    '<x> <mesaj>',
+    'x saniyə içində özünü yox edən bir mesaj yaradar.').add()

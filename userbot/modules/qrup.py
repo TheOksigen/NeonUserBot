@@ -1,4 +1,7 @@
-from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPublicGroupNaError)
+from telethon.errors import (
+    ChannelInvalidError,
+    ChannelPrivateError,
+    ChannelPublicGroupNaError)
 from emoji import emojize
 from telethon.tl.types import MessageActionChannelMigrateFrom, ChannelParticipantsAdmins
 from telethon.tl.functions.messages import GetHistoryRequest, GetFullChatRequest
@@ -8,25 +11,15 @@ from math import sqrt
 from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest
 from telethon.utils import get_input_location
 from userbot.cmdhelp import CmdHelp
-from os import remove
-from telethon.errors import (BadRequestError, ChatAdminRequiredError,
-                             ImageProcessFailedError, PhotoCropSizeSmallError,
-                             UserAdminInvalidError)
-from telethon.errors.rpcerrorlist import (UserIdInvalidError,
-                                          MessageTooLongError)
-from telethon.tl.functions.channels import (EditAdminRequest,
-                                            EditBannedRequest,
-                                            EditPhotoRequest)
-from telethon.tl.functions.messages import UpdatePinnedMessageRequest
-from telethon.tl.types import (PeerChat, PeerChannel,
-                               ChannelParticipantsAdmins, ChatAdminRights,
-                               ChatBannedRights, MessageEntityMentionName,
-                               MessageMediaPhoto, ChannelParticipantsBots)
+from telethon.errors import (ChatAdminRequiredError, UserAdminInvalidError)
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.types import (ChannelParticipantsAdmins, ChatBannedRights)
 import asyncio
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import BOTLOG, BOTLOG_CHATID, bot
+
 
 @neon(
-    outgoing=True, 
+    outgoing=True,
     pattern="^.qrupinfo(?: |$)(.*)"
 )
 async def info(event):
@@ -39,8 +32,8 @@ async def info(event):
         print("Exception:", e)
         await event.edit("`Gözlənilməz bir xəta baş verdi.`")
     return
-    
-    
+
+
 async def get_chatinfo(event):
     chat = event.pattern_match.group(1)
     chat_info = None
@@ -58,7 +51,7 @@ async def get_chatinfo(event):
             chat = event.chat_id
     try:
         chat_info = await event.client(GetFullChatRequest(chat))
-    except:
+    except BaseException:
         try:
             chat_info = await event.client(GetFullChannelRequest(chat))
         except ChannelInvalidError:
@@ -79,57 +72,78 @@ async def get_chatinfo(event):
 async def fetch_info(chat, event):
     # chat.chats is a list so we use get_entity() to avoid IndexError
     chat_obj_info = await event.client.get_entity(chat.full_chat.id)
-    broadcast = chat_obj_info.broadcast if hasattr(chat_obj_info, "broadcast") else False
+    broadcast = chat_obj_info.broadcast if hasattr(
+        chat_obj_info, "broadcast") else False
     chat_type = "Channel" if broadcast else "Group"
     chat_title = chat_obj_info.title
     warn_emoji = emojize(":warning:")
     try:
-        msg_info = await event.client(GetHistoryRequest(peer=chat_obj_info.id, offset_id=0, offset_date=datetime(2010, 1, 1), 
+        msg_info = await event.client(GetHistoryRequest(peer=chat_obj_info.id, offset_id=0, offset_date=datetime(2010, 1, 1),
                                                         add_offset=-1, limit=1, max_id=0, min_id=0, hash=0))
     except Exception as e:
         msg_info = None
         print("Exception:", e)
     # No chance for IndexError as it checks for msg_info.messages first
-    first_msg_valid = True if msg_info and msg_info.messages and msg_info.messages[0].id == 1 else False
+    first_msg_valid = True if msg_info and msg_info.messages and msg_info.messages[
+        0].id == 1 else False
     # Same for msg_info.users
     creator_valid = True if first_msg_valid and msg_info.users else False
     creator_id = msg_info.users[0].id if creator_valid else None
-    creator_firstname = msg_info.users[0].first_name if creator_valid and msg_info.users[0].first_name is not None else "Deleted Account"
+    creator_firstname = msg_info.users[0].first_name if creator_valid and msg_info.users[
+        0].first_name is not None else "Deleted Account"
     creator_username = msg_info.users[0].username if creator_valid and msg_info.users[0].username is not None else None
     created = msg_info.messages[0].date if first_msg_valid else None
-    former_title = msg_info.messages[0].action.title if first_msg_valid and type(msg_info.messages[0].action) is MessageActionChannelMigrateFrom and msg_info.messages[0].action.title != chat_title else None
+    former_title = msg_info.messages[0].action.title if first_msg_valid and isinstance(
+        msg_info.messages[0].action,
+        MessageActionChannelMigrateFrom) and msg_info.messages[0].action.title != chat_title else None
     try:
         dc_id, location = get_input_location(chat.full_chat.chat_photo)
     except Exception as e:
         dc_id = "Unknown"
-        location = str(e)
-    
-    #this is some spaghetti I need to change
+        str(e)
+
+    # this is some spaghetti I need to change
     description = chat.full_chat.about
-    members = chat.full_chat.participants_count if hasattr(chat.full_chat, "participants_count") else chat_obj_info.participants_count
-    admins = chat.full_chat.admins_count if hasattr(chat.full_chat, "admins_count") else None
-    banned_users = chat.full_chat.kicked_count if hasattr(chat.full_chat, "kicked_count") else None
-    restrcited_users = chat.full_chat.banned_count if hasattr(chat.full_chat, "banned_count") else None
-    members_online = chat.full_chat.online_count if hasattr(chat.full_chat, "online_count") else 0
-    group_stickers = chat.full_chat.stickerset.title if hasattr(chat.full_chat, "stickerset") and chat.full_chat.stickerset else None
+    members = chat.full_chat.participants_count if hasattr(
+        chat.full_chat, "participants_count") else chat_obj_info.participants_count
+    admins = chat.full_chat.admins_count if hasattr(
+        chat.full_chat, "admins_count") else None
+    banned_users = chat.full_chat.kicked_count if hasattr(
+        chat.full_chat, "kicked_count") else None
+    restrcited_users = chat.full_chat.banned_count if hasattr(
+        chat.full_chat, "banned_count") else None
+    members_online = chat.full_chat.online_count if hasattr(
+        chat.full_chat, "online_count") else 0
+    group_stickers = chat.full_chat.stickerset.title if hasattr(
+        chat.full_chat, "stickerset") and chat.full_chat.stickerset else None
     messages_viewable = msg_info.count if msg_info else None
-    messages_sent = chat.full_chat.read_inbox_max_id if hasattr(chat.full_chat, "read_inbox_max_id") else None
-    messages_sent_alt = chat.full_chat.read_outbox_max_id if hasattr(chat.full_chat, "read_outbox_max_id") else None
+    messages_sent = chat.full_chat.read_inbox_max_id if hasattr(
+        chat.full_chat, "read_inbox_max_id") else None
+    messages_sent_alt = chat.full_chat.read_outbox_max_id if hasattr(
+        chat.full_chat, "read_outbox_max_id") else None
     exp_count = chat.full_chat.pts if hasattr(chat.full_chat, "pts") else None
-    username = chat_obj_info.username if hasattr(chat_obj_info, "username") else None
+    username = chat_obj_info.username if hasattr(
+        chat_obj_info, "username") else None
     bots_list = chat.full_chat.bot_info  # this is a list
     bots = 0
-    supergroup = "<b>Evet</b>" if hasattr(chat_obj_info, "megagroup") and chat_obj_info.megagroup else "No"
-    slowmode = "<b>Evet</b>" if hasattr(chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else "No"
-    slowmode_time = chat.full_chat.slowmode_seconds if hasattr(chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else None
-    restricted = "<b>Evet</b>" if hasattr(chat_obj_info, "restricted") and chat_obj_info.restricted else "No"
-    verified = "<b>Evet</b>" if hasattr(chat_obj_info, "verified") and chat_obj_info.verified else "No"
+    supergroup = "<b>Evet</b>" if hasattr(chat_obj_info,
+                                          "megagroup") and chat_obj_info.megagroup else "No"
+    slowmode = "<b>Evet</b>" if hasattr(chat_obj_info,
+                                        "slowmode_enabled") and chat_obj_info.slowmode_enabled else "No"
+    slowmode_time = chat.full_chat.slowmode_seconds if hasattr(
+        chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else None
+    restricted = "<b>Evet</b>" if hasattr(chat_obj_info,
+                                          "restricted") and chat_obj_info.restricted else "No"
+    verified = "<b>Evet</b>" if hasattr(chat_obj_info,
+                                        "verified") and chat_obj_info.verified else "No"
     username = "@{}".format(username) if username else None
-    creator_username = "@{}".format(creator_username) if creator_username else None
-    #end of spaghetti block
-    
+    creator_username = "@{}".format(
+        creator_username) if creator_username else None
+    # end of spaghetti block
+
     if admins is None:
-        # use this alternative way if chat.full_chat.admins_count is None, works even without being an admin
+        # use this alternative way if chat.full_chat.admins_count is None,
+        # works even without being an admin
         try:
             participants_admins = await event.client(GetParticipantsRequest(channel=chat.full_chat.id, filter=ChannelParticipantsAdmins(),
                                                                             offset=0, limit=0, hash=0))
@@ -161,7 +175,7 @@ async def fetch_info(chat, event):
         caption += f"Qurulma Tarixi: <code>{chat_obj_info.date.date().strftime('%b %d, %Y')} - {chat_obj_info.date.time()}</code> {warn_emoji}\n"
     caption += f"Məlumat Mərkəzi ID: {dc_id}\n"
     if exp_count is not None:
-        chat_level = int((1+sqrt(1+7*exp_count/14))/2)
+        chat_level = int((1 + sqrt(1 + 7 * exp_count / 14)) / 2)
         caption += f"{chat_type} seviyesi: <code>{chat_level}</code>\n"
     if messages_viewable is not None:
         caption += f"Görünən mesajlar: <code>{messages_viewable}</code>\n"
@@ -186,7 +200,9 @@ async def fetch_info(chat, event):
     caption += "\n"
     if not broadcast:
         caption += f"Yavaş mod: {slowmode}"
-        if hasattr(chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled:
+        if hasattr(
+                chat_obj_info,
+                "slowmode_enabled") and chat_obj_info.slowmode_enabled:
             caption += f", <code>{slowmode_time}s</code>\n\n"
         else:
             caption += "\n\n"
@@ -201,12 +217,12 @@ async def fetch_info(chat, event):
         else:
             caption += "\n"
     if hasattr(chat_obj_info, "scam") and chat_obj_info.scam:
-    	caption += "Scam: <b>Evet</b>\n\n"
+        caption += "Scam: <b>Evet</b>\n\n"
     if hasattr(chat_obj_info, "verified"):
         caption += f"Telegram tərəfindən doğrulandı: {verified}\n\n"
     if description:
         caption += f"Açıqlama: \n<code>{description}</code>\n"
-    return caption    
+    return caption
 # ---------------------------------------------------------------------------------------------------
 
 BANNED_RIGHTS = ChatBannedRights(
@@ -238,14 +254,15 @@ UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
 # ------------------------------------------------------------------------------------------------------
 
-@neon(    
-    pattern="^\.zombies(?: |$)(.*)", 
-    outgoing=True   
+
+@neon(
+    pattern="^\\.zombies(?: |$)(.*)",
+    outgoing=True
 )
 async def delete_accounts_cleaner(e):
     # eger qrupda yazmazsa.
     if not e.is_group:
-        await e.edit(       
+        await e.edit(
             "Mənim fikrimcə bura qrup deyil."
         )
         return
@@ -253,11 +270,10 @@ async def delete_accounts_cleaner(e):
     say = 0
     silinmə = "**Qrupda silinmiş hesab tapmadım. Bu qrup təmizdir.**"
 
-    
     # ikinci emr. tapilan silinmis hesablari siler.
     if command_input != "clean":
-        await e.edit(f"<b>{e.chat.title} qrupunda silinmiş hesabları axtarıram...</b>", 
-                                    parse_mode="HTML")
+        await e.edit(f"<b>{e.chat.title} qrupunda silinmiş hesabları axtarıram...</b>",
+                     parse_mode="HTML")
         async for user in e.client.iter_participants(e.chat_id):
             if user.deleted:
                 say += 1
@@ -307,8 +323,8 @@ async def delete_accounts_cleaner(e):
 
     if BOTLOG:
         await bot.send_message(
-            BOTLOG_CHATID, 
-f"""
+            BOTLOG_CHATID,
+            f"""
 <b>#TƏMİZLİK</b>
 <code>Təmizlik zamanı</code> <b>{say}</b> <code>silinmiş hesab qrupdan çıxarıldı.</code>
 <b>QRUPUN ADI:</b> <code>{e.chat.title}</code>
@@ -316,13 +332,18 @@ f"""
 
 <b>@NeonUserBot 🎴</b>
 """,
-        parse_mode="HTML"
+            parse_mode="HTML"
         )
 
 
-
 Kömək = CmdHelp('qrup')
-Kömək.add_command('qrupinfo',None, 'Qrup haqqında məlumat verər.')
-Kömək.add_command("zombies",None,"Qrupda olan silinmiş hesabları müəyyən etmək üçün əmr.")
-Kömək.add_command("zombies clean",None,"Qrupda olan silinmiş hesabları tapıb silər.")
+Kömək.add_command('qrupinfo', None, 'Qrup haqqında məlumat verər.')
+Kömək.add_command(
+    "zombies",
+    None,
+    "Qrupda olan silinmiş hesabları müəyyən etmək üçün əmr.")
+Kömək.add_command(
+    "zombies clean",
+    None,
+    "Qrupda olan silinmiş hesabları tapıb silər.")
 Kömək.add()

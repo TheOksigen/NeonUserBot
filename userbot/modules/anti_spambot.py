@@ -69,7 +69,8 @@ async def anti_spambot(welcm):
                     message_date = message.date
 
                     if message_date < join_time:
-                        # Eger mesaj isdifadeçi qatılma tarixinden daha evvel ise yox sayılar.
+                        # Eger mesaj isdifadeçi qatılma tarixinden daha evvel
+                        # ise yox sayılar.
                         continue
 
                     check_user = await welcm.client.get_entity(user_id)
@@ -94,7 +95,6 @@ async def anti_spambot(welcm):
                             "CAS yoxlanması uğursuz, köhne anti_spambot yoxlanmasına çevrilir."
                         )
                         data = None
-                        pass
 
                     if data and data['ok']:
                         reason = f"[Combot Anti Spam tərəfindsn banlandı.](https://combot.org/cas/query?u={check_user.id})"
@@ -115,11 +115,17 @@ async def anti_spambot(welcm):
                         reason = "`bit.ly` URL'leri təspit edildi."
                         spambot = True
                     else:
-                        if check_user.first_name in ("Bitmex", "Promotion",
-                                                     "Information", "Dex",
-                                                     "Announcements", "Info",
-                                                     "Duyuru", "Duyurular"
-                                                     "Bilgilendirme", "Bilgilendirmeler"):
+                        if check_user.first_name in (
+                            "Bitmex",
+                            "Promotion",
+                            "Information",
+                            "Dex",
+                            "Announcements",
+                            "Info",
+                            "Duyuru",
+                            "Duyurular"
+                            "Bilgilendirme",
+                                "Bilgilendirmeler"):
                             if check_user.last_name == "Bot":
                                 reason = "Bilinen SpamBot"
                                 spambot = True

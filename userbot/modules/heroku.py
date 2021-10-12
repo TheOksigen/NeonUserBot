@@ -2,11 +2,7 @@
 
 import codecs
 import heroku3
-import asyncio
-import aiohttp
-import math
 import os
-import ssl
 import requests
 
 from userbot import (
@@ -114,7 +110,6 @@ async def set_var(var):
     heroku_var[variable] = value
 
 
-
 @register(outgoing=True, pattern=r"^\.loq")
 async def _(dyno):
     try:
@@ -137,13 +132,13 @@ async def _(dyno):
 
 
 CmdHelp('heroku').add_command(
-                            'set var',
-                            'Bunun sayəsində mövcüd heroku VAR-larınızı dəyişə bilərsiniz.\nVə yaxud da yeni varlar əlavə edə bilərsiniz.'
-                            ".set var NEON_STIK 🈴"
+    'set var',
+    'Bunun sayəsində mövcüd heroku VAR-larınızı dəyişə bilərsiniz.\nVə yaxud da yeni varlar əlavə edə bilərsiniz.'
+    ".set var NEON_STIK 🈴"
 ).add_command(
     'get var', None, 'VAR-larınıza baxın. Lakin, özəl BOTLOG qrupunuzda istifadə edin.'
 ).add_command(
-    'del var', None,'Mövcüd Heroku Varlarınızı bu əmr sayəsində silə bilərsiniz.'
+    'del var', None, 'Mövcüd Heroku Varlarınızı bu əmr sayəsində silə bilərsiniz.'
 ).add_command(
     'loq', None, 'Heroku loqu'
 ).add()

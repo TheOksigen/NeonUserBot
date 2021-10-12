@@ -13,7 +13,7 @@ from pytz import country_timezones as c_tz
 from pytz import timezone as tz
 from pytz import country_names as c_n
 
-from userbot import CMD_HELP, WEATHER_DEFCITY
+from userbot import WEATHER_DEFCITY
 from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp

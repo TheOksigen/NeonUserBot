@@ -18,7 +18,7 @@ from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.file import Storage
 from userbot import (G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
                      G_DRIVE_AUTH_TOKEN_DATA, GDRIVE_FOLDER_ID, BOTLOG_CHATID,
-                     TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS)
+                     TEMP_DOWNLOAD_DIRECTORY, LOGS)
 from userbot.events import register
 from mimetypes import guess_type
 import httplib2
@@ -65,8 +65,8 @@ async def gdrive_upload_function(dryb):
             now = time.time()
             diff = now - c_time
             percentage = downloader.get_progress() * 100
-            speed = downloader.get_speed()
-            elapsed_time = round(diff) * 1000
+            downloader.get_speed()
+            round(diff) * 1000
             progress_str = "[{0}{1}] {2}%".format(
                 ''.join(["▰" for i in range(math.floor(percentage / 10))]),
                 ''.join(["▱"
@@ -87,7 +87,6 @@ async def gdrive_upload_function(dryb):
                     display_message = current_message
             except Exception as e:
                 LOGS.info(str(e))
-                pass
         if downloader.isSuccessful():
             await dryb.edit(
                 "`{}` yükləmə uğurludur. \nGoogle Drive'a yükləmə başladılır..."
@@ -184,14 +183,12 @@ async def gdrive_search_list(event):
 
 
 @register(
-    pattern=
-    r"^.gsetf https?://drive\.google\.com/drive/u/\d/folders/([-\w]{25,})",
+    pattern=r"^.gsetf https?://drive\.google\.com/drive/u/\d/folders/([-\w]{25,})",
     outgoing=True)
 async def download(set):
     await set.edit("İşlənilir...")
     input_str = set.pattern_match.group(1)
     if input_str:
-        parent_id = input_str
         await set.edit(
             "Xüsusi qovluq ID'si uğurla ayarlandı. Sonrakı uploadlar buraya uploadlanacaq: {parent_id} (`.gsetclear` komandasını vermədiyinizcə)"
         )
@@ -205,7 +202,6 @@ async def download(set):
 @register(pattern="^.gsetclear$", outgoing=True)
 async def download(gclr):
     await gclr.reply("İşleniyor ...")
-    parent_id = GDRIVE_FOLDER_ID
     await gclr.edit("Xüsusi qovluq ID'si uğurla təmizləndi.")
 
 
@@ -296,7 +292,6 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
                     display_message = current_message
                 except Exception as e:
                     LOGS.info(str(e))
-                    pass
     file_id = response.get("id")
     drive_service.permissions().insert(fileId=file_id,
                                        body=permissions).execute()
@@ -407,13 +402,18 @@ async def gdrive_search(http, search_query):
     return msg
 
 CmdHelp('gdrive').add_command(
-    'gdrive', '<fayl yolu / cavablayaraq / URL|qovluq-adı>', 'Seçilən faylı Google Drive\'a upload edər.'
-).add_command(
-    'gsetf', '<GDrive Qovluq URL\'si>', 'Yeni faylların upladlanacağı qovluqu seçər.'
-).add_command(
-    'gsetclear', None, 'Hal hazırdakı işlənən upload yeirni göstərər.'
-).add_command(
-    'list', '<sorğu>', 'Google Drive\'da olan fayllr.'
-).add_command(
-    'ggd', '<serverdəki-qovluq-yolu>', 'Seçilən yerdəki bütün faylları Google Drive\'a upload edər.'
-).add()
+    'gdrive',
+    '<fayl yolu / cavablayaraq / URL|qovluq-adı>',
+    'Seçilən faylı Google Drive\'a upload edər.').add_command(
+        'gsetf',
+        '<GDrive Qovluq URL\'si>',
+        'Yeni faylların upladlanacağı qovluqu seçər.').add_command(
+            'gsetclear',
+            None,
+            'Hal hazırdakı işlənən upload yeirni göstərər.').add_command(
+                'list',
+                '<sorğu>',
+                'Google Drive\'da olan fayllr.').add_command(
+                    'ggd',
+                    '<serverdəki-qovluq-yolu>',
+    'Seçilən yerdəki bütün faylları Google Drive\'a upload edər.').add()

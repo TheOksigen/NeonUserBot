@@ -13,7 +13,6 @@ from selenium import webdriver
 from asyncio import sleep
 from selenium.webdriver.chrome.options import Options
 from userbot.events import register
-from userbot import GOOGLE_CHROME_BIN, CHROME_DRIVER, CMD_HELP
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -22,6 +21,7 @@ from userbot.language import get_value
 LANG = get_value("screencapture")
 
 # ████████████████████████████████
+
 
 @register(pattern=r".ss (.*)", outgoing=True)
 async def capture(url):
@@ -52,8 +52,8 @@ async def capture(url):
     wait_for = height / 1000
     await url.edit(f"{LANG['TAKING']}\
     \n`{LANG['HEIGHT']}: {height} {LANG['PIXEL']}`\
-    \n`{LANG['WIDTH']}: {width} {LANG['PIXEL']}`" + 
-    LANG['WAIT'] % str(wait_for))
+    \n`{LANG['WIDTH']}: {width} {LANG['PIXEL']}`" +
+                   LANG['WAIT'] % str(wait_for))
     await sleep(int(wait_for))
     im_png = driver.get_screenshot_as_png()
     driver.close()
@@ -70,5 +70,7 @@ async def capture(url):
                                    reply_to=message_id)
 
 CmdHelp('ss').add_command(
-    'ss', '<url>', 'Yazılan web saytından bir ekran şəkli alar və göndərər.', 'ss https://github.com/TheOksigen/neon_userbot'
-).add()
+    'ss',
+    '<url>',
+    'Yazılan web saytından bir ekran şəkli alar və göndərər.',
+    'ss https://github.com/TheOksigen/neon_userbot').add()

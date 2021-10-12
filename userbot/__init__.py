@@ -59,10 +59,10 @@ NEON_STIK = os.environ.get(
     "NEON_STIK") or "🈴 "
 
 # Səsli üçün
-#async def get_call(event):
- #   mm = await event.client(getchat(event.chat_id))
-  #  xx = await event.client(getvc(mm.full_chat.call))
-   # return xx.call
+# async def get_call(event):
+#   mm = await event.client(getchat(event.chat_id))
+#  xx = await event.client(getvc(mm.full_chat.call))
+# return xx.call
 
 # Sudo üçündü
 try:
@@ -79,7 +79,7 @@ LANGUAGE = os.environ.get("LANGUAGE", "AZ").upper()
 if LANGUAGE not in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     LOGS.info("Namelum dil yazıdnız buna göre AZ dil işledilir.")
     LANGUAGE = "AZ"
-    
+
 # Neon Version
 NEON_VERSION = "v0.7"
 
@@ -117,19 +117,19 @@ UPSTREAM_REPO_URL = "https://github.com/nusrte/NeonUserBot.git"
 # Konsol gündeliy
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
-# SQL 
+# SQL
 DB_URI = os.environ.get("DATABASE_URL", "sqlite:///neon.db")
 
 # OCR API
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
 
-# remove.bg API 
+# remove.bg API
 REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
 
 # AVTO PP
 AVTO_PP = os.environ.get("AVTO_PP", None)
 
-# Warn 
+# Warn
 WARN_LIMIT = int(os.environ.get("WARN_LIMIT", 3))
 WARN_MODE = os.environ.get("WARN_MODE", "gmute")
 
@@ -171,7 +171,7 @@ TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
 # Temiz qarşılama
 CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
 
-# Last.fm 
+# Last.fm
 BIO_PREFIX = os.environ.get("BIO_PREFIX", "@NeonUserBot | ")
 DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
 
@@ -188,7 +188,7 @@ if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
 else:
     lastfm = None
 
-# Google Drive 
+# Google Drive
 G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
 G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
 G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
@@ -196,11 +196,11 @@ GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY",
                                          "./downloads")
 
-# Inline bot 
+# Inline bot
 BOT_TOKEN = os.environ.get("BOT_TOKEN", None)
 BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
 
-# Genius 
+# Genius
 GENIUS = os.environ.get("GENIUS", None)
 CMD_HELP = {}
 CMD_HELP_BOT = {}
@@ -216,9 +216,10 @@ AVTO_QATILMA = sb(os.environ.get("AVTO_QATILMA", "True"))
 
 # Patternler
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
-WHITELIST = get('https://raw.githubusercontent.com/nusrte/NeonUserBot/main/whitelist.json').json()
+WHITELIST = get(
+    'https://raw.githubusercontent.com/nusrte/NeonUserBot/main/whitelist.json').json()
 
-# CloudMail.ru ve MEGA.nz 
+# CloudMail.ru ve MEGA.nz
 if not os.path.exists('bin'):
     os.mkdir('bin')
 
@@ -234,7 +235,7 @@ for binary, path in binaries.items():
     downloader.start()
     os.chmod(path, 0o755)
 
-# 'bot' 
+# 'bot'
 if STRING_SESSION:
     # pylint: devre dışı=geçersiz ad
     bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
@@ -243,6 +244,8 @@ else:
     bot = TelegramClient("userbot", API_KEY, API_HASH)
 
 # Sesli sohbet
+
+
 async def get_call(event):
     mm = await event.client(getchat(event.chat_id))
     xx = await event.client(getvc(mm.full_chat.call))
@@ -256,6 +259,7 @@ else:
 URL = 'https://raw.githubusercontent.com/quiec/databasescape/master/learning-data-root.check'
 with open('learning-data-root.check', 'wb') as load:
     load.write(get(URL).content)
+
 
 async def check_botlog_chatid():
     if not BOTLOG_CHATID and LOGSPAMMER:
@@ -277,8 +281,8 @@ async def check_botlog_chatid():
             "Hesabınızın BOTLOG_CHATID qrupuna mesaj gönderme yetkisi yoxdur. "
             "Qrup ID'sini doğru yazıb yazmadığınızı yoxlayın.")
         quit(1)
-        
-if not BOT_TOKEN == None:
+
+if BOT_TOKEN is not None:
     tgbot = TelegramClient(
         "TG_BOT_TOKEN",
         api_id=API_KEY,
@@ -287,11 +291,12 @@ if not BOT_TOKEN == None:
 else:
     tgbot = None
 
+
 def butonlastir(sayfa, moduller):
     Satir = 5
-    Kolon = 2
-    
-    moduller = sorted([modul for modul in moduller if not modul.startswith("_")])
+
+    moduller = sorted(
+        [modul for modul in moduller if not modul.startswith("_")])
     pairs = list(map(list, zip(moduller[::2], moduller[1::2])))
     if len(moduller) % 2 == 1:
         pairs.append([moduller[-1]])
@@ -299,12 +304,15 @@ def butonlastir(sayfa, moduller):
     pairs = [pairs[i:i + Satir] for i in range(0, len(pairs), Satir)]
     butonlar = []
     for pairs in pairs[sayfa]:
-        butonlar.append([
-            custom.Button.inline("🔸 " + pair, data=f"bilgi[{sayfa}]({pair})") for pair in pairs
-        ])
+        butonlar.append([custom.Button.inline("🔸 " + pair,
+                                              data=f"bilgi[{sayfa}]({pair})") for pair in pairs])
 
-    butonlar.append([custom.Button.inline("◀️ Geri", data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"), custom.Button.inline("İreli ▶️", data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
+    butonlar.append([custom.Button.inline("◀️ Geri",
+                                          data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"),
+                     custom.Button.inline("İreli ▶️",
+                                          data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
     return [max_pages, butonlar]
+
 
 with bot:
     if AVTO_QATILMA:
@@ -312,7 +320,7 @@ with bot:
             bot(JoinChannelRequest("@NeonSUP"))
             bot(JoinChannelRequest("@NeonUserBot"))
             bot(JoinChannelRequest("@NeonPlugin"))
-        except:
+        except BaseException:
             pass
 
     moduller = CMD_HELP
@@ -367,9 +375,9 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                 )
             await event.answer([result] if result else None)
 
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"sayfa\((.+?)\)")))
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"sayfa\\((.+?)\\)")))
         async def sayfa(event):
-            if not event.query.user_id == uid: 
+            if not event.query.user_id == uid:
                 return await event.answer("Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @NeonUserBot qur.", cache_time=0, alert=True)
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             veriler = butonlastir(sayfa, CMD_HELP)
@@ -378,30 +386,38 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                 buttons=veriler[1],
                 link_preview=False
             )
-        
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"bilgi\[(\d*)\]\((.*)\)")))
+
+        @tgbot.on(
+            callbackquery.CallbackQuery(
+                data=compile(b"bilgi\\[(\\d*)\\]\\((.*)\\)")))
         async def bilgi(event):
-            if not event.query.user_id == uid: 
+            if not event.query.user_id == uid:
                 return await event.answer("Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @NeonUserBot qur..", cache_time=0, alert=True)
 
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             komut = event.data_match.group(2).decode("UTF-8")
             try:
-                butonlar = [custom.Button.inline("🔹 " + cmd[0], data=f"komut[{komut}[{sayfa}]]({cmd[0]})") for cmd in CMD_HELP_BOT[komut]['commands'].items()]
+                butonlar = [
+                    custom.Button.inline(
+                        "🔹 " + cmd[0],
+                        data=f"komut[{komut}[{sayfa}]]({cmd[0]})") for cmd in CMD_HELP_BOT[komut]['commands'].items()]
             except KeyError:
                 return await event.answer("❌ Bu modula açıqlama yazılmayıb.", cache_time=0, alert=True)
 
             butonlar = [butonlar[i:i + 2] for i in range(0, len(butonlar), 2)]
-            butonlar.append([custom.Button.inline("◀️ Geri", data=f"sayfa({sayfa})")])
+            butonlar.append([custom.Button.inline(
+                "◀️ Geri", data=f"sayfa({sayfa})")])
             await event.edit(
                 f"**📗 Fayl:** `{komut}`\n**🔢 Komanda Sayı:** `{len(CMD_HELP_BOT[komut]['commands'])}`",
                 buttons=butonlar,
                 link_preview=False
             )
-        
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"komut\[(.*)\[(\d*)\]\]\((.*)\)")))
+
+        @tgbot.on(
+            callbackquery.CallbackQuery(
+                data=compile(b"komut\\[(.*)\\[(\\d*)\\]\\]\\((.*)\\)")))
         async def komut(event):
-            if not event.query.user_id == uid: 
+            if not event.query.user_id == uid:
                 return await event.answer("Hey! Mənim mesajlarımı düzəltməyə çalışma! Özünə bir @NeonUserBot qur.", cache_time=0, alert=True)
 
             cmd = event.data_match.group(1).decode("UTF-8")
@@ -426,7 +442,7 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
                 result += f"**🛠 Komanda:** `{PATTERNS[:1]}{command['command']}`\n"
             else:
                 result += f"**🛠 Komanda:** `{PATTERNS[:1]}{command['command']} {command['params']}`\n"
-                
+
             if command['example'] is None:
                 result += f"**💬 Açıqlama:** `{command['usage']}`\n\n"
             else:
@@ -448,7 +464,7 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
 
     try:
         bot.loop.run_until_complete(check_botlog_chatid())
-    except:
+    except BaseException:
         LOGS.info(
             "BOTLOG_CHATID ortam deyişkeni keçerli bir varlıq deyildir. "
             "Ortam deyişkenlerinizi / config.env faylını yoxlayın."

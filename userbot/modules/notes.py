@@ -6,9 +6,8 @@
 
 # NEON USER BOT
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG_CHATID
 from userbot.events import register
-from asyncio import sleep
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -17,6 +16,7 @@ from userbot.language import get_value
 LANG = get_value("notes")
 
 # ████████████████████████████████ #
+
 
 @register(outgoing=True, pattern="^.notes$")
 async def notes_active(svd):
@@ -126,11 +126,15 @@ async def incom_note(getnt):
         pass
 
 CmdHelp('notes').add_command(
-    '#<notadı>', None, 'Seçilən notu çağırar.'
-).add_command(
-    'save', '<not adı> <not olaraq qeyd ediləcək şey> ya da bir mesajı .save <not adı> şəklində cavablayaraq işlədilir', 'Cavablanan mesajı adı ilə birlikdə bir not olaraq qeyd edər. (Fotolar, sənədlər və Stickerlərdə işləyir.)'
-).add_command(
-    'notes', None, 'Bir söhbətdəki bütün notları çağırar.'
-).add_command(
-    'clear', '<not adı>', 'Seçilən notu silər.'
-).add()
+    '#<notadı>',
+    None,
+    'Seçilən notu çağırar.').add_command(
+        'save',
+        '<not adı> <not olaraq qeyd ediləcək şey> ya da bir mesajı .save <not adı> şəklində cavablayaraq işlədilir',
+        'Cavablanan mesajı adı ilə birlikdə bir not olaraq qeyd edər. (Fotolar, sənədlər və Stickerlərdə işləyir.)').add_command(
+            'notes',
+            None,
+            'Bir söhbətdəki bütün notları çağırar.').add_command(
+                'clear',
+                '<not adı>',
+    'Seçilən notu silər.').add()

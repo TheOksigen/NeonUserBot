@@ -1,4 +1,4 @@
-# Copyright (C) 2020 
+# Copyright (C) 2020
 #
 # Licensed under the GPL-3.0 License;
 # you may not use this file except in compliance with the License.
@@ -9,7 +9,7 @@
 import re
 import asyncio
 
-from userbot import CMD_HELP, ASYNC_POOL, QALERIYA_VAXT
+from userbot import ASYNC_POOL, QALERIYA_VAXT
 from userbot.events import register
 from userbot.main import FotoDegistir
 from userbot.cmdhelp import CmdHelp
@@ -23,18 +23,20 @@ LANG = get_value("qaleriya")
 
 URL_REGEX = re.compile(
     # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
-    r'^(?:http|ftp)s?://' # http:// or https://
-    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-    r'localhost|' #localhost...
-    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-    r'(?::\d+)?' # optional port
+    r'^(?:http|ftp)s?://'  # http:// or https://
+    # domain...
+    r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
+    r'localhost|'  # localhost...
+    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+    r'(?::\d+)?'  # optional port
     r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
 
 @register(outgoing=True, pattern="^.qaleriya ?(.*)")
 async def qaleriya(event):
     try:
         import userbot.modules.sql_helper.qaleriya_sql as sql
-    except:
+    except BaseException:
         await event.edit("`SQL xarici mod'da Qaleriya işləməz!`")
     secenek = event.pattern_match.group(1)
     secen = secenek.split(" ")
@@ -77,7 +79,7 @@ async def qaleriya(event):
                 fotolar = sql.TUM_QALERIYA
                 i = 0
                 while i < len(fotolar):
-                    if not "qaleriya" in ASYNC_POOL:
+                    if "qaleriya" not in ASYNC_POOL:
                         break
                     if i == len(fotolar):
                         i = 0
@@ -98,9 +100,14 @@ async def qaleriya(event):
         await event.edit(LANG['INVALID'])
 
 CmdHelp('qaleriya').add_command(
-    'qaleriya elave et', '<url>', 'Qaleriya sırasına şəkil əlavə edər', 'qaleriya elave et https://i.imgyukle.com/2021/01/09/aF9ADo.md.jpg'
-).add_command(
-    'qaleriya siyahı', None, 'Qaleriya sırasını gösterir.'
-).add_command(
-    'qaleriya sil', '<reqem>', 'Qaleriya sırasından bir şəkli silər.', 'qaleriya sil 4'
-).add()
+    'qaleriya elave et',
+    '<url>',
+    'Qaleriya sırasına şəkil əlavə edər',
+    'qaleriya elave et https://i.imgyukle.com/2021/01/09/aF9ADo.md.jpg').add_command(
+        'qaleriya siyahı',
+        None,
+        'Qaleriya sırasını gösterir.').add_command(
+            'qaleriya sil',
+            '<reqem>',
+            'Qaleriya sırasından bir şəkli silər.',
+    'qaleriya sil 4').add()

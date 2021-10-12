@@ -1,10 +1,6 @@
 
-from userbot import CMD_HELP
 from userbot.events import register
-from PIL import Image
-import io
 import os
-import asyncio
 from userbot.cmdhelp import CmdHelp
 
 # ██████ LANGUAGE CONSTANTS ██████ #
@@ -14,6 +10,7 @@ LANG = get_value("siyahi")
 
 # ████████████████████████████████ #
 
+
 @register(outgoing=True, pattern="^.siyahı ?(gmute|gban)?")
 async def siyahi(event):
     siyahi = event.pattern_match.group(1)
@@ -21,14 +18,14 @@ async def siyahi(event):
         if len(siyahi) < 1:
             await event.edit(LANG['WRONG_INPUT'])
             return
-    except:
+    except BaseException:
         await event.edit(LANG['WRONG_INPUT'])
         return
-    
+
     if siyahi == "gban":
         try:
             from userbot.modules.sql_helper.gban_sql import gbanlist
-        except:
+        except BaseException:
             await event.edit(LANG['NEED_SQL_MODE'])
             return
         await event.edit(LANG['GBANNED_USERS'])
@@ -46,7 +43,7 @@ async def siyahi(event):
     elif siyahi == "gmute":
         try:
             from userbot.modules.sql_helper.gmute_sql import gmutelist
-        except:
+        except BaseException:
             await event.edit(LANG['NEED_SQL_MODE'])
             return
         await event.edit(LANG['GMUTE_DATA'])
@@ -62,6 +59,5 @@ async def siyahi(event):
         else:
             await event.edit(LANG['GMUTE_LIST'] % mesaj)
 
-CmdHelp('siyahı').add_command(
-    'siyahı', '<gmute/gban>', 'Gbanladığınız vəya Gmutelədiyiniz isdifadəçiləri göstərər.'
-).add()
+CmdHelp('siyahı').add_command('siyahı', '<gmute/gban>',
+                              'Gbanladığınız vəya Gmutelədiyiniz isdifadəçiləri göstərər.').add()

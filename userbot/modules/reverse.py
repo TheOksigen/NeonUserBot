@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
-#Neon UserBot
+# Neon UserBot
 
 import io
 import os
@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 import re
 from PIL import Image
 
-from userbot import bot, CMD_HELP
+from userbot import bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -53,7 +53,7 @@ async def okgoogle(img):
         name = "okgoogle.png"
         image.save(name, "PNG")
         image.close()
-        # TGUSERBOT 
+        # TGUSERBOT
         searchUrl = 'https://www.google.com/searchbyimage/upload'
         multipart = {
             'encoded_image': (name, open(name, 'rb')),
@@ -145,5 +145,6 @@ async def scam(results, lim):
     return imglinks
 
 CmdHelp('reverse').add_command(
-    'reverse', '<cavab>', 'Foto vəya stikerə cavab verərək görüntünü Google üstündən axtara bilərsiz.'
-).add()
+    'reverse',
+    '<cavab>',
+    'Foto vəya stikerə cavab verərək görüntünü Google üstündən axtara bilərsiz.').add()

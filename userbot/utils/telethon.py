@@ -5,7 +5,6 @@ import inspect
 import logging
 import math
 import os
-import re
 from collections import defaultdict
 from typing import Optional, List, AsyncGenerator, Union, Awaitable, DefaultDict, Tuple, BinaryIO
 
@@ -169,7 +168,6 @@ class ParallelTransferrer:
                 return minimum + 1
             return minimum
 
-        
         self.senders = [
             await self._create_download_sender(file, 0, part_size, connections * part_size,
                                                get_part_count()),

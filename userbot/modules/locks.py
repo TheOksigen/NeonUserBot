@@ -10,7 +10,6 @@
 from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
 from telethon.tl.types import ChatBannedRights
 
-from userbot import CMD_HELP
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 

@@ -6,6 +6,7 @@
 
 # Neon UserBot
 
+from userbot.language import get_value
 from asyncio import create_subprocess_shell as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
 from platform import uname
@@ -22,11 +23,11 @@ from userbot.cmdhelp import CmdHelp
 DEFAULTUSER = uname().node
 # ██████ LANGUAGE CONSTANTS ██████ #
 
-from userbot.language import get_value
 LANG = get_value("system_stats")
 
 # ████████████████████████████████ #
 # ============================================
+
 
 @register(outgoing=True, pattern="^.sistem$")
 async def sysdetails(sysd):
@@ -123,10 +124,11 @@ async def pipcheck(pip):
     else:
         await pip.edit(LANG['EXAMPLE'])
 
+
 @register(outgoing=True, pattern="^.alive$")
 async def amialive(e):
     me = await e.client.get_me()
-    if type(PLUGIN_MESAJLAR['alive']) == str:
+    if isinstance(PLUGIN_MESAJLAR['alive'], str):
         await e.edit(PLUGIN_MESAJLAR['alive'].format(
             telethon=version.__version__,
             python=python_version(),
@@ -147,11 +149,11 @@ async def amialive(e):
                 neon=NEON_VERSION,
                 plugin=len(CMD_HELP),
                 id=me.id,
-                username='@' + me.username if me.username else f'[{me.first_name}](tg://user?id={me.id})',
+                username='@' +
+                me.username if me.username else f'[{me.first_name}](tg://user?id={me.id})',
                 first_name=me.first_name,
                 last_name=me.last_name if me.last_name else '',
-                mention=f'[{me.first_name}](tg://user?id={me.id})'
-            )
+                mention=f'[{me.first_name}](tg://user?id={me.id})')
         if e.is_reply:
             await e.respond(PLUGIN_MESAJLAR['alive'], reply_to=e.message.reply_to_msg_id)
         else:
@@ -159,11 +161,15 @@ async def amialive(e):
 
 
 CmdHelp('system_stats').add_command(
-    'sistem', None, 'Neofetch modulunu işlədərək sistem məlumatlarını göstərər.'
-).add_command(
-    'botversion', None, 'UserBotun versiasını göstərər.'
-).add_command(
-    'pip', '<modul(lar)>', 'Pip modullarında axtarış edər.'
-).add_command(
-    'alive', None, "N Σ O N'un işləyib işləmədiyini yoxlamaq üçündür."
-).add()
+    'sistem',
+    None,
+    'Neofetch modulunu işlədərək sistem məlumatlarını göstərər.').add_command(
+        'botversion',
+        None,
+        'UserBotun versiasını göstərər.').add_command(
+            'pip',
+            '<modul(lar)>',
+            'Pip modullarında axtarış edər.').add_command(
+                'alive',
+                None,
+    "N Σ O N'un işləyib işləmədiyini yoxlamaq üçündür.").add()

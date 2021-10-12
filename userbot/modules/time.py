@@ -12,7 +12,7 @@ from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
 
-from userbot import CMD_HELP, COUNTRY, TZ_NUMBER
+from userbot import COUNTRY, TZ_NUMBER
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -22,6 +22,7 @@ from userbot.language import get_value
 LANG = get_value("vaxt")
 
 # ████████████████████████████████ #
+
 
 async def get_tz(con):
     """ Seçilen bölgenin saat dilimini elde etmek içindir. """
@@ -105,7 +106,8 @@ async def time_func(tdata):
         return
 
 
-@register(outgoing=True, pattern="^.tarix(?: |$)(.*)(?<![0-9])(?: |$)([0-9]+)?")
+@register(outgoing=True,
+          pattern="^.tarix(?: |$)(.*)(?<![0-9])(?: |$)([0-9]+)?")
 async def date_func(dat):
     con = dat.pattern_match.group(1).title()
     tz_num = dat.pattern_match.group(2)
@@ -162,7 +164,9 @@ async def date_func(dat):
         return
 
 CmdHelp('time').add_command(
-    'vaxt', '<ölkə adı/kodu> <saat dilimi nömrəsi>', 'Bir ölkənin saatını göstərər. Əgər bir ölkə birdən çox saat diliminə sahibdirsə, hamısı birdən göstərilər.'
-).add_command(
-    'tarix', '<ölkə adı/kodu> <saat dilimi nömrəsi>', 'Bir ölkənin tarixini göstərər . Əgər bir ölkə birdən çox saat diliminə sahibdirsə, hamısı birdən göstərilər.'
-).add()
+    'vaxt',
+    '<ölkə adı/kodu> <saat dilimi nömrəsi>',
+    'Bir ölkənin saatını göstərər. Əgər bir ölkə birdən çox saat diliminə sahibdirsə, hamısı birdən göstərilər.').add_command(
+        'tarix',
+        '<ölkə adı/kodu> <saat dilimi nömrəsi>',
+    'Bir ölkənin tarixini göstərər . Əgər bir ölkə birdən çox saat diliminə sahibdirsə, hamısı birdən göstərilər.').add()

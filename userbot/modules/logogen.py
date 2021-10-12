@@ -2,11 +2,11 @@
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from userbot import CMD_HELP, bot
+from userbot import bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
-# ThisRelax 
+# ThisRelax
 
 
 @register(outgoing=True, pattern=r"^\.loqo(?: |$)(.*)")
@@ -42,5 +42,5 @@ async def _(event):
         await event.delete()
 
 Help = CmdHelp('tiktok').add_command(
-    'tt', None,'Surətli bir şəkildə loqo hazırlayın.'
+    'tt', None, 'Surətli bir şəkildə loqo hazırlayın.'
 ).add()

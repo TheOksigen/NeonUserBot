@@ -10,7 +10,7 @@
 import aria2p
 from asyncio import sleep
 from os import system
-from userbot import LOGS, CMD_HELP
+from userbot import LOGS
 from userbot.events import register
 from requests import get
 from userbot.cmdhelp import CmdHelp
@@ -99,7 +99,7 @@ async def remove_all(event):
     try:
         removed = aria2.remove_all(force=True)
         aria2.purge_all()
-    except:
+    except BaseException:
         pass
     if not removed:  # API False qaytararsa, sistem terefinden silinmeye çalışılır.
         system("aria2p remove-all")
@@ -129,7 +129,7 @@ async def show_all(event):
     downloads = aria2.get_downloads()
     msg = ""
     for download in downloads:
-        msg = msg + "Dosya: `" + str(download.name) + "`\Süret: " + str(
+        msg = msg + "Dosya: `" + str(download.name) + "`\\Süret: " + str(
             download.download_speed_string()) + "\nƏməliyyat: " + str(
                 download.progress_string()) + "\nÜmumi Həcm: " + str(
                     download.total_length_string()) + "\nDurum: " + str(
@@ -202,13 +202,13 @@ async def check_progress_for_dl(gid, event, previous):
                     .format(file.name))
 
 CmdHelp('aria').add_command(
-    'aurl', 
-    '[URL] (vəya) .amag [Magnet Linki] (vəya) .ator [torrent faylının yolu]', 
+    'aurl',
+    '[URL] (vəya) .amag [Magnet Linki] (vəya) .ator [torrent faylının yolu]',
     'Bir faylı userbot serverinə yükləyər.'
-    ).add_command(
-        'apause', None, 'Davam edən yükləməni dayandırar vəya davam etdirər.'
-    ).add_command(
-        'aclear', None, 'Yükləmə quyruğunu təmizləyər, davam edən bütün yükləmələri silər.'
-    ).add_command(
-        'ashow', None, 'Davam edən yükləmələrin durumunu göstərər.'
-    ).add()
+).add_command(
+    'apause', None, 'Davam edən yükləməni dayandırar vəya davam etdirər.'
+).add_command(
+    'aclear', None, 'Yükləmə quyruğunu təmizləyər, davam edən bütün yükləmələri silər.'
+).add_command(
+    'ashow', None, 'Davam edən yükləmələrin durumunu göstərər.'
+).add()

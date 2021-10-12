@@ -9,7 +9,7 @@
 
 import os
 from requests import post
-from userbot import bot, OCR_SPACE_API_KEY, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+from userbot import OCR_SPACE_API_KEY, TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot.events import register
 from userbot.cmdhelp import CmdHelp
 
@@ -19,6 +19,7 @@ from userbot.language import get_value
 LANG = get_value("ocr")
 
 # ████████████████████████████████ #
+
 
 async def ocr_space_file(filename,
                          overlay=False,

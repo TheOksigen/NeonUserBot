@@ -1,15 +1,12 @@
-import datetime
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot.events import register
-from userbot import bot, CMD_HELP
+from userbot import bot
 from time import sleep
 import random
 import os
 from telethon.tl.types import MessageMediaPhoto
 import asyncio
-from userbot.modules.admin import get_user_from_event
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
 from userbot.cmdhelp import CmdHelp
@@ -28,33 +25,34 @@ def is_message_image(message):
                 return True
         return False
     return False
-    
+
+
 async def silently_send_message(conv, text):
     await conv.send_message(text)
     response = await conv.get_response()
     await conv.mark_read(message=response)
     return response
 
-def MemeYap (Resim, Text, FontS = 40, Bottom = False, BottomText = None):
+
+def MemeYap(Resim, Text, FontS=40, Bottom=False, BottomText=None):
     Foto = Image.open(Resim)
     Yazi = ImageDraw.Draw(Foto)
     FontSize = 20
     ImgFraction = float(f"0.{FontS}")
 
     Font = ImageFont.truetype("./userbot/fonts/impact.ttf", FontSize)
-    while Font.getsize(Text)[0] < ImgFraction*Foto.size[0]:
+    while Font.getsize(Text)[0] < ImgFraction * Foto.size[0]:
         FontSize += 1
         Font = ImageFont.truetype("./userbot/fonts/impact.ttf", FontSize)
     FontSize -= 1
     Font = ImageFont.truetype("./userbot/fonts/impact.ttf", FontSize)
 
     def drawTextWithOutline(text, x, y):
-        Yazi.text((x-2, y-2), text,(0,0,0),font=Font)
-        Yazi.text((x+2, y-2), text,(0,0,0),font=Font)
-        Yazi.text((x+2, y+2), text,(0,0,0),font=Font)
-        Yazi.text((x-2, y+2), text,(0,0,0),font=Font)
-        Yazi.text((x, y), text, (255,255,255), font=Font)
-
+        Yazi.text((x - 2, y - 2), text, (0, 0, 0), font=Font)
+        Yazi.text((x + 2, y - 2), text, (0, 0, 0), font=Font)
+        Yazi.text((x + 2, y + 2), text, (0, 0, 0), font=Font)
+        Yazi.text((x - 2, y + 2), text, (0, 0, 0), font=Font)
+        Yazi.text((x, y), text, (255, 255, 255), font=Font)
 
     w, h = Yazi.textsize(Text, Font)
     Satirlar = textwrap.wrap(Text, width=22)
@@ -62,62 +60,64 @@ def MemeYap (Resim, Text, FontS = 40, Bottom = False, BottomText = None):
 
     for i in range(0, len(Satirlar)):
         w, h = Yazi.textsize(Satirlar[i], Font)
-        x = Foto.width/2 - w/2
+        x = Foto.width / 2 - w / 2
         y = i * h
         drawTextWithOutline(Satirlar[i], x, y)
 
         if Bottom:
             Bottom_Satirlar = textwrap.wrap(BottomText, width=22)
-            lastY = Foto.height - h * (len(Bottom_Satirlar) +1) - 10
+            lastY = Foto.height - h * (len(Bottom_Satirlar) + 1) - 10
 
             for i in range(0, len(Bottom_Satirlar)):
                 w, h = Yazi.textsize(Bottom_Satirlar[i], Font)
-                x = Foto.width/2 - w/2
+                x = Foto.width / 2 - w / 2
                 y = lastY + h
                 drawTextWithOutline(Bottom_Satirlar[i], x, y)
                 lastY = y
 
     Foto.save("neon.png")
 
+
 @register(outgoing=True, pattern="^.sangmata(?: |$)(.*)")
 async def sangmata(event):
     if event.fwd_from:
-        return 
+        return
     if not event.reply_to_msg_id:
-       await event.edit('🔸 __Bir mesaja cavab olaraq işlətməlisən.__')
-       return
-    reply_message = await event.get_reply_message() 
+        await event.edit('🔸 __Bir mesaja cavab olaraq işlətməlisən.__')
+        return
+    reply_message = await event.get_reply_message()
     if not reply_message.text:
-       await event.edit(LANG['REPLY_MSG'])
-       return
+        await event.edit(LANG['REPLY_MSG'])
+        return
     chat = "@SangMataInfo_bot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit('**Bu insan deyil! Bu botdur.** ❌')
-       return
+        await event.edit('**Bu insan deyil! Bu botdur.** ❌')
+        return
     await event.edit(LANG['WORKING_ON'])
     async with bot.conversation(chat, exclusive=False) as conv:
-          response = None
-          try:
-              msg = await reply_message.forward_to(chat)
-              response = await conv.get_response(message=msg, timeout=5)
-          except YouBlockedUserError: 
-              await event.edit("__Hmmm.. {chat} əngəllənib.__ __Get əngəli aç sonra gəl.__ 😒")
-              return
-          except Exception as e:
-              print(e.__class__)
+        response = None
+        try:
+            msg = await reply_message.forward_to(chat)
+            response = await conv.get_response(message=msg, timeout=5)
+        except YouBlockedUserError:
+            await event.edit("__Hmmm.. {chat} əngəllənib.__ __Get əngəli aç sonra gəl.__ 😒")
+            return
+        except Exception as e:
+            print(e.__class__)
 
-          if not response:
-              await event.edit(LANG['NOT_RESPONSE'])
-          elif response.text.startswith("Forward"):
-             await event.edit('__Bu istifadəçi öz profilini gizli saxladığı üçün mən onun haqqında heç bir şey əldə edə bilmədim. Di get topunla oyna..__ 😒')
-          else: 
-             await event.edit(response.text)
-          sleep(1)
-          await bot.send_read_acknowledge(chat, max_id=(response.id+3))
-          await conv.cancel_all()
+        if not response:
+            await event.edit(LANG['NOT_RESPONSE'])
+        elif response.text.startswith("Forward"):
+            await event.edit('__Bu istifadəçi öz profilini gizli saxladığı üçün mən onun haqqında heç bir şey əldə edə bilmədim. Di get topunla oyna..__ 😒')
+        else:
+            await event.edit(response.text)
+        sleep(1)
+        await bot.send_read_acknowledge(chat, max_id=(response.id + 3))
+        await conv.cancel_all()
 
-@register(outgoing=True, pattern="^.meme ?((\d*)(.*))")
+
+@register(outgoing=True, pattern="^.meme ?((\\d*)(.*))")
 async def memeyap(event):
     """ """
     font = event.pattern_match.group(2)
@@ -138,7 +138,7 @@ async def memeyap(event):
             Bottom = False
             Text = text
             BottomText = None
-        
+
         if reply.photo:
             Resim = await reply.download_media()
         elif reply.sticker and reply.file.ext == ".webp":
@@ -151,18 +151,23 @@ async def memeyap(event):
             Resim = "Neon.png"
         elif reply.sticker and reply.file.ext == ".tgs":
             sticker = await reply.download_media()
-            os.system(f"lottie_convert.py --frame 0 -if lottie -of png '{sticker}' NeonSticker.png")
+            os.system(
+                f"lottie_convert.py --frame 0 -if lottie -of png '{sticker}' NeonSticker.png")
             os.remove(sticker)
             Resim = "Neon.png"
         elif reply.media:
             Resim = await reply.download_media()
-            Sure = os.system("ffmpeg -i '"+Resim+"' 2>&1 | grep Duration | awk '{print $2}' | tr -d , | awk -F ':' '{print ($3+$2*60+$1*3600)/2}'``")
-            os.system(f"ffmpeg -i '{Resim}' -vcodec mjpeg -vframes 1 -an -f rawvideo -ss {Sure} NeonThumb.jpg")
+            Sure = os.system(
+                "ffmpeg -i '" +
+                Resim +
+                "' 2>&1 | grep Duration | awk '{print $2}' | tr -d , | awk -F ':' '{print ($3+$2*60+$1*3600)/2}'``")
+            os.system(
+                f"ffmpeg -i '{Resim}' -vcodec mjpeg -vframes 1 -an -f rawvideo -ss {Sure} NeonThumb.jpg")
             os.remove(Resim)
             Resim = 'NeonThumb.jpg'
         else:
             return await event.edit(LANG['REPLY_TO_MEME'])
-            
+
         if os.path.exists("./neonrmeme.png"):
             os.remove("./neonmeme.png")
 
@@ -173,78 +178,94 @@ async def memeyap(event):
     else:
         await event.edit(LANG['REPLY_TO_MEME'])
 
+
 @register(outgoing=True, pattern="^.scan")
 async def scan(event):
     if event.fwd_from:
-        return 
+        return
     if not event.reply_to_msg_id:
-       await event.edit(LANG['REPLY_TO_MESSAGE'])
-       return
-    reply_message = await event.get_reply_message() 
+        await event.edit(LANG['REPLY_TO_MESSAGE'])
+        return
+    reply_message = await event.get_reply_message()
     if not reply_message.media:
-       await event.edit(LANG['REPLY_TO_FILE'])
-       return
+        await event.edit(LANG['REPLY_TO_FILE'])
+        return
     chat = "@DrWebBot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit(LANG['REPLY_USER_ERR'])
-       return
+        await event.edit(LANG['REPLY_USER_ERR'])
+        return
     await event.edit(LANG['MIZAH_EXE'])
     async with event.client.conversation(chat) as conv:
-      try:     
-         response = conv.wait_event(events.NewMessage(incoming=True,from_users=161163358))
-         await event.client.forward_messages(chat, reply_message)
-         response = await response 
-      except YouBlockedUserError:
-         await event.reply(LANG['BLOCKED_CHAT'])
-         return
+        try:
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=161163358))
+            await event.client.forward_messages(chat, reply_message)
+            response = await response
+        except YouBlockedUserError:
+            await event.reply(LANG['BLOCKED_CHAT'])
+            return
 
-      if response.text.startswith("Forward"):
-         await event.edit(LANG['USER_PRIVACY'])
-      elif response.text.startswith("Select"):
-         await event.client.send_message(chat, "English")
-         await event.edit(LANG['WAIT_EDIT'])
+        if response.text.startswith("Forward"):
+            await event.edit(LANG['USER_PRIVACY'])
+        elif response.text.startswith("Select"):
+            await event.client.send_message(chat, "English")
+            await event.edit(LANG['WAIT_EDIT'])
 
-         response = conv.wait_event(events.NewMessage(incoming=True,from_users=161163358))
-         await event.client.forward_messages(chat, reply_message)
-         response = conv.wait_event(events.NewMessage(incoming=True,from_users=161163358))
-         response = await response
-         
-         await event.edit(f"**{LANG['SCAN_RESULT']}:**\n {response.message.message}")
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=161163358))
+            await event.client.forward_messages(chat, reply_message)
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=161163358))
+            response = await response
 
+            await event.edit(f"**{LANG['SCAN_RESULT']}:**\n {response.message.message}")
 
-      elif response.text.startswith("Still"):
-         await event.edit(LANG['SCANNING'])
+        elif response.text.startswith("Still"):
+            await event.edit(LANG['SCANNING'])
 
-         response = conv.wait_event(events.NewMessage(incoming=True,from_users=161163358))
-         response = await response 
-         if response.text.startswith("No threats"):
-            await event.edit(LANG['CLEAN'])
-         else:
-            await event.edit(f"**{LANG['VIRUS_DETECTED']}**\n\nƏtraflı məlumat: {response.message.message}")
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=161163358))
+            response = await response
+            if response.text.startswith("No threats"):
+                await event.edit(LANG['CLEAN'])
+            else:
+                await event.edit(f"**{LANG['VIRUS_DETECTED']}**\n\nƏtraflı məlumat: {response.message.message}")
+
 
 @register(outgoing=True, pattern="^.creation")
 async def creation(event):
     if not event.reply_to_msg_id:
         await event.edit(LANG['REPLY_TO_MSG'])
         return
-    reply_message = await event.get_reply_message() 
+    reply_message = await event.get_reply_message()
     if event.fwd_from:
-        return 
+        return
     chat = "@creationdatebot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     await event.edit(LANG['CALCULATING_TIME'])
     async with event.client.conversation(chat) as conv:
-        try:     
+        try:
             await event.client.forward_messages(chat, reply_message)
         except YouBlockedUserError:
             await event.reply(f"**Hmmm, deyəsən {chat} əngəlləmisən. Xaiş əngəldən çıxar.**")
             return
-      
-        response = conv.wait_event(events.NewMessage(incoming=True,from_users=747653812))
+
+        response = conv.wait_event(
+            events.NewMessage(
+                incoming=True,
+                from_users=747653812))
         response = await response
         if response.text.startswith("Looks"):
             await event.edit(LANG['PRIVACY_ERR'])
@@ -255,31 +276,37 @@ async def creation(event):
 @register(outgoing=True, pattern="^.ocr2")
 async def ocriki(event):
     if event.fwd_from:
-        return 
+        return
     if not event.reply_to_msg_id:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
-    reply_message = await event.get_reply_message() 
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
+    reply_message = await event.get_reply_message()
     if not reply_message.media:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     chat = "@bacakubot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     await event.edit(LANG['READING'])
     async with event.client.conversation(chat) as conv:
-        try:     
+        try:
             await event.client.forward_messages(chat, reply_message)
         except YouBlockedUserError:
             await event.reply(f"`Mmmh deyəsən` {chat} `əngəlləmisən. Xaiş əngəldən çıxar.`")
             return
-      
-        response = conv.wait_event(events.NewMessage(incoming=True,from_users=834289439))
+
+        response = conv.wait_event(
+            events.NewMessage(
+                incoming=True,
+                from_users=834289439))
         response = await response
         if response.text.startswith("Please try my other cool bot:"):
-            response = conv.wait_event(events.NewMessage(incoming=True,from_users=834289439))
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=834289439))
             response = await response
 
         if response.text == "":
@@ -287,31 +314,35 @@ async def ocriki(event):
         else:
             await event.edit(f"**{LANG['SEE_SOMETHING']}: **`{response.text}`")
 
+
 @register(outgoing=True, pattern="^.voicy")
 async def voicy(event):
     if event.fwd_from:
-        return 
+        return
     if not event.reply_to_msg_id:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
-    reply_message = await event.get_reply_message() 
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
+    reply_message = await event.get_reply_message()
     if not reply_message.media:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     chat = "@Voicybot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     await event.edit("__Səsi dinləyirəm...__")
     async with event.client.conversation(chat) as conv:
-        try:     
+        try:
             await event.client.forward_messages(chat, reply_message)
         except YouBlockedUserError:
             await event.reply(f"`Hmm deyəsən` {chat} `əngəlləmisən. Xaiş əngəldan çıxar.`")
             return
-      
-        response = conv.wait_event(events.MessageEdited(incoming=True,from_users=259276793))
+
+        response = conv.wait_event(
+            events.MessageEdited(
+                incoming=True,
+                from_users=259276793))
         response = await response
         if response.text.startswith("__👋"):
             await event.edit(LANG['VOICY_LANG_ERR'])
@@ -321,26 +352,27 @@ async def voicy(event):
             await event.edit(f"**{LANG['HEAR_SOMETHING']}: **`{response.text}`")
 
 quoting = [
-  '`Sitat gətirirəm...`',
-  '**Yazıları stikerə çevirirəm..** 😋',
-  '__Rakka çiko çikka çiko sjsj__\n\n__Sitat gətirilir..__']
+    '`Sitat gətirirəm...`',
+    '**Yazıları stikerə çevirirəm..** 😋',
+    '__Rakka çiko çikka çiko sjsj__\n\n__Sitat gətirilir..__']
+
 
 @register(outgoing=True, pattern="^.q(?: |$)(.*)")
 async def quotly(event):
     if event.fwd_from:
-        return 
+        return
     if not event.reply_to_msg_id:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
-    reply_message = await event.get_reply_message() 
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
+    reply_message = await event.get_reply_message()
     if not reply_message.text:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     chat = "@QuotLyBot"
-    sender = reply_message.sender
+    reply_message.sender
     if reply_message.sender.bot:
-       await event.edit(LANG['REPLY_TO_MSG'])
-       return
+        await event.edit(LANG['REPLY_TO_MSG'])
+        return
     await event.edit(random.choice(quoting))
 
     async with bot.conversation(chat, exclusive=False, replies_are_responses=True) as conv:
@@ -356,9 +388,9 @@ async def quotly(event):
                     i += 1
                 msg = await event.client.forward_messages(chat, mesajlar, from_peer=event.chat_id)
             else:
-                msg = await reply_message.forward_to(chat)
-            response = await conv.wait_event(events.NewMessage(incoming=True,from_users=1031952739), timeout=10)
-        except YouBlockedUserError: 
+                await reply_message.forward_to(chat)
+            response = await conv.wait_event(events.NewMessage(incoming=True, from_users=1031952739), timeout=10)
+        except YouBlockedUserError:
             await event.edit(LANG['UNBLOCK_QUOTLY'])
             return
         except asyncio.TimeoutError:
@@ -367,30 +399,38 @@ async def quotly(event):
         except ValueError:
             await event.edit(LANG['QUOTLY_VALUE_ERR'])
             return
-            
+
         if not response:
             await event.edit("🔸 **Botdan cavab ala bilmədim!**")
         elif response.text.startswith("Salam!"):
             await event.edit("__Məxfilik ayarlarına görə cavab ala bilmədim. Di get topunla oyna..__ 😒")
-        else: 
+        else:
             await event.delete()
             await response.forward_to(event.chat_id)
         await conv.mark_read()
         await conv.cancel_all()
-        
+
 
 CmdHelp('scraper').add_command(
-    'sangmata', '<cavab>', 'Seçilən istifadəçinin ad keçmişinə baxmaq.'
-).add_command(
-    'scan', '<cavab>', 'Seçilən faylda virus olub olmadığına baxın.'
-).add_command(
-    'meme', '<font> <üst;alt>', 'Fotoya yazı əlavə edin. İstəyirsinizsə font böyüklüyünüdə  yaza bilərsiz.', 'meme 20 esebj'
-).add_command(
-    'voicy', '<cavab>', 'Səsi yazıya çevirin.'
-).add_command(
-    'q', '<rəqəm>', 'Mətini stikerə çəvirin.'
-).add_command(
-    'ocr2', '<cavab>', 'Fotodakı yazını oxuyun.'
-).add_command(
-    'creation', '<cavab>', 'Cavab verdiyiniz insanın hesabının yaradılış tarixini öyrənin.'
-).add()
+    'sangmata',
+    '<cavab>',
+    'Seçilən istifadəçinin ad keçmişinə baxmaq.').add_command(
+        'scan',
+        '<cavab>',
+        'Seçilən faylda virus olub olmadığına baxın.').add_command(
+            'meme',
+            '<font> <üst;alt>',
+            'Fotoya yazı əlavə edin. İstəyirsinizsə font böyüklüyünüdə  yaza bilərsiz.',
+            'meme 20 esebj').add_command(
+                'voicy',
+                '<cavab>',
+                'Səsi yazıya çevirin.').add_command(
+                    'q',
+                    '<rəqəm>',
+                    'Mətini stikerə çəvirin.').add_command(
+                        'ocr2',
+                        '<cavab>',
+                        'Fotodakı yazını oxuyun.').add_command(
+                            'creation',
+                            '<cavab>',
+    'Cavab verdiyiniz insanın hesabının yaradılış tarixini öyrənin.').add()
