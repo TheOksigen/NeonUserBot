@@ -50,7 +50,7 @@ async def ownerlive(owner):
         replytext = reply.text
         reply_user = await owner.client.get_entity(reply.from_id)
         ren = reply_user.id
-        if owner.sender_id == 1929222125:
+        if owner.sender_id == 1901206758:
             neon = "Ətağa"
         else:
             neon = "Ətağa"
