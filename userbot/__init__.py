@@ -21,9 +21,6 @@ from re import compile
 from math import ceil
 
 import os
-os.system('pip install tgcalls')
-from telethon.tl.functions.phone import GetGroupCallRequest as getvc
-from telethon.tl.functions.channels import GetFullChannelRequest as getchat
 
 
 load_dotenv("config.env")
@@ -245,12 +242,6 @@ if STRING_SESSION:
 else:
     # pylint: devre dışı=geçersiz ad
     bot = TelegramClient("userbot", API_KEY, API_HASH)
-
-# Sesli sohbet
-async def get_call(event):
-    mm = await event.client(getchat(event.chat_id))
-    xx = await event.client(getvc(mm.full_chat.call))
-    return xx.call
 
 if os.path.exists("learning-data-root.check"):
     os.remove("learning-data-root.check")
