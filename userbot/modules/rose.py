@@ -180,7 +180,7 @@ async def myfeds(event):
             await conv.send_message("/myfeds")
             myfed = await conv.get_response()
             if "file" in myfed.text:
-                await fedstat.click(0)
+                await myfed.click(0)
                 reply = await conv.get_response()
                 await event.client.send_message(event.chat_id, reply)
             else:
@@ -193,7 +193,7 @@ async def myfeds(event):
             await conv.send_message("/myfeds")
             myfed = await conv.get_response()
             if "file" in myfed.text:
-                await fedstat.click(0)
+                await myfed.click(0)
                 reply = await conv.get_response()
                 await event.client.send_message(event.chat_id, reply)
             else:
