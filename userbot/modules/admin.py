@@ -417,19 +417,19 @@ async def ban(bon):
 
 
 @register(outgoing=True, pattern="^.unban(?: |$)(.*)")
-async def nothanos(unbon):
+async def nothanos(unban):
 
-    chat = await unbon.get_chat()
+    chat = await unban.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
 
     if not admin and not creator:
-        await unbon.edit(NO_ADMIN)
+        await unban.edit(NO_ADMIN)
         return
 
-    await unbon.edit(LANG['UNBANNING'])
+    await unban.edit(LANG['UNBANNING'])
 
-    user = await get_user_from_event(unbon)
+    user = await get_user_from_event(unban)
     user = user[0]
     if user:
         pass
@@ -437,9 +437,9 @@ async def nothanos(unbon):
         return
 
     try:
-        await unbon.client(
-            EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
-        await unbon.edit(LANG['UNBANNED'].format(
+        await unban.client(
+            EditBannedRequest(unban.chat_id, user.id, UNBAN_RIGHTS))
+        await unban.edit(LANG['UNBANNED'].format(
             id=user.id,
             username='@' + user.username if user.username else f"[{user.first_name}](tg://user?id={user.id})",
             first_name=user.first_name,
@@ -453,9 +453,9 @@ async def nothanos(unbon):
             await unban.client.send_message(
                 BOTLOG_CHATID, "#UNBAN\n"
                 f"İSTİFADƏÇİ: [{user.first_name}](tg://user?id={user.id})\n"
-                f"QRUP: {unbon.chat.title}(`{unbon.chat_id}`)")
+                f"QRUP: {unban.chat.title}(`{unban.chat_id}`)")
     except BaseException:
-        await unbon.edit(LANG['EXCUSE_ME_WTF'])
+        await unban.edit(LANG['EXCUSE_ME_WTF'])
 
 
 @register(outgoing=True, pattern="^.mute(?: |$)(.*)")
