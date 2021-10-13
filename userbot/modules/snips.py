@@ -21,15 +21,17 @@ LANG = get_value("snips")
 # ████████████████████████████████
 
 
-@register(outgoing=True,
+@register(
+          outgoing=True,
           pattern=r"\$\w*",
           ignore_unsafe=True,
-          disable_errors=True)
+          disable_errors=True
+)
 async def on_snip(event):
     """ Snip məntiqi. """
     try:
         from userbot.modules.sql_helper.snips_sql import get_snip
-    except AttributeError:
+    except:
         return
     name = event.text[1:]
     snip = get_snip(name)
