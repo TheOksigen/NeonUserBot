@@ -19,7 +19,7 @@ from typing import Optional, Tuple
 from userbot.cmdhelp import CmdHelp
 from userbot.events import register
 from userbot.utils import take_screen_shot, runcmd
-from helper import convert_toimage, grayscale, random_color
+from helper import convert_toimage, random_color
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 
 # ------------------------------------- #
