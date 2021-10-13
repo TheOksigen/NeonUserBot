@@ -3,11 +3,11 @@
 <i>Here you will be informed about NeonUserBot.
 You can contact us with all the buttons for questions you do not understand or have in mind.</i>
 
+
+
 ***
 
-[![Chat on Telegram](https://img.shields.io/badge/Official%20Channel-Telegram-silver.svg?style=flat&logo=Telegram)](http://t.me/neonuserbot) [![Chat on Telegram](https://img.shields.io/badge/Official%20Support-Telegram-red.svg?style=flat&logo=Telegram)](http://t.me/neonsup) [![Chat on Telegram](https://img.shields.io/badge/Plugins-Telegram-gold.svg?style=flat&logo=Telegram)](http://t.me/neonplugin) [![Chat on Telegram](https://img.shields.io/badge/Neon%20Devs-Telegram-succes.svg?style=flat&logo=Telegram)](http://t.me/neondevs) 
-
-[![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge) [![CodeFactor](https://www.codefactor.io/repository/github/nusrte/neonuserbot/badge)](https://www.codefactor.io/repository/github/nusrte/neonuserbot) ![Repo's Size](https://img.shields.io/github/repo-size/nusrte/neonuserbot?color=blue) ![](https://img.shields.io/github/forks/nusrte/neonuserbot?color=silver&logo=neon) ![Repo's Stars.](https://img.shields.io/github/stars/nusrte/neonuserbot?color=red)
+[![Chat on Telegram](https://img.shields.io/badge/Official%20Channel-Telegram-silver.svg?style=flat&logo=Telegram)](http://t.me/neonuserbot) [![Chat on Telegram](https://img.shields.io/badge/Official%20Support-Telegram-red.svg?style=flat&logo=Telegram)](http://t.me/neonsup) [![Chat on Telegram](https://img.shields.io/badge/Plugins-Telegram-gold.svg?style=flat&logo=Telegram)](http://t.me/neonplugin) [![Chat on Telegram](https://img.shields.io/badge/Neon%20Devs-Telegram-succes.svg?style=flat&logo=Telegram)](http://t.me/neondevs) [![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge) [![CodeFactor](https://www.codefactor.io/repository/github/nusrte/neonuserbot/badge)](https://www.codefactor.io/repository/github/nusrte/neonuserbot) ![Repo's Size](https://img.shields.io/github/repo-size/nusrte/neonuserbot?color=blue) ![](https://img.shields.io/github/forks/nusrte/neonuserbot?color=silver&logo=neon) ![Repo's Stars.](https://img.shields.io/github/stars/nusrte/neonuserbot?color=red)
 
 
 <div align="center">
@@ -113,6 +113,3 @@ You can contact us with all the buttons for questions you do not understand or h
 *If you have any requests & complaints & suggestions, you can contact [our support team.](https://t.me/NeonSup)*
 
 ## *Credits.* 
-**Thanks to [Yusuf Usta](github.com/yusufusta) for [AsenaUserBot](https://yusufusta/asenauserbot)
-to [NaytSeyd](https://github.com/NaytSeyd) for [SedenUserBot](https://github.com/TeamDerUntergang/Telegram-SedenUserBot)
-and to [LunamiWeb](https://github.com/Lonami) for the [Telethon library](https://github.com/LonamiWebs/Telethon).**
