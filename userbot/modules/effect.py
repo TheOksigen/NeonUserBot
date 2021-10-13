@@ -5,10 +5,12 @@
 
 import os
 import shlex
+import random
 import asyncio
 import pybase64
 import PIL.ImageOps
 from PIL import Image
+from random import choice
 from os.path import basename
 from typing import Optional, Tuple
 from userbot.cmdhelp import CmdHelp
