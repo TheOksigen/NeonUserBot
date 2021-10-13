@@ -1,11 +1,6 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-#
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
-# you may not use this file except in compliance with the License.
-#
 
 # NEON  USER BOT
-
+# ASENA / Fusuf / YusufUsta / 
 
 """ Mesajları qeyd etmek üçün UserBot modulu. """
 
@@ -31,7 +26,7 @@ async def on_snip(event):
     """ Snip məntiqi. """
     try:
         from userbot.modules.sql_helper.snips_sql import get_snip
-    except:
+    except AtrributeError:
         return
     name = event.text[1:]
     snip = get_snip(name)
