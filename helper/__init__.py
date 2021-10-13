@@ -2,4 +2,6 @@
 # Nusrte / NeonUserBot.
 # will fix..
 
-from .help import convert_toimage
+from .help import (convert_toimage, 
+                   grayscale, 
+                   random_color)
