@@ -38,7 +38,7 @@ async def tagger(q):
         if a_ == 5000:
             break
         a_ += 1
-        await q.client.send_message(q.chat_id, "[{}](tg://user?id={} {})".format(i.first_name, 
+        await q.client.send_message(q.chat_id, "[{}](tg://user?id={}) {}".format(i.first_name, 
 										  i.id, 
 										  s))
         await asyncio.sleep(1.5)
@@ -68,7 +68,7 @@ async def all_tagger(q):
         if a_ == 5000:
             break
         a_ += 1
-        await q.client.send_message(q.chat_id, "[{}](tg://user?id={} {})".format(i.first_name,
+        await q.client.send_message(q.chat_id, "[{}](tg://user?id={}) {}".format(i.first_name,
                                                                                       i.id,
 										      s)
                                     )
