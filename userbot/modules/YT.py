@@ -34,7 +34,8 @@ async def inf(event):
 @neon(outgoing=True, pattern="^.yta (.*)")
 async def audio(e):
     me = await e.client.get_me()
-    u = f"{me.username}" if me.username else my_mention
+    my_mention = f'[{me.first_name}](tg://user?id={me.id})'
+    u = f"@{me.username}" if me.username else my_mention
     try:
         await e.edit("🔸 __Musiqi hazırlanır. Gözləyin..__")
     except BaseException:
