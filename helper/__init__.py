@@ -2,4 +2,4 @@
 # Nusrte / NeonUserBot.
 # will fix..
 
-from .image import convert_toimage
+from .help import convert_toimage
