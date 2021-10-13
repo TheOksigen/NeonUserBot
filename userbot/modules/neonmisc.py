@@ -15,68 +15,7 @@ from random import choice
 from random import randint
 import random
 
-
-@register(outgoing=True, pattern="^.ttsk")
-async def neon(event):
-    reply = await event.get_reply_message()
-    if not reply:
-        await event.edit("Bir mesaja cavab verin.")
-    else:
-        chat = "@TextTSBot"
-        await event.edit("Səsə çevrilir...⚡")
-        async with event.client.conversation(chat) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                # bota start veririk
-
-                await conv.send_message("Turkish")
-                await conv.get_response()
-                # dil seçirik
-
-                await conv.send_message("Kerem")
-                await conv.get_response()
-                # kişi sesi yoxsa qadın sesi olsun onu seçirik
-
-                await conv.send_message(reply)
-                x = await conv.get_response()
-
-                await event.client.send_message(event.chat_id, x)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
-
-
-@register(outgoing=True, pattern="^..ttsq")
-async def neon(event):
-    reply = await event.get_reply_message()
-    if not reply:
-        await event.edit("Bir mesaja cavab verin.")
-    else:
-        chat = "@TextTSBot"
-        await event.edit("Səsə çevrilir...⚡")
-        async with event.client.conversation(chat) as conv:
-            try:
-                await conv.send_message("/start")
-                await conv.get_response()
-                # bota start veririk
-
-                await conv.send_message("Turkish")
-                await conv.get_response()
-                # dil seçirik
-
-                await conv.send_message("Aylin")
-                await conv.get_response()
-                # kişi sesi yoxsa qadın sesi olsun onu seçirik
-
-                await conv.send_message(reply)
-                x = await conv.get_response()
-
-                await event.client.send_message(event.chat_id, x)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.edit("@TextTSBot'u blokdan çıxarıb yenidən cəhd edin.")
-
+# ------------------------------------------------ #
 
 @register(outgoing=True, pattern=r"^.bo[sş]luq")
 async def _(e):
