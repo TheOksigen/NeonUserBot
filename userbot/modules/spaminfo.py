@@ -19,7 +19,7 @@ aylar = {
     "Aug": "Avqust",
     "Sep": "Sentyabr",
     "Oct": "Oktyabr",
-    "Nov": "Noyabır",
+    "Nov": "Noyabr",
     "Dec": "Dekabr"
 
 }
@@ -47,7 +47,7 @@ async def sinfos(event):
             toparla = f"🥲 Spam müəyyən edildi! Siz spamınız {spamgun} {spamay} {spamyil} {spamsaat}  Tarixində Bitir..."
             await event.edit(toparla)
         elif spamdurumu.text.startswith("Good news"):
-            await event.edit(LANG["BIRD"])
+            await event.edit('Siz spam deyilsiniz.')
         else:
             await event.client.forward_messages(event.chat_id, spamdurumu)
             await event.delete()
