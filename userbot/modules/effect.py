@@ -3,6 +3,7 @@
 # Ogurlayan mene ata desin.
 # Ogurlama pesi.
 
+# -------------------------------------- #
 
 import os
 import shlex
@@ -20,6 +21,15 @@ from userbot.events import register
 from userbot.utils import take_screen_shot, runcmd
 from helper import convert_toimage, grayscale, random_color
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+
+# ------------------------------------- #
+
+async def grayscale(imagefile, endname):
+    image = Image.open(imagefile)
+    inverted_image = PIL.ImageOps.grayscale(image)
+    inverted_image.save(endname)
+
+# ------------------------------------ #
 
 @register(
     pattern=r"^.retro(?: |$)(.*)",
