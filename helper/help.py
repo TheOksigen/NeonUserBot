@@ -37,11 +37,6 @@ async def random_color():
 
 # ------------------------------ #
 
-async def grayscale(imagefile, endname):
-    image = Image.open(imagefile)
-    inverted_image = PIL.ImageOps.grayscale(image)
-    inverted_image.save(endname)
 
-# ------------------------------ #
 
 
