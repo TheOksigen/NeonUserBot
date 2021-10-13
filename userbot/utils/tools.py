@@ -1,6 +1,7 @@
 import re
 import hashlib
 import asyncio
+import shlex
 import os
 from os.path import basename
 import os.path
