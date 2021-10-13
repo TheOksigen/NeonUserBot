@@ -4,6 +4,7 @@
 
 
 import os
+import shlex
 import asyncio
 import pybase64
 import PIL.ImageOps
