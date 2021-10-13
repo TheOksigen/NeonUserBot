@@ -1,6 +1,6 @@
-<h4>                    GNU AFFERO GENERAL PUBLIC LICENSE
+<h3>                    GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
-
+</h3>
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
@@ -660,4 +660,4 @@ if any, to sign a "copyright disclaimer" for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 
-                                  </h4>
+                                  
