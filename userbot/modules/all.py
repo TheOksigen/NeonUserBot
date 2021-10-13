@@ -28,7 +28,7 @@ async def tagger(q):
         s = q.pattern_match.group(1)
     else:
         s = ""
-        # await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.tag Aktiv olaq
+        # await q.edit("**Bir səbəb yaz...** 👀\n**Nümunə:** `.tag Aktiv olaq\
         # millət 😃🗡️`")
 
     c = await q.get_input_chat()
@@ -38,7 +38,9 @@ async def tagger(q):
         if a_ == 5000:
             break
         a_ += 1
-        await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s, i.first_name, i.id))
+        await q.client.send_message(q.chat_id, "[{}](tg://user?id={} {})".format(i.first_name, 
+										  i.id, 
+										  s))
         await asyncio.sleep(1.5)
 
 # --------------------------------------------------------------------------------------------------------------------------------
@@ -66,9 +68,9 @@ async def all_tagger(q):
         if a_ == 5000:
             break
         a_ += 1
-        await q.client.send_message(q.chat_id, "**{}**\n[{}](tg://user?id={})".format(s,
-                                                                                      i.first_name,
-                                                                                      i.id)
+        await q.client.send_message(q.chat_id, "[{}](tg://user?id={} {})".format(i.first_name,
+                                                                                      i.id,
+										      s)
                                     )
         await asyncio.sleep(0.5)
 
@@ -97,7 +99,7 @@ async def _(q):
         if a_ == 50:
             break
         a_ += 1
-        await bot.send_message(q.chat_id, "[{}](tg://user?id={}) **{}**".format(i.first_name, i.id, s))
+        await bot.send_message(q.chat_id, "[{}](tg://user?id={}) {}".format(i.first_name, i.id, s))
         await asyncio.sleep(1.5)
 
 # ---------------------------------------------------------------------------------------------------------------
