@@ -105,6 +105,6 @@ async def _(event):
             await event.delete()
 
 Help = CmdHelp("convert")
-Help.add_command("c ses", None, "Mp3/M4a/Mp4(Video) və s. səs'ə çevirmə.")
-Help.add_command("c mp3", None, "Səs/M4a/Mp4(Video) Mp3'ə çevirər.")
+Help.add_command("c ses", None, "Mp3/Mp4(Video) və s. səs'ə çevirər.")
+Help.add_command("c mp3", None, "Səs/Mp4(Video) Mp3'ə çevirər.")
 Help.add()
