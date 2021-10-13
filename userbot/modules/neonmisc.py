@@ -12,6 +12,8 @@ from userbot.cmdhelp import CmdHelp
 from time import sleep as t
 from asyncio import sleep
 from random import choice
+import randint
+import random
 
 
 @register(outgoing=True, pattern="^.ttsk")
