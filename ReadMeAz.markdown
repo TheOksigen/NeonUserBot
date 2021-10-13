@@ -1,24 +1,31 @@
 
-<div align="center">
-  <img src="photo/neonub.jpg" width="400" height="400">
-  <h1>N Σ O N</h1>
-</div>
-<p align="center">
-    <b>N Σ O N Userbot'u Telegram'ı daha asan və əyləncəli şəkildə istifadə etmək üçün sizlər üçün hazırlayıb təhvil vermişik. Siz bu botla istədiyiniz bir çox şeyləri daha asan yerinə yetirə biləcəksiniz.</b>
-</p>
+<h1 align="center">N Σ O N</h1>
+<i>Bura sizə NeonUserBot haqqında məlumat üçündür.
+Başa düşmədiyiniz və ya ağlınızda olan suallar üçün aşağıda olan butonlar ilə bizimlə əlaqə saxlaya bilərsiniz.</i>
+
+***
 
 [![Chat on Telegram](https://img.shields.io/badge/Official%20Channel-Telegram-silver.svg?style=flat&logo=Telegram)](http://t.me/neonuserbot) [![Chat on Telegram](https://img.shields.io/badge/Official%20Support-Telegram-red.svg?style=flat&logo=Telegram)](http://t.me/neonsup) [![Chat on Telegram](https://img.shields.io/badge/Plugins-Telegram-gold.svg?style=flat&logo=Telegram)](http://t.me/neonplugin) [![Chat on Telegram](https://img.shields.io/badge/Neon%20Devs-Telegram-succes.svg?style=flat&logo=Telegram)](http://t.me/neondevs) 
 
-[![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge) [![CodeFactor](https://www.codefactor.io/repository/github/nusrte/neonuserbot/badge)](https://www.codefactor.io/repository/github/nusrte/neonuserbot)
+[![GitHub language count](https://img.shields.io/github/languages/count/nusrte/NeonUserBot?color=red)](https://github.com/nusrte/NeonUserBot) [![DeepSource](https://deepsource.io/gh/nusrte/NeonUserBot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/nusrte/NeonUserBot/?ref=repository-badge) [![CodeFactor](https://www.codefactor.io/repository/github/nusrte/neonuserbot/badge)](https://www.codefactor.io/repository/github/nusrte/neonuserbot) ![Repo's Size](https://img.shields.io/github/repo-size/nusrte/neonuserbot?color=blue) ![](https://img.shields.io/github/forks/nusrte/neonuserbot?color=silver&logo=neon) ![Repo's Stars.](https://img.shields.io/github/stars/nusrte/neonuserbot?color=red)
 
-----
-</div>
+
 <div align="center">
-        <h1>Qurulum</h1>
+  <img src="photo/neonub.jpg" width="600" height="600">
 </div>
-<div align="left">
+<p align="center">
+    <b>N Σ O N Userbot'u Telegram'ı daha asan və əyləncəli şəkildə istifadə etmək üçün sizlər üçün hazırlanıb. 
+      Siz bu botla istədiyiniz bir çox şeyləri daha asan yerinə yetirə bilərsiniz.</b>
+</p>
 
 *** 
+
+</div>
+<div align="center">
+        <h2>Qurulum</h2>
+</div>
+
+
   
 ### _Asan Üsul_
 **Android:** [Termuxu](https://play.google.com/store/apps/details?id=com.termux&hl=en_US&gl=US) açın və bu kodu yapışdırın: 
