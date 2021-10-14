@@ -113,3 +113,4 @@ You can contact us with all the buttons for questions you do not understand or h
 *If you have any requests & complaints & suggestions, you can contact [our support team.](https://t.me/NeonSup)*
 
 ## *Credits.* 
+><a href = 'https://github.com/nusrte/NeonUserBot/blob/master/CONTRIBUTING.md'>Touch here.</a>
