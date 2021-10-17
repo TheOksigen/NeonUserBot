@@ -55,7 +55,7 @@ You can contact us with all the buttons for questions you do not understand or h
 >```
 
 ## *Attention!* 📢
-*Do not update your bot unless it is shared on the [N Σ O N](t.me/neonuserbot) channel. If you update the bot, the bot will not work.*
+*Do not update your bot unless it is shared on the [N Σ O N](http://t.me/neonuserbot) channel. If you update the bot, the bot will not work.*
 
 
 ## *Attention! 📢 - 2*
