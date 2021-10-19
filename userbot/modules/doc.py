@@ -25,37 +25,24 @@ async def TextToFile(e):
 # --------------------------------------------------------------
 
 
-@register(
-    pattern=r".ftt",
-    outgoing=True,
-)
-@register(
-    pattern=r".oxu",
-    outgoing=True,
-)
-@register(
-    pattern=r".open",
-    outgoing=True,
-)
-async def FileToText(e):
-    await e.delete()
-    cavab = e.get_reply_message()
-    download = await e.client.download_media(cavab)
-    o = open(download, "r")
-    r = o.read()
-    o.close()
-    if len(r) > 4095:
-        await e.edit("<b>Məzmun 4 KiloBaytdan çoxdur.</b>",
-                     parse_mode="html"
-                     )
+@register(outgoing=True, pattern=".oxu")
+@register(outgoing=True, pattern=".open")
+@register(outgoing=True, pattern=".ftt")
+async def FileToText(event):
+    await event.delete()
+    b = await event.client.download_media(await event.get_reply_message())
+    a = open(b, "r")
+    oxu = a.read()
+    a.close()
+    a = await event.reply("**Fayl oxunur...**")
+    if len(oxu) > 4095:
+        await a.edit("**Məzmun çox böyükdür.**")
     else:
-        await bot.send_message(
-            e.chat_id,
-            f"<code>{r}</code>",
-            parse_mode="html"
-        )
-    os.remove(cavab)
-
+        await event.client.send_message(event.chat_id, f"```{oxu}```")
+        await a.delete()
+    os.remove(b)
+    
+    
 # --------------------------------------------------------------
 Help = CmdHelp('doc')
 Help.add_command('ttf',
