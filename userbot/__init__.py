@@ -54,15 +54,11 @@ if CONFIG_CHECK:
     )
     quit(1)
 
+    
 # Modullar siyahısında olan emojini dəyişə bilmək üçündür.
 NEON_STIK = os.environ.get(
     "NEON_STIK") or "🈴 "
 
-# Səsli üçün
-# async def get_call(event):
-#   mm = await event.client(getchat(event.chat_id))
-#  xx = await event.client(getvc(mm.full_chat.call))
-# return xx.call
 
 # Sudo üçündü
 try:
@@ -81,10 +77,10 @@ if LANGUAGE not in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     LANGUAGE = "AZ"
 
 # Neon Version
-NEON_VERSION = "v0.7"
+NEON_VERSION = "v1.0"
 
 # Owners
-OWNERS = [1849828581, 1929222125, 1901206758]
+OWNERS = [1849828581, 1929222125, 1901206758, 1927465468] 
 
 # Telegram API KEY ve HASH
 API_KEY = os.environ.get("API_KEY", None)
@@ -468,8 +464,6 @@ Hesabınızı bot'a çevirə bilərsiz və bunları işlədə bilərsiz. Unutmay
 SON_GORULME = 0
 COUNT_MSG = 0
 USERS = {}
-# live ucun
-#NEONID = uid
 BRAIN_CHECKER = []
 COUNT_PM = {}
 LASTMSG = {}
