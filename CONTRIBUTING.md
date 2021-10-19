@@ -1,9 +1,9 @@
 # Thanks;
->*[AsenaUserBot](https://github.com/yusufusta/asenauserbot) / [YusufUsta](https://github.com/yusufusta)*
+>*[AsenaUserBot](https://github.com/yusufusta/asenauserbot) / [Yusuf Usta](https://github.com/yusufusta)*
 
 >*[SedenUserBot](https://github.com/TeamDerUntergang/Telegram-SedenUserBot) / [TeamDerUntergang](https://github.com/NaytSeyd)*
 
->*[Userge](https://github.com/UsergeTeam/Userge) / [UsergeTean](https://github.com/UsergeTeam)*
+>*[UsergeTeam](https://github.com/UsergeTeam) / [Userge](https://github.com/UsergeTeam/Userge)*
 
 >*[UniBorg](https://github.com/SpEcHiDe/UniBorg) / [Spechide](https://github.com/SpEcHiDe/)*
 
