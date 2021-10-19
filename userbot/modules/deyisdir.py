@@ -24,10 +24,8 @@ LANG = get_value("degistir")
 @register(outgoing=True, pattern="^.d[eə]yi[sş]dir$")
 async def degistir(event):
     if event.pattern_match.group(1):
-        plugin = event.pattern_match.group(1)
-        return
-    
-    mesaj = re.search(r"\"(.*)\"", plugin)
+        plugin = event.pattern_match.group(1)    
+        mesaj = re.search(r"\"(.*)\"", plugin)
 
     if mesaj:
         rege = re.findall(r"(?:|$)(.*)\"(.*)\"", plugin)
