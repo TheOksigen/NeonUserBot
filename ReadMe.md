@@ -14,7 +14,7 @@ You can contact us with all the buttons for questions you do not understand or h
   <img src="photo/neonub.jpg" width="600" height="600">
 </div>
 <p align="center">
-    <b>N Σ O N Userbot is designed for you to use Telegram in an easier and more entertaining way.
+    <b>N Σ O N Userbot is created for you to use Telegram in an easier and more entertaining way.
       You can easily do many things you want with this bot.</b>
 </p>
 
