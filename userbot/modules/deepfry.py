@@ -11,6 +11,12 @@ from random import randint, uniform
 from userbot.events import register
 
 from PIL import Image, ImageEnhance, ImageOps
+
+from PIL.ImageEnhance import (Color, 
+                              Contrast, 
+                              Brightness, 
+                              Sharpness)
+
 from telethon.tl.types import DocumentAttributeFilename
 from userbot.cmdhelp import CmdHelp
 
