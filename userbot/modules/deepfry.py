@@ -12,6 +12,24 @@ from userbot.events import register
 
 from PIL import Image
 
+import PIL.ImageOps.autocontrast
+import PIL.ImageOps.colorize
+import PIL.ImageOps.contain
+import PIL.ImageOps.pad
+import PIL.ImageOps.crop
+import PIL.ImageOps.deform
+import PIL.ImageOps.equalize
+import PIL.ImageOps.expand
+import PIL.ImageOps.fit
+import PIL.ImageOps.flip
+import PIL.ImageOps.grayscale
+import PIL.ImageOps.invert
+import PIL.ImageOps.mirror
+import PIL.ImageOps.solarize
+import PIL.ImageOps.exif_transpose
+
+"""
+
 from PIL.ImageOps import (autocontrast,
                           colorize,
                           contain,
@@ -28,6 +46,8 @@ from PIL.ImageOps import (autocontrast,
                           posterize,
                           solarize,
                           exif_transpose)
+
+"""
 
 from PIL.ImageEnhance import (Color, 
                               Contrast, 
