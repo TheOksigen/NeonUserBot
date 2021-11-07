@@ -107,7 +107,7 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 
 
 # Yenileme üçün repo linki
-UPSTREAM_REPO_URL = "https://github.com/nusrte/NeonUserBot.git"
+UPSTREAM_REPO_URL = "https://github.com/nusrte/NeonUserBot-old.git"
 
 
 # Konsol gündeliy
@@ -213,7 +213,7 @@ AVTO_QATILMA = sb(os.environ.get("AVTO_QATILMA", "True"))
 # Patternler
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
 WHITELIST = get(
-    'https://raw.githubusercontent.com/nusrte/NeonUserBot/main/whitelist.json').json()
+    'https://raw.githubusercontent.com/nusrte/NeonUserBot-old/main/whitelist.json').json()
 
 # CloudMail.ru ve MEGA.nz
 if not os.path.exists('bin'):
