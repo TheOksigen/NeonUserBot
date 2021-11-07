@@ -10,7 +10,7 @@ import io
 from random import randint, uniform
 from userbot.events import register
 
-from PIL import Image, ImageEnhance, ImageOps
+from PIL import Image, ImageOps
 
 from PIL.ImageEnhance import (Color, 
                               Contrast, 
