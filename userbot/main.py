@@ -146,7 +146,7 @@ try:
     bot.start()
     idim = bot.get_me().id
     neonbl = requests.get(
-        'https://raw.githubusercontent.com/nusrte/NeonUserBot/main/neonblacklist.json').json()
+        'https://raw.githubusercontent.com/nusrte/NeonUserBot-old/main/neonblacklist.json').json()
     if idim in neonbl:
         bot.disconnect()
 
@@ -185,6 +185,7 @@ try:
         "approve",
         "disapprove",
         "block"]
+    
     for mesaj in PLUGIN_MESAJLAR_TURLER:
         dmsj = MSJ_SQL.getir_mesaj(mesaj)
         if not dmsj:
