@@ -10,7 +10,24 @@ import io
 from random import randint, uniform
 from userbot.events import register
 
-from PIL import Image, ImageOps
+from PIL import Image
+
+from PIL.ImageOps import (autocontrast,
+                          colorize,
+                          contain,
+                          pad,
+                          crop,
+                          deform,
+                          equalize,
+                          expand,
+                          fit,
+                          flip,
+                          grayscale,
+                          invert,
+                          mirror,
+                          posterize,
+                          solarize,
+                          exif_transpose)
 
 from PIL.ImageEnhance import (Color, 
                               Contrast, 
