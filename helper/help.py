@@ -9,7 +9,6 @@ import shlex
 import random
 import asyncio
 import pybase64
-import PIL.ImageOps
 from PIL import Image
 from userbot import LOGS
 from os.path import basename
