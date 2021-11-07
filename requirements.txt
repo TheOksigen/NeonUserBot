@@ -48,7 +48,7 @@ spotify_token
 twitter_scraper
 chromedriver-autoinstaller
 numpy
-Pillow>=7.2.1
+Pillow>=7.1.2
 telegraph
 lottie
 eksipy
